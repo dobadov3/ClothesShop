@@ -1,8 +1,8 @@
-package com.example.myclothes;
+package com.example.clothesshop.model;
 
 public class Clothes {
     private String name;
-    private int image;
+    private int price;
 
     public String getName() {
         return name;
@@ -10,6 +10,14 @@ public class Clothes {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getImage() {
@@ -20,11 +28,14 @@ public class Clothes {
         this.image = image;
     }
 
+    public Clothes(String name, int price, int image) {
+        this.name = name;
+        this.price = price;
+        this.image = image;
+    }
+
     public Clothes() {
     }
 
-    public Clothes(String name, int image) {
-        this.name = name;
-        this.image = image;
-    }
+    private int image;
 }

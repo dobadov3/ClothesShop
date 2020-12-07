@@ -3,12 +3,149 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
-    tools:context=".HomeFragment">
+    tools:context=".activity.CategoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/relativeCate">
 
-    
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeTops">
 
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:src="@drawable/category_top"
+                android:scaleType="fitCenter"
+                android:id="@+id/imgBtnTop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOPS"
+                android:textSize="10dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/tvTops"
+                android:layout_below="@+id/imgBtnTop"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeBottoms"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/relativeTops">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:src="@drawable/category_bottom"
+                android:scaleType="fitCenter"
+                android:id="@+id/imgBtnBottoms" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BOTTOMS"
+                android:textSize="10dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/tvBottoms"
+                android:layout_below="@+id/imgBtnBottoms"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/relativeBags"
+            android:layout_toRightOf="@+id/relativeBottoms">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:src="@drawable/category_bag"
+                android:scaleType="fitCenter"
+                android:id="@+id/imgBtnBags" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BAGS"
+                android:textSize="10dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/tvBags"
+                android:layout_below="@+id/imgBtnBags"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/relativeHats"
+            android:layout_toRightOf="@+id/relativeBags">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:src="@drawable/category_hat"
+                android:scaleType="fitCenter"
+                android:id="@+id/imgBtnHats" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HATS"
+                android:textSize="10dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/tvHats"
+                android:layout_below="@+id/imgBtnHats"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/relativeSales"
+            android:layout_toRightOf="@+id/relativeHats">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:src="@drawable/category_sale"
+                android:scaleType="fitCenter"
+                android:id="@+id/imgBtnSales" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SALES"
+                android:textSize="10dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/tvSales"
+                android:layout_below="@+id/imgBtnSales"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="370dp"
+        android:layout_height="match_parent"
+        android:id="@+id/relativeProduct"
+        android:layout_below="@+id/relativeCate"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true">
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

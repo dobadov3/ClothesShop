@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="match_parent"
     android:layout_marginTop="20dp"
-    tools:context=".HomeFragment">
+    tools:context=".activity.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="370dp"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
+        android:id="@+id/relativeSale"
         android:background="@drawable/custom_relativelayout">
         <TextView
             android:layout_width="wrap_content"
@@ -24,8 +25,32 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/recyclerviewClothes"
+            android:id="@+id/recyclerviewClothesSale"
             android:layout_below="@+id/tvsale"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="370dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/relativeHot"
+        android:layout_below="@+id/relativeSale"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_relativelayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#29B6E4"
+            android:text="Sản phẩm bán chạy"
+            android:id="@+id/tvHot"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerviewClothesHot"
+            android:layout_below="@+id/tvHot"/>
     </RelativeLayout>
 
 

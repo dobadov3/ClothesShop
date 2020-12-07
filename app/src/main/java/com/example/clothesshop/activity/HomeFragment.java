@@ -1,4 +1,4 @@
-package com.example.myclothes;
+package com.example.clothesshop.activity;
 
 import android.os.Bundle;
 
@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.clothesshop.R;
+import com.example.clothesshop.adapter.HomeAdapter;
+import com.example.clothesshop.model.Clothes;
 
 import java.util.ArrayList;
 
@@ -58,23 +62,29 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    ArrayList<Clothes> clothes = new ArrayList<>();
+    ArrayList<Clothes> mclothes = new ArrayList<>();
+    RecyclerView recyclerViewSale;
+    RecyclerView recyclerViewHot;
     HomeAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerviewClothes);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewSale = view.findViewById(R.id.recyclerviewClothesSale);
+        recyclerViewHot = view.findViewById(R.id.recyclerviewClothesHot);
         AddClothes();
-        adapter = new HomeAdapter(clothes);
-        recyclerView.setAdapter(adapter);
+        adapter = new HomeAdapter(mclothes);
+        recyclerViewSale.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewSale.setAdapter(adapter);
+        recyclerViewHot.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewHot.setAdapter(adapter);
+
         return view;
     }
-    void AddClothes(){
-        clothes.add(new Clothes("300,000đ", R.drawable.image_2));
-        clothes.add(new Clothes("200,000đ", R.drawable.image_3));
-        clothes.add(new Clothes("400,000đ", R.drawable.image_4));
-        clothes.add(new Clothes("150,000đ", R.drawable.image_5));
+    private void AddClothes(){
+        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
+        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
+        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
+        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
     }
 }

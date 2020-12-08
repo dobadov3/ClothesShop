@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="ButtonStlye123" parent="android:style/Widget.Button">
+        <item name="android:textSize">19dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+
+        <item name="android:background">@color/colorAccent</item>
+    </style>
 </resources>

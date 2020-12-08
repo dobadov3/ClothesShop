@@ -13,14 +13,19 @@ import com.example.clothesshop.R;
 import com.example.clothesshop.model.Clothes;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     ArrayList<Clothes> mClothes;
-
-    public HomeAdapter(ArrayList<Clothes> mClothes)
+    OnClothesListener onClothesListener;
+    public HomeAdapter(ArrayList<Clothes> mClothes, OnClothesListener onClothesListener)
     {
         this.mClothes = mClothes;
+        this.onClothesListener = onClothesListener;
     }
 
     @NonNull
@@ -28,7 +33,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.clothes_layout, parent, false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view, onClothesListener);
     }
 
     @Override
@@ -37,7 +42,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         Picasso.get().load(clothes.getImage()).into(holder.imageClothes);
         holder.tvClothesName.setText(clothes.getName());
-        holder.tvClothesPrice.setText("" + clothes.getPrice());
+        Locale locale = new Locale("nv", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        holder.tvClothesPrice.setText("" + currencyFormatter.format(clothes.getPrice()));
     }
 
     @Override
@@ -45,17 +52,28 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         return mClothes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageButton imageClothes;
         TextView tvClothesName;
         TextView tvClothesPrice;
+        OnClothesListener onClothesListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnClothesListener onClothesListener) {
             super(itemView);
 
             imageClothes = itemView.findViewById(R.id.imageClothes);
             tvClothesName = itemView.findViewById(R.id.tvClothes);
             tvClothesPrice = itemView.findViewById(R.id.tvClothesPrice);
+            this.onClothesListener = onClothesListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onClothesListener.onClothesClick(getAdapterPosition());
+        }
+    }
+    public interface OnClothesListener{
+        void onClothesClick(int position);
     }
 }

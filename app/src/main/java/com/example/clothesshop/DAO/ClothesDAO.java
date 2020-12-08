@@ -23,16 +23,44 @@ public class ClothesDAO {
     public ArrayList<Clothes> getListClothes(){
         ArrayList<Clothes> list = new ArrayList<>();
 
-        String query = "SELECT * FROM Clothes";
+        String query = "SELECT * FROM Product";
         try
         {
             ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
             while (resultSet.next())
             {
                 Clothes clothes = new Clothes();
-                clothes.setName(resultSet.getString(2));
-                clothes.setPrice(resultSet.getInt(3));
-                clothes.setImage(resultSet.getString(4));
+                clothes.setId(resultSet.getInt(1));
+                clothes.setIdCategory(resultSet.getInt(2));
+                clothes.setName(resultSet.getString(3));
+                clothes.setPrice(resultSet.getInt(4));
+                clothes.setImage(resultSet.getString(5));
+
+                list.add(clothes);
+            }
+        }catch (SQLException ex)
+        {
+
+        }
+
+        return list;
+    }
+
+    public ArrayList<Clothes> getListClothesByIDCategory(int idCategory){
+        ArrayList<Clothes> list = new ArrayList<>();
+
+        String query = "SELECT * FROM Product WHERE idCategory = " + idCategory;
+        try
+        {
+            ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
+            while (resultSet.next())
+            {
+                Clothes clothes = new Clothes();
+                clothes.setId(resultSet.getInt(1));
+                clothes.setIdCategory(resultSet.getInt(2));
+                clothes.setName(resultSet.getString(3));
+                clothes.setPrice(resultSet.getInt(4));
+                clothes.setImage(resultSet.getString(5));
 
                 list.add(clothes);
             }

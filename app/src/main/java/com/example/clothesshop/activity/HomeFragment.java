@@ -3,6 +3,8 @@ package com.example.clothesshop.activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +28,7 @@ import java.util.ArrayList;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeAdapter.OnClothesListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,14 +79,35 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerViewSale = view.findViewById(R.id.recyclerviewClothesSale);
         recyclerViewHot = view.findViewById(R.id.recyclerviewClothesHot);
+
         mclothes = ClothesDAO.getInstance().getListClothes();
-        adapter = new HomeAdapter(mclothes);
+
+        adapter = new HomeAdapter(mclothes, this);
+
         recyclerViewSale.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewSale.setAdapter(adapter);
+
         recyclerViewHot.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewHot.setAdapter(adapter);
 
         return view;
     }
 
+    @Override
+    public void onClothesClick(int position) {
+        Clothes clothes = mclothes.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Image", clothes.getImage());
+        bundle.putString("Name", clothes.getName());
+        bundle.putInt("Price", clothes.getPrice());
+
+        CartFragment cartFragment = new CartFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.layout_container, cartFragment);
+        cartFragment.setArguments(bundle);
+        fragmentTransaction.commit();
+    }
 }

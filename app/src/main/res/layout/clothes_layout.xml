@@ -8,7 +8,7 @@
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:id="@+id/imageClothes"/>
     <TextView

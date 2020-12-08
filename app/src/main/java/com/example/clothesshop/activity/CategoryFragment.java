@@ -3,6 +3,8 @@ package com.example.clothesshop.activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.clothesshop.DAO.CategoryDAO;
+import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.HomeAdapter;
 import com.example.clothesshop.model.Clothes;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -25,7 +32,7 @@ import java.util.ArrayList;
  * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,6 +83,7 @@ public class CategoryFragment extends Fragment {
     ImageButton imageButtonHats;
     ImageButton imageButtonSales;
     TextView tvTitle;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -129,23 +137,15 @@ public class CategoryFragment extends Fragment {
         onClickTops(view);
         return view;
     }
-    private void AddClothes(){
-//        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
-//        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
-//        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
-//        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
-//        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
-//        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
-//        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
-//        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
-//        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
-    }
+
     private void onClickTops(View view)
     {
         mclothes.clear();
         tvTitle.setText("TOPS");
-        AddClothes();
-        adapter = new HomeAdapter(mclothes);
+
+        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(1);
+
+        adapter = new HomeAdapter(mclothes, this);
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerViewProduct.setAdapter(adapter);
     }
@@ -153,8 +153,10 @@ public class CategoryFragment extends Fragment {
     {
         mclothes.clear();
         tvTitle.setText("BOTTOMS");
-        AddClothes();
-        adapter = new HomeAdapter(mclothes);
+
+        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(2);
+
+        adapter = new HomeAdapter(mclothes, this);
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerViewProduct.setAdapter(adapter);
     }
@@ -162,8 +164,10 @@ public class CategoryFragment extends Fragment {
     {
         mclothes.clear();
         tvTitle.setText("BAGS");
-        AddClothes();
-        adapter = new HomeAdapter(mclothes);
+
+        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(3);
+
+        adapter = new HomeAdapter(mclothes, this);
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerViewProduct.setAdapter(adapter);
     }
@@ -171,8 +175,10 @@ public class CategoryFragment extends Fragment {
     {
         mclothes.clear();
         tvTitle.setText("HATS");
-        AddClothes();
-        adapter = new HomeAdapter(mclothes);
+
+        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(4);
+
+        adapter = new HomeAdapter(mclothes, this);
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerViewProduct.setAdapter(adapter);
     }
@@ -180,9 +186,29 @@ public class CategoryFragment extends Fragment {
     {
         mclothes.clear();
         tvTitle.setText("SALES");
-        AddClothes();
-        adapter = new HomeAdapter(mclothes);
+
+        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(5);
+
+        adapter = new HomeAdapter(mclothes, this);
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerViewProduct.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClothesClick(int position) {
+        Clothes clothes = mclothes.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Image", clothes.getImage());
+        bundle.putString("Name", clothes.getName());
+        bundle.putInt("Price", clothes.getPrice());
+
+        CartFragment cartFragment = new CartFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.layout_container, cartFragment);
+        cartFragment.setArguments(bundle);
+        fragmentTransaction.commit();
     }
 }

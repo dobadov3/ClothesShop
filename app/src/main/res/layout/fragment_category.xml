@@ -6,8 +6,8 @@
     tools:context=".activity.CategoryFragment">
 
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_width="370dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:id="@+id/relativeCate">
@@ -18,8 +18,8 @@
             android:id="@+id/relativeTops">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@color/white"
                 android:src="@drawable/category_top"
                 android:scaleType="fitCenter"
@@ -39,12 +39,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/relativeBottoms"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/relativeTops">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@color/white"
                 android:src="@drawable/category_bottom"
                 android:scaleType="fitCenter"
@@ -63,13 +63,13 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/relativeBags"
             android:layout_toRightOf="@+id/relativeBottoms">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@color/white"
                 android:src="@drawable/category_bag"
                 android:scaleType="fitCenter"
@@ -88,13 +88,13 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/relativeHats"
             android:layout_toRightOf="@+id/relativeBags">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@color/white"
                 android:src="@drawable/category_hat"
                 android:scaleType="fitCenter"
@@ -113,13 +113,13 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/relativeSales"
             android:layout_toRightOf="@+id/relativeHats">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@color/white"
                 android:src="@drawable/category_sale"
                 android:scaleType="fitCenter"
@@ -142,9 +142,24 @@
         android:layout_height="match_parent"
         android:id="@+id/relativeProduct"
         android:layout_below="@+id/relativeCate"
+        android:background="@drawable/custom_relativelayout"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTitle"
+            android:text="Title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#29B6E4"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerViewProducts"
+            android:layout_below="@+id/tvTitle"/>
 
     </RelativeLayout>
 

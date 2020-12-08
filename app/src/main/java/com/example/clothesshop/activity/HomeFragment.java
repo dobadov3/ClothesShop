@@ -10,10 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.HomeAdapter;
 import com.example.clothesshop.model.Clothes;
+import com.example.clothesshop.model.DataProvider;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -62,7 +67,7 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    ArrayList<Clothes> mclothes = new ArrayList<>();
+    ArrayList<Clothes> mclothes;
     RecyclerView recyclerViewSale;
     RecyclerView recyclerViewHot;
     HomeAdapter adapter;
@@ -72,7 +77,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerViewSale = view.findViewById(R.id.recyclerviewClothesSale);
         recyclerViewHot = view.findViewById(R.id.recyclerviewClothesHot);
-        AddClothes();
+        mclothes = ClothesDAO.getInstance().getListClothes();
         adapter = new HomeAdapter(mclothes);
         recyclerViewSale.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewSale.setAdapter(adapter);
@@ -81,10 +86,5 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-    private void AddClothes(){
-        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
-        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
-        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
-        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
-    }
+
 }

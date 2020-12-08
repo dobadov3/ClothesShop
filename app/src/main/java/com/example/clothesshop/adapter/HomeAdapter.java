@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clothesshop.R;
 import com.example.clothesshop.model.Clothes;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Clothes clothes = mClothes.get(position);
 
-        holder.imageClothes.setImageResource(clothes.getImage());
+        Picasso.get().load(clothes.getImage()).into(holder.imageClothes);
         holder.tvClothesName.setText(clothes.getName());
         holder.tvClothesPrice.setText("" + clothes.getPrice());
     }

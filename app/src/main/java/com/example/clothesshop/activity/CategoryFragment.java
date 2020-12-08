@@ -130,15 +130,15 @@ public class CategoryFragment extends Fragment {
         return view;
     }
     private void AddClothes(){
-        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
-        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
-        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
-        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
-        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
-        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
-        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
-        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
-        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
+//        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
+//        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
+//        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
+//        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
+//        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
+//        mclothes.add(new Clothes("Áo 2", 300000, R.drawable.image_3));
+//        mclothes.add(new Clothes("Áo 3", 250000, R.drawable.image_4));
+//        mclothes.add(new Clothes("Áo 4", 500000, R.drawable.image_5));
+//        mclothes.add(new Clothes("Áo 1", 400000, R.drawable.image_2));
     }
     private void onClickTops(View view)
     {

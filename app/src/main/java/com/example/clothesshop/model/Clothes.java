@@ -20,15 +20,15 @@ public class Clothes {
         this.price = price;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public Clothes(String name, int price, int image) {
+    public Clothes(String name, int price, String image) {
         this.name = name;
         this.price = price;
         this.image = image;
@@ -37,5 +37,5 @@ public class Clothes {
     public Clothes() {
     }
 
-    private int image;
+    private String image;
 }

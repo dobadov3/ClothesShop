@@ -17,16 +17,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#29B6E4"
-            android:text="Sale ngập tràn - Mua sắm thả ga"
-            android:id="@+id/tvsale"
+            android:text="Sale ngập tràn"
+            android:id="@+id/tvsale1"
+            android:textStyle="italic"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imgView"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_ac_unit_24px"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tvsale1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#29B6E4"
+            android:text="Mua sắm thả ga"
+            android:textStyle="italic"
+            android:id="@+id/tvsale2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/imgView"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerviewClothesSale"
-            android:layout_below="@+id/tvsale"/>
+            android:layout_below="@+id/tvsale1"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,6 +63,7 @@
             android:layout_height="wrap_content"
             android:textColor="#29B6E4"
             android:text="Sản phẩm bán chạy"
+            android:textStyle="italic"
             android:id="@+id/tvHot"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"/>

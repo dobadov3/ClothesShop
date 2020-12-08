@@ -2,4 +2,6 @@
     <string name="app_name">ClothesShop</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <dimen name="bottom_navigation_icon_size" override="true">30dp</dimen>
+    <dimen name="design_bottom_navigation_height" override="true">72dp</dimen>
 </resources>

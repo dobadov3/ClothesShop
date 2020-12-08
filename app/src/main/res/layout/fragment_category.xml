@@ -152,8 +152,16 @@
             android:id="@+id/tvTitle"
             android:text="Title"
             android:layout_marginLeft="20dp"
+            android:textStyle="italic"
             android:layout_marginTop="10dp"
             android:textColor="#29B6E4"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_ac_unit_24px"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tvTitle"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

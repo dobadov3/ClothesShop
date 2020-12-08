@@ -60,6 +60,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/bottom_navigation"
         app:menu="@menu/bottom_navigation"
+        app:itemIconSize="@dimen/bottom_navigation_icon_size"
+        android:minHeight="40dp"
         android:layout_alignParentBottom="true"/>
 
     <RelativeLayout

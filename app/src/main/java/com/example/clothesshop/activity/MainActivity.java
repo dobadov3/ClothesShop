@@ -4,32 +4,35 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.clothesshop.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    ImageButton btnCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        btnCart = findViewById(R.id.shopcart);
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onShopCartClick(v);
+            }
+        });
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(ngView);
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new HomeFragment()).commit();
+
     }
     private BottomNavigationView.OnNavigationItemSelectedListener ngView = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -57,34 +60,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+    private void setAdapterViewPager(){
 
-    @SuppressLint("NewApi")
-    public Connection connectionclass(String url)
+    }
+    private void onShopCartClick(View view)
     {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Connection connection = null;
-        String ConnectionURL = null;
-        try
-        {
-            // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            ConnectionURL = url;
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
 
-            connection = DriverManager.getConnection(ConnectionURL);
-        }
-        catch (SQLException se)
-        {
-            Log.e("error here 1 : ", se.getMessage());
-        }
-        catch (ClassNotFoundException e)
-        {
-            Log.e("error here 2 : ", e.getMessage());
-        }
-        catch (Exception e)
-        {
-            Log.e("error here 3 : ", e.getMessage());
-        }
-        return connection;
+        this.startActivity(intent);
     }
 }

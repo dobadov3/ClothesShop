@@ -1,5 +1,6 @@
 package com.example.clothesshop.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,14 +8,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.clothesshop.R;
+import com.example.clothesshop.adapter.HomeAdapter;
+import com.example.clothesshop.model.Clothes;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -67,6 +73,9 @@ public class CartFragment extends Fragment {
     ImageView imageViewCart;
     TextView tvNameCart;
     TextView tvPriceCart;
+    Button btnCart;
+    public static int price = 0;
+    public static ElegantNumberButton elegantNumberButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,7 +85,17 @@ public class CartFragment extends Fragment {
         imageViewCart = view.findViewById(R.id.imgViewClothes);
         tvNameCart = view.findViewById(R.id.tvClothesName);
         tvPriceCart = view.findViewById(R.id.tvClothesPrice);
+        btnCart = view.findViewById(R.id.btnCart);
+        elegantNumberButton = view.findViewById(R.id.elegantNumberCount);
 
+        elegantNumberButton.setNumber("1");
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickBtnCart(v);
+            }
+        });
 
         Bundle bundle = this.getArguments();
         getFragmentManager().getFragment(bundle, "Bundle");
@@ -88,4 +107,14 @@ public class CartFragment extends Fragment {
         tvPriceCart.setText("" + currencyFormatter.format(price));
         return view;
     }
+
+    private void onClickBtnCart(View view)
+    {
+        Bundle bundle = this.getArguments();
+        getFragmentManager().getFragment(bundle, "Bundle");
+        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+        price +=  clothes.getPrice() * Integer.parseInt(elegantNumberButton.getNumber());
+        CartActivity.mClothes.add(clothes);
+    }
+
 }

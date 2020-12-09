@@ -1,5 +1,7 @@
 package com.example.clothesshop.activity;
 
+import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -101,6 +103,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnClothesListe
         bundle.putString("Image", clothes.getImage());
         bundle.putString("Name", clothes.getName());
         bundle.putInt("Price", clothes.getPrice());
+        bundle.putSerializable("Clothes", clothes);
 
         CartFragment cartFragment = new CartFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -109,5 +112,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnClothesListe
         fragmentTransaction.replace(R.id.layout_container, cartFragment);
         cartFragment.setArguments(bundle);
         fragmentTransaction.commit();
+
     }
 }

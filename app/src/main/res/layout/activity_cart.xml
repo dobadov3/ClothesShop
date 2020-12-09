@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CartActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/relative1"
+        android:background="@drawable/custom_top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GIỎ HÀNG"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:fontFamily="@font/segoeuil"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative4"
+        android:layout_below="@+id/tv1"
+        android:background="#FAFAFA"
+        android:layout_marginTop="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:id="@+id/recyclerviewCart"/>
+
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv1"
+        android:text="Bạn đang có 3 sản phẩm trong giỏ hàng"
+        android:layout_below="@+id/relative1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/relative2"
+        android:layout_below="@id/relative4"
+        android:layout_marginTop="20dp"
+        android:background="#FAFAFA">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoeuil"
+            android:layout_centerVertical="true"
+            android:text="Thông tin giao hàng:"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:id="@+id/tv2"/>
+
+        <LinearLayout
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/tv2"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Duy Anh"
+                android:textSize="12dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0944609933"
+                android:textSize="12dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="246/71 Hòa Hưng p.13 quận 10"
+                android:textSize="12dp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Thay đổi địa chỉ"
+            android:textSize="7dp"
+            android:backgroundTint="#FF0000"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative3"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_below="@id/relative2"
+        android:layout_marginTop="20dp"
+        android:background="#FAFAFA">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/segoeuil"
+            android:text="Tổng tiền: 2,100,000đ"
+            android:id="@+id/tvTotal"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="17dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/black"
+            android:drawableLeft="@drawable/ic_baseline_call_to_action_24"
+            android:text="Thanh toán"
+            android:textSize="10dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

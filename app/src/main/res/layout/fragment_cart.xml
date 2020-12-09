@@ -120,7 +120,8 @@
         android:orientation="horizontal"
         android:layout_marginLeft="7dp"
         android:layout_below="@+id/elegantNumberCount"
-        android:layout_toRightOf="@+id/imgViewClothes"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="10dp"
         android:id="@+id/radioGroupSize">
 
@@ -131,6 +132,7 @@
             android:background="@drawable/radio_selector"
             android:textColor="@drawable/text_color"
             android:elevation="4dp"
+            android:checked="true"
             android:layout_marginRight="10dp"
             android:textAlignment="center"
             android:text="S"/>
@@ -166,34 +168,42 @@
 
     </RadioGroup>
 
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupSize"
-        android:id="@+id/btnCart"
-        android:text="Giỏ hàng"
-        android:textSize="10dp"
-        android:backgroundTint="#FF0000"
-        android:drawableLeft="@drawable/ic_baseline_shopping_cart_24"
-        android:layout_toRightOf="@+id/imgViewClothes"/>
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupSize"
-        android:id="@+id/btnCash"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="2dp"
-        android:textSize="10dp"
-        android:backgroundTint="@color/black"
-        android:drawableLeft="@drawable/ic_baseline_call_to_action_24"
-        android:text="Thanh toán"
-        android:layout_toRightOf="@+id/btnCart"/>
+        android:layout_toRightOf="@+id/imgViewClothes"
+        android:id="@+id/linear1"
+        android:weightSum="2"
+        android:layout_below="@+id/radioGroupSize">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/btnCart"
+            android:text="Giỏ hàng"
+            android:textSize="10dp"
+            android:backgroundTint="#FF0000"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_baseline_shopping_cart_24"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/radioGroupSize"
+            android:id="@+id/btnCash"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="2dp"
+            android:textSize="10dp"
+
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:drawableLeft="@drawable/ic_baseline_call_to_action_24"
+            android:text="Thanh toán"/>
+    </LinearLayout>
 
     <View
         android:id="@+id/line3"
         android:layout_width="370dp"
         android:layout_height="1dp"
-        android:layout_below="@+id/btnCart"
+        android:layout_below="@+id/linear1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@android:color/darker_gray" />

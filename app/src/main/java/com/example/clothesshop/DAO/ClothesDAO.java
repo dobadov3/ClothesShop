@@ -33,8 +33,11 @@ public class ClothesDAO {
                 clothes.setId(resultSet.getInt(1));
                 clothes.setIdCategory(resultSet.getInt(2));
                 clothes.setName(resultSet.getString(3));
-                clothes.setPrice(resultSet.getInt(4));
-                clothes.setImage(resultSet.getString(5));
+                clothes.setImage(resultSet.getString(4));
+                clothes.setPrice(resultSet.getInt(5));
+                clothes.setImage2(resultSet.getString(6));
+                clothes.setImage3(resultSet.getString(7));
+                clothes.setImage4(resultSet.getString(8));
 
                 list.add(clothes);
             }
@@ -59,8 +62,11 @@ public class ClothesDAO {
                 clothes.setId(resultSet.getInt(1));
                 clothes.setIdCategory(resultSet.getInt(2));
                 clothes.setName(resultSet.getString(3));
-                clothes.setPrice(resultSet.getInt(4));
-                clothes.setImage(resultSet.getString(5));
+                clothes.setImage(resultSet.getString(4));
+                clothes.setPrice(resultSet.getInt(5));
+                clothes.setImage2(resultSet.getString(6));
+                clothes.setImage3(resultSet.getString(7));
+                clothes.setImage4(resultSet.getString(8));
 
                 list.add(clothes);
             }

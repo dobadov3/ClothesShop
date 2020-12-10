@@ -200,6 +200,9 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
 
         Bundle bundle = new Bundle();
         bundle.putString("Image", clothes.getImage());
+        bundle.putString("Image2", clothes.getImage2());
+        bundle.putString("Image3", clothes.getImage3());
+        bundle.putString("Image4", clothes.getImage4());
         bundle.putString("Name", clothes.getName());
         bundle.putInt("Price", clothes.getPrice());
 

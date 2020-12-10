@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -70,12 +72,13 @@ public class CartFragment extends Fragment {
         }
     }
 
+    ImageButton img1, img2, img3, img4;
     ImageView imageViewCart;
     TextView tvNameCart;
     TextView tvPriceCart;
     Button btnCart;
+    RadioButton radioButton;
     public static int price = 0;
-    public static ElegantNumberButton elegantNumberButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,9 +89,42 @@ public class CartFragment extends Fragment {
         tvNameCart = view.findViewById(R.id.tvClothesName);
         tvPriceCart = view.findViewById(R.id.tvClothesPrice);
         btnCart = view.findViewById(R.id.btnCart);
-        elegantNumberButton = view.findViewById(R.id.elegantNumberCount);
+        radioButton = view.findViewById(R.id.radio_S);
 
-        elegantNumberButton.setNumber("1");
+        img1 = view.findViewById(R.id.img1);
+        img2 = view.findViewById(R.id.img2);
+        img3 = view.findViewById(R.id.img3);
+        img4 = view.findViewById(R.id.img4);
+
+        img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickImg1(v);
+            }
+        });
+
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickImg2(v);
+            }
+        });
+
+        img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickImg3(v);
+            }
+        });
+
+        img4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickImg4(v);
+            }
+        });
+
+        radioButton.setChecked(true);
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +141,10 @@ public class CartFragment extends Fragment {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         int price = bundle.getInt("Price");
         tvPriceCart.setText("" + currencyFormatter.format(price));
+        Picasso.get().load(bundle.getString("Image")).into(img1);
+        Picasso.get().load(bundle.getString("Image2")).into(img2);
+        Picasso.get().load(bundle.getString("Image3")).into(img3);
+        Picasso.get().load(bundle.getString("Image4")).into(img4);
         return view;
     }
 
@@ -113,8 +153,31 @@ public class CartFragment extends Fragment {
         Bundle bundle = this.getArguments();
         getFragmentManager().getFragment(bundle, "Bundle");
         Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
-        price +=  clothes.getPrice() * Integer.parseInt(elegantNumberButton.getNumber());
+        price +=  clothes.getPrice();
         CartActivity.mClothes.add(clothes);
     }
 
+    void setImageCart(String imagePosition)
+    {
+        Bundle bundle = this.getArguments();
+        getFragmentManager().getFragment(bundle, "Bundle");
+        String url = bundle.getString(imagePosition);
+        Picasso.get().load(url).into(imageViewCart);
+    }
+    void onClickImg1(View view)
+    {
+        setImageCart("Image");
+    }
+    void onClickImg2(View view)
+    {
+        setImageCart("Image2");
+    }
+    void onClickImg3(View view)
+    {
+        setImageCart("Image3");
+    }
+    void onClickImg4(View view)
+    {
+        setImageCart("Image4");
+    }
 }

@@ -48,7 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-        holder.elegantNumberButton.setNumber(CartFragment.elegantNumberButton.getNumber());
+        holder.elegantNumberButton.setNumber("1");
         int number = Integer.parseInt(holder.elegantNumberButton.getNumber());
 
         holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPrice()*number));

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataProvider {
-    private static String url = "jdbc:jtds:sqlserver://cnpmk24.database.windows.net:1433/ClothesShop;user=taengoo@cnpmk24;password=Taeyeon2;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;;";
+    private static String url = "jdbc:jtds:sqlserver://cnpmk24.database.windows.net:1433/ClothingStore;user=taengoo@cnpmk24;password=Taeyeon2;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;;";
     static Connection con = Connect();
 
     private static DataProvider instance;
@@ -23,6 +23,7 @@ public class DataProvider {
     {
         this.instance = instance;
     }
+
     public static Connection Connect()
     {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -64,7 +65,17 @@ public class DataProvider {
         {
 
         }
-
         return resultSet;
+    }
+    public int ExcuteNonQuery(String query){
+        int result = 0;
+        try{
+            Statement statement = con.createStatement();
+            result = statement.executeUpdate(query);
+        }
+        catch (SQLException ex){
+
+        }
+        return result;
     }
 }

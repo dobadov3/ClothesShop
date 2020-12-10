@@ -8,7 +8,34 @@ public class Clothes implements Serializable {
     private String name;
     private int price;
     private String image;
+    private String image2;
+    private String image3;
+    private String image4;
     private String description;
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
+    public String getImage4() {
+        return image4;
+    }
+
+    public void setImage4(String image4) {
+        this.image4 = image4;
+    }
 
     public int getId() {
         return id;
@@ -58,12 +85,15 @@ public class Clothes implements Serializable {
         this.description = description;
     }
 
-    public Clothes(int id, int idCategory, String name, int price, String image, String description) {
+    public Clothes(int id, int idCategory, String name, int price, String image, String description, String image2, String image3, String image4) {
         this.id = id;
         this.idCategory = idCategory;
         this.name = name;
         this.price = price;
         this.image = image;
+        this.image2 = image2;
+        this.image3 = image3;
+        this.image4 = image4;
         this.description = description;
     }
 

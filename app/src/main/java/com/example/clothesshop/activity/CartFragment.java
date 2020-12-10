@@ -153,7 +153,7 @@ public class CartFragment extends Fragment {
         Bundle bundle = this.getArguments();
         getFragmentManager().getFragment(bundle, "Bundle");
         Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
-        price +=  clothes.getPrice();
+        price +=  bundle.getInt("Price");
         CartActivity.mClothes.add(clothes);
     }
 

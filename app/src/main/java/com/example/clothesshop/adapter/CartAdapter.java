@@ -53,6 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPrice()*number));
 
+        //Set event cho nút xóa item
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +64,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
 
+        //set event cho ElegantNumberButton
         holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
@@ -79,6 +81,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         });
 
     }
+
+    //Xóa một item ra khỏi Recyclerview
     public void removeAt(int position) {
         mClothes.remove(position);
         notifyItemRemoved(position);

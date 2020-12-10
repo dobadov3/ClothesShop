@@ -205,6 +205,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
         bundle.putString("Image4", clothes.getImage4());
         bundle.putString("Name", clothes.getName());
         bundle.putInt("Price", clothes.getPrice());
+        bundle.putSerializable("Clothes", clothes);
 
         CartFragment cartFragment = new CartFragment();
         FragmentManager fragmentManager = getFragmentManager();

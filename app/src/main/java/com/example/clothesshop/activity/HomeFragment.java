@@ -2,6 +2,9 @@ package com.example.clothesshop.activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
@@ -75,12 +79,22 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnClothesListe
     RecyclerView recyclerViewSale;
     RecyclerView recyclerViewHot;
     HomeAdapter adapter;
+    TextView tvSale1,tvSale2, tvHot;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerViewSale = view.findViewById(R.id.recyclerviewClothesSale);
         recyclerViewHot = view.findViewById(R.id.recyclerviewClothesHot);
+        tvSale1 = view.findViewById(R.id.tvsale1);
+        tvSale2 = view.findViewById(R.id.tvsale2);
+        tvHot = view.findViewById(R.id.tvHot);
+
+        Shader shader = new LinearGradient(0,0,0,tvHot.getLineHeight(),
+                Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
+        tvSale1.getPaint().setShader(shader);
+        tvSale2.getPaint().setShader(shader);
+        tvHot.getPaint().setShader(shader);
 
         mclothes = ClothesDAO.getInstance().getListClothes();
 

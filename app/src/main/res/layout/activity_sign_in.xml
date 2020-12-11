@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SignInActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/relativeTopSignIn"
+        android:background="@drawable/custom_top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ĐĂNG NHẬP"
+            android:textSize="40dp"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/segoeuil"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email:"
+        android:id="@+id/tvEmail"
+        android:textSize="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/relativeTopSignIn"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/segoeuil"
+        android:textColor="@color/black"/>
+    <EditText
+        android:layout_width="330dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tvEmail"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/etEmail"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:id="@+id/tvPassword"
+        android:textSize="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/etEmail"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/segoeuil"
+        android:textColor="@color/black"/>
+    <EditText
+        android:layout_width="330dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tvPassword"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/etPassword"/>
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/etPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/top_color"
+        android:text="ĐĂNG NHẬP" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear1"
+        android:orientation="horizontal"
+        android:fontFamily="@font/segoeuil"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnSignIn"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btnSignIn"
+            android:text="Bạn chưa có tài khoản - "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đăng kí"
+            android:textColor="@color/bottom_color"
+            android:id="@+id/tvSignUp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#48C6EF"
+        android:text="Quên mật khẩu?"
+        android:layout_below="@id/linear1"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tvForgot"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Hoặc đăng nhập với"
+        android:layout_below="@+id/tvForgot"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tv3"/>
+
+</RelativeLayout>

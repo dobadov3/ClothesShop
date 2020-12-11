@@ -1,5 +1,8 @@
 package com.example.clothesshop.adapter;
 
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +48,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.tvClothesPrice.setText("" + currencyFormatter.format(clothes.getPrice()));
+        Shader shader = new LinearGradient(0,0,0,holder.tvClothesPrice.getLineHeight(),
+                Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
+        holder.tvClothesPrice.getPaint().setShader(shader);
+        holder.tvClothesName.getPaint().setShader(shader);
     }
 
     @Override

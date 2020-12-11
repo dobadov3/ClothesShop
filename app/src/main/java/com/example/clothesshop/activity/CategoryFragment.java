@@ -1,5 +1,8 @@
 package com.example.clothesshop.activity;
 
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -98,6 +101,9 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
         imageButtonHats = view.findViewById(R.id.imgBtnHats);
         imageButtonSales = view.findViewById(R.id.imgBtnSales);
         tvTitle = view.findViewById(R.id.tvTitle);
+        Shader shader = new LinearGradient(0,0,0,tvTitle.getLineHeight(),
+                Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
+        tvTitle.getPaint().setShader(shader);
 
         imageButtonTops.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
+    android:id="@+id/RelativeMain"
     tools:context=".activity.MainActivity">
 
     <RelativeLayout
@@ -55,6 +56,23 @@
         android:paddingEnd="12dp"
         android:hint="Search"
         android:drawableEnd="@drawable/ic_baseline_search_24"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/custom_top"
+        android:id="@+id/RelativeTop">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CÁ NHÂN"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="50dp"
+            android:fontFamily="@font/segoeuil"/>
+
+    </RelativeLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

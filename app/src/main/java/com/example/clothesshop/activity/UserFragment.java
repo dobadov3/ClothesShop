@@ -3,14 +3,21 @@ package com.example.clothesshop.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clothesshop.R;
+import com.example.clothesshop.model.Account;
+import com.example.clothesshop.model.CustomerInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,33 +65,140 @@ public class UserFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-    RelativeLayout relativeLayout2;
+    static final int SIGN_IN_REQUEST_CODE = 4667;
+    static boolean CheckLogin = false;
+    RelativeLayout relativeLayoutInfo, relativeLayoutLogout, relativeLayoutBill, relativeLayoutHistory, relativeLayoutContact;
+    TextView tvUserName, tvBirth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
-        relativeLayout2 = view.findViewById(R.id.relative2);
+        relativeLayoutInfo = view.findViewById(R.id.relative2);
+        relativeLayoutBill = view.findViewById(R.id.relative3);
+        relativeLayoutHistory = view.findViewById(R.id.relative4);
+        relativeLayoutContact = view.findViewById(R.id.relative5);
+        relativeLayoutLogout = view.findViewById(R.id.relative6);
+        tvUserName = view.findViewById(R.id.tvNameUser);
+        tvBirth = view.findViewById(R.id.tvBirthday);
 
-        relativeLayout2.setOnClickListener(new View.OnClickListener() {
+        setVisibility();
+
+        relativeLayoutInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickRelative(v);
+                onClickRelativeInfo(v);
+            }
+        });
+
+        relativeLayoutBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRelativeBill(v);
+            }
+        });
+
+        relativeLayoutHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRelativeHistory(v);
+            }
+        });
+
+        relativeLayoutContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRelativeContact(v);
+            }
+        });
+
+        relativeLayoutLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRelativeLogout(v);
             }
         });
 
         return view;
     }
 
-    boolean CheckLogin(){
-        return true;
-    }
-    void onClickRelative(View view){
-        if(CheckLogin())
+    void onClickRelativeInfo(View view){
+        if(CheckLogin == false)
         {
             Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
         }
+        else{
+            InfoFragment infoFragment = new InfoFragment();
+            MoveToFragment(infoFragment);
+        }
+    }
+    void onClickRelativeBill(View view){
+        if(CheckLogin == false)
+        {
+            Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
+            startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
+        }
+        else{
+            BillFragment billFragment = new BillFragment();
+            MoveToFragment(billFragment);
+        }
+    }
+    void onClickRelativeHistory(View view){
+        if(CheckLogin == false)
+        {
+            Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
+            startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
+        }
+        else{
+            HistoryFragment historyFragment = new HistoryFragment();
+            MoveToFragment(historyFragment);
+        }
+    }
+    void onClickRelativeContact(View view){
+        if(CheckLogin == false)
+        {
+            Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
+            startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
+        }
+        else{
+            ContactFragment contactFragment = new ContactFragment();
+            MoveToFragment(contactFragment);
+        }
+    }
+    void onClickRelativeLogout(View view){
+        CheckLogin = false;
+        setVisibility();
+    }
+
+    void setVisibility(){
+        if (CheckLogin)
+            relativeLayoutLogout.setVisibility(View.VISIBLE);
+        else
+            relativeLayoutLogout.setVisibility(View.INVISIBLE);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == SIGN_IN_REQUEST_CODE)
+        {
+            CustomerInfo customerInfo = (CustomerInfo) data.getSerializableExtra("CustomerInfo");
+            if (customerInfo != null)
+            {
+                CheckLogin = true;
+                tvUserName.setText(customerInfo.getName());
+                setVisibility();
+            }
+        }
+        if(data == null)
+            return;
+    }
+    void MoveToFragment(Fragment fragment)
+    {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.layout_container, fragment);
+        fragmentTransaction.commit();
     }
 }

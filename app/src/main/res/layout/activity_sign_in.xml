@@ -112,4 +112,12 @@
         android:layout_marginTop="20dp"
         android:id="@+id/tv3"/>
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btn_login_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv3"
+        android:layout_marginTop="20dp"/>
+
 </RelativeLayout>

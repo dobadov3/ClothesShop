@@ -1,13 +1,19 @@
 package com.example.clothesshop.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -28,6 +34,8 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     static ArrayList<Clothes> mClothes = new ArrayList<>();
     CartAdapter adapter;
+    ElegantNumberButton elegantNumberButton;
+    Button btnPay;
     public static TextView tvTotal;
     public static TextView tv1;
     @Override
@@ -38,6 +46,15 @@ public class CartActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerviewCart);
         tvTotal = findViewById(R.id.tvTotal);
         tv1 = findViewById(R.id.tv1);
+        elegantNumberButton = findViewById(R.id.elegantNumberCart);
+        btnPay = findViewById(R.id.btnPay);
+
+        btnPay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onClickBtnPay(v);
+            }
+        });
 
         tv1.setText("Bạn đang có " + mClothes.size() + " trong giỏ hàng");
 
@@ -50,4 +67,24 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        CartFragment.price = 0;
+        for (int i = 0; i< mClothes.size(); i++){
+            CartFragment.price += mClothes.get(i).getPrice();
+        }
+    }
+
+
+    private void onClickBtnPay(View view){
+        Intent intent = new Intent(CartActivity.this, PayActivity.class);
+        intent.putExtra("ListClothes", mClothes);
+        startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

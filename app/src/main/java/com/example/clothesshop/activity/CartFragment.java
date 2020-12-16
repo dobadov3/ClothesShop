@@ -3,6 +3,7 @@ package com.example.clothesshop.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -76,7 +77,7 @@ public class CartFragment extends Fragment {
     ImageView imageViewCart;
     TextView tvNameCart;
     TextView tvPriceCart;
-    Button btnCart;
+    Button btnCart, btnCash;
     RadioButton radioButton;
     public static int price = 0;
     @Override
@@ -89,6 +90,7 @@ public class CartFragment extends Fragment {
         tvNameCart = view.findViewById(R.id.tvClothesName);
         tvPriceCart = view.findViewById(R.id.tvClothesPrice);
         btnCart = view.findViewById(R.id.btnCart);
+        btnCash = view.findViewById(R.id.btnCash);
         radioButton = view.findViewById(R.id.radio_S);
 
         img1 = view.findViewById(R.id.img1);
@@ -133,6 +135,13 @@ public class CartFragment extends Fragment {
             }
         });
 
+        btnCash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickBtnCash(v);
+            }
+        });
+
         Bundle bundle = this.getArguments();
         getFragmentManager().getFragment(bundle, "Bundle");
         Picasso.get().load(bundle.getString("Image")).into(imageViewCart);
@@ -146,6 +155,20 @@ public class CartFragment extends Fragment {
         Picasso.get().load(bundle.getString("Image3")).into(img3);
         Picasso.get().load(bundle.getString("Image4")).into(img4);
         return view;
+    }
+
+    private void onClickBtnCash(View view){
+        Bundle bundle = this.getArguments();
+        getFragmentManager().getFragment(bundle, "Bundle");
+        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+        Intent intent = new Intent(getActivity().getApplication(), PayActivity.class);
+        intent.putExtra("Clothes", clothes);
+        startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void onClickBtnCart(View view)
@@ -180,4 +203,6 @@ public class CartFragment extends Fragment {
     {
         setImageCart("Image4");
     }
+
+
 }

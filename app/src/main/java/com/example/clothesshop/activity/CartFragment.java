@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.HomeAdapter;
+import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
 import com.squareup.picasso.Picasso;
 
@@ -79,7 +80,6 @@ public class CartFragment extends Fragment {
     TextView tvPriceCart;
     Button btnCart, btnCash;
     RadioButton radioButton;
-    public static int price = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -160,9 +160,13 @@ public class CartFragment extends Fragment {
     private void onClickBtnCash(View view){
         Bundle bundle = this.getArguments();
         getFragmentManager().getFragment(bundle, "Bundle");
+
         Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+        Cart cart = new Cart(clothes, "1");
+
         Intent intent = new Intent(getActivity().getApplication(), PayActivity.class);
         intent.putExtra("Clothes", clothes);
+        intent.putExtra("Cart", cart);
         startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
     }
 
@@ -176,7 +180,11 @@ public class CartFragment extends Fragment {
         Bundle bundle = this.getArguments();
         getFragmentManager().getFragment(bundle, "Bundle");
         Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
-        price +=  bundle.getInt("Price");
+
+        Cart cart = new Cart(clothes, "1");
+
+        Cart.price +=  bundle.getInt("Price");
+        CartActivity.mCart.add(cart);
         CartActivity.mClothes.add(clothes);
     }
 

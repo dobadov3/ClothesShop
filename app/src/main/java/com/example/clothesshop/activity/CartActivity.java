@@ -20,6 +20,7 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.CartAdapter;
+import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,7 +34,9 @@ public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     static ArrayList<Clothes> mClothes = new ArrayList<>();
+    static ArrayList<Cart> mCart = new ArrayList<>();
     CartAdapter adapter;
+    String[] mNumber;
     ElegantNumberButton elegantNumberButton;
     Button btnPay;
     public static TextView tvTotal;
@@ -60,26 +63,20 @@ public class CartActivity extends AppCompatActivity {
 
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        tvTotal.setText("Thành tiền: " + currencyFormatter.format(CartFragment.price));
+        tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
 
-        adapter = new CartAdapter(mClothes);
+        mNumber = new String[mClothes.size()];
+
+        adapter = new CartAdapter(mClothes, mCart);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        CartFragment.price = 0;
-        for (int i = 0; i< mClothes.size(); i++){
-            CartFragment.price += mClothes.get(i).getPrice();
-        }
     }
 
 
     private void onClickBtnPay(View view){
         Intent intent = new Intent(CartActivity.this, PayActivity.class);
         intent.putExtra("ListClothes", mClothes);
+        intent.putExtra("ListCart", mCart);
         startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
     }
 

@@ -16,6 +16,7 @@ import com.example.clothesshop.R;
 import com.example.clothesshop.activity.CartActivity;
 import com.example.clothesshop.activity.CartFragment;
 import com.example.clothesshop.activity.MainActivity;
+import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
 import com.squareup.picasso.Picasso;
 
@@ -26,9 +27,11 @@ import java.util.Locale;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
 
     ArrayList<Clothes> mClothes;
-    public Integer[]  mNumber;
-    public CartAdapter(ArrayList<Clothes> mClothes){
+    ArrayList<Cart> mCart;
+
+    public CartAdapter(ArrayList<Clothes> mClothes, ArrayList<Cart> carts){
         this.mClothes = mClothes;
+        this.mCart = carts;
     }
 
     @NonNull
@@ -42,14 +45,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Clothes clothes = mClothes.get(position);
-        mNumber = new Integer[mClothes.size()];
+        Cart cart = mCart.get(position);
 
         Picasso.get().load(clothes.getImage()).into(holder.imageView);
 
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-        holder.elegantNumberButton.setNumber("1");
+        holder.elegantNumberButton.setNumber(cart.getCount());
 
         int number = Integer.parseInt(holder.elegantNumberButton.getNumber());
 
@@ -59,8 +62,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartFragment.price -= mClothes.get(position).getPrice()*Integer.parseInt(holder.elegantNumberButton.getNumber());
-                CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(CartFragment.price));
+                Cart.price -= mClothes.get(position).getPrice()*Integer.parseInt(holder.elegantNumberButton.getNumber());
+                CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
                 removeAt(position);
                 CartActivity.tv1.setText("Bạn đang có " + mClothes.size() + " trong giỏ hàng");
             }
@@ -72,24 +75,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                 if(newValue>oldValue)
                 {
-                    mNumber[position]++;
-                    CartFragment.price += clothes.getPrice();
+                    Cart.price += clothes.getPrice();
                 }
                 else {
-                    mNumber[position]--;
-                    CartFragment.price -= clothes.getPrice();
+                    Cart.price -= clothes.getPrice();
                 }
                 holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPrice()*Integer.parseInt(holder.elegantNumberButton.getNumber())));
-                CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(CartFragment.price));
+                CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
+                cart.setCount(holder.elegantNumberButton.getNumber());
             }
         });
     }
 
-
-
     //Xóa một item ra khỏi Recyclerview
     public void removeAt(int position) {
         mClothes.remove(position);
+        mCart.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mClothes.size());
     }

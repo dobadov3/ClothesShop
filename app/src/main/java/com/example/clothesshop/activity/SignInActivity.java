@@ -3,6 +3,7 @@ package com.example.clothesshop.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -85,6 +86,12 @@ public class SignInActivity extends AppCompatActivity {
         Intent intent = new Intent();
         Account account = AccountDAO.getInstance().getAccountByUsernamePassword(etUser.getText().toString(), etPass.getText().toString());
         CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(account.getIdCustomer());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("login", "true");
+        editor.apply();
+
         intent.putExtra("CustomerInfo", customerInfo);
         setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
         finish();

@@ -41,6 +41,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/segoeuil"
+            android:textSize="18dp"
             android:textColor="@color/black"
             android:text="Tổng tiền (1 sản phẩm):"/>
 
@@ -78,12 +79,14 @@
                 android:fontFamily="@font/segoeuil"
                 android:textColor="@color/black"
                 android:layout_marginBottom="10dp"
+                android:textSize="18dp"
                 android:text="Phí vận chuyển:"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tổng cộng:"
+                android:textSize="18dp"
                 android:fontFamily="@font/segoeuil"
                 android:textColor="@color/black"/>
 

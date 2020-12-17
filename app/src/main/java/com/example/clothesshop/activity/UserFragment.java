@@ -1,6 +1,8 @@
 package com.example.clothesshop.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clothesshop.R;
+import com.example.clothesshop.adapter.DialogLogout;
 import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.CustomerInfo;
 
@@ -66,8 +69,12 @@ public class UserFragment extends Fragment {
         }
     }
     static final int SIGN_IN_REQUEST_CODE = 4667;
-    static boolean CheckLogin = false;
-    RelativeLayout relativeLayoutInfo, relativeLayoutLogout, relativeLayoutBill, relativeLayoutHistory, relativeLayoutContact;
+    public static boolean CheckLogin = false;
+    RelativeLayout relativeLayoutInfo;
+    static RelativeLayout relativeLayoutLogout;
+    RelativeLayout relativeLayoutBill;
+    RelativeLayout relativeLayoutHistory;
+    RelativeLayout relativeLayoutContact;
     TextView tvUserName, tvBirth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +88,15 @@ public class UserFragment extends Fragment {
         relativeLayoutLogout = view.findViewById(R.id.relative6);
         tvUserName = view.findViewById(R.id.tvNameUser);
         tvBirth = view.findViewById(R.id.tvBirthday);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("checklogin", Context.MODE_PRIVATE);
+        String login = sharedPreferences.getString("login", "");
+        if(login.equals("true")){
+            CheckLogin = true;
+        }
+        else if (login.equals("false")){
+            CheckLogin = false;
+        }
 
         setVisibility();
 
@@ -167,11 +183,12 @@ public class UserFragment extends Fragment {
         }
     }
     void onClickRelativeLogout(View view){
-        CheckLogin = false;
+        DialogLogout dialogLogout = new DialogLogout();
+        dialogLogout.show(getActivity().getSupportFragmentManager(), "Logout");
         setVisibility();
     }
 
-    void setVisibility(){
+    public static void setVisibility(){
         if (CheckLogin)
             relativeLayoutLogout.setVisibility(View.VISIBLE);
         else

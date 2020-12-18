@@ -52,6 +52,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
         holder.tvClothesPrice.getPaint().setShader(shader);
         holder.tvClothesName.getPaint().setShader(shader);
+
+        holder.imageClothes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClothesListener.onClothesClick(position);
+            }
+        });
     }
 
     @Override

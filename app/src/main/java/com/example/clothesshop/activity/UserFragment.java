@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +76,8 @@ public class UserFragment extends Fragment {
     RelativeLayout relativeLayoutBill;
     RelativeLayout relativeLayoutHistory;
     RelativeLayout relativeLayoutContact;
-    TextView tvUserName, tvBirth;
+    static ImageView imageView;
+    public static TextView tvUserName, tvBirth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,6 +88,7 @@ public class UserFragment extends Fragment {
         relativeLayoutHistory = view.findViewById(R.id.relative4);
         relativeLayoutContact = view.findViewById(R.id.relative5);
         relativeLayoutLogout = view.findViewById(R.id.relative6);
+        imageView = view.findViewById(R.id.imgAvatar);
         tvUserName = view.findViewById(R.id.tvNameUser);
         tvBirth = view.findViewById(R.id.tvBirthday);
 
@@ -189,10 +192,14 @@ public class UserFragment extends Fragment {
     }
 
     public static void setVisibility(){
-        if (CheckLogin)
-            relativeLayoutLogout.setVisibility(View.VISIBLE);
-        else
-            relativeLayoutLogout.setVisibility(View.INVISIBLE);
+        if (CheckLogin){
+            imageView.setVisibility(View.VISIBLE);
+            relativeLayoutLogout.setVisibility(View.VISIBLE);}
+        else{
+            tvUserName.setText("");
+            tvBirth.setText("");
+            imageView.setVisibility(View.INVISIBLE);
+            relativeLayoutLogout.setVisibility(View.INVISIBLE);}
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -204,6 +211,7 @@ public class UserFragment extends Fragment {
             {
                 CheckLogin = true;
                 tvUserName.setText(customerInfo.getName());
+                tvBirth.setText(customerInfo.getTel());
                 setVisibility();
             }
         }

@@ -1,4 +1,4 @@
-package com.example.clothesshop.activity;
+package com.example.clothesshop.fragment;
 
 import android.os.Bundle;
 

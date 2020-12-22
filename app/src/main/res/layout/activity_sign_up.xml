@@ -116,7 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textColor="#48C6EF"
+        android:textColor="@color/bottom_color"
         android:text="Quên mật khẩu?"
         android:layout_below="@id/linear1"
         android:layout_marginTop="20dp"

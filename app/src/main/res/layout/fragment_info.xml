@@ -1,14 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.InfoFragment">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:isScrollContainer="true"
+        tools:context=".fragment.InfoFragment">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và tên"
+            android:textSize="20dp"
+            android:id="@+id/tvNameCus"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/etNameCus"
+            android:layout_below="@id/tvNameCus"
+            android:layout_toRightOf="@id/tvNameCus"
+            android:layout_marginLeft="-30dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giới tính"
+            android:textSize="20dp"
+            android:id="@+id/tvGender"
+            android:layout_below="@id/etNameCus"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:id="@+id/spin_gender"
+            android:layout_below="@id/tvGender"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/tvNameCus"
+            android:layout_marginLeft="-30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại"
+            android:textSize="20dp"
+            android:id="@+id/tvTel"
+            android:layout_below="@id/spin_gender"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/etTelCus"
+            android:layout_below="@id/tvTel"
+            android:layout_toRightOf="@id/tvNameCus"
+            android:layout_marginLeft="-30dp"
+            android:inputType="textEmailSubject"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="20dp"
+            android:id="@+id/tvEmailCus"
+            android:layout_below="@id/etTelCus"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/etEmailCus"
+            android:layout_below="@id/tvEmailCus"
+            android:layout_toRightOf="@id/tvNameCus"
+            android:layout_marginLeft="-30dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ"
+            android:textSize="20dp"
+            android:id="@+id/tvAddressCus"
+            android:layout_below="@id/etEmailCus"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/etAddressCus"
+            android:layout_below="@id/tvAddressCus"
+            android:layout_toRightOf="@id/tvNameCus"
+            android:layout_marginLeft="-30dp"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cập nhật"
+            android:backgroundTint="@color/red"
+            android:layout_below="@+id/etAddressCus"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btnUpdateInfo"/>
+
+    </RelativeLayout>
+
+</ScrollView>

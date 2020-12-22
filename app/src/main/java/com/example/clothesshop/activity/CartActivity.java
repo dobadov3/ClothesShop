@@ -33,8 +33,8 @@ import static android.widget.LinearLayout.*;
 public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    static ArrayList<Clothes> mClothes = new ArrayList<>();
-    static ArrayList<Cart> mCart = new ArrayList<>();
+    public static ArrayList<Clothes> mClothes = new ArrayList<>();
+    public static ArrayList<Cart> mCart = new ArrayList<>();
     CartAdapter adapter;
     String[] mNumber;
     ElegantNumberButton elegantNumberButton;

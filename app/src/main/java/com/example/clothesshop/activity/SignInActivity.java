@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.clothesshop.DAO.AccountDAO;
 import com.example.clothesshop.DAO.CustomerDAO;
 import com.example.clothesshop.R;
+import com.example.clothesshop.fragment.UserFragment;
 import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.CustomerInfo;
 

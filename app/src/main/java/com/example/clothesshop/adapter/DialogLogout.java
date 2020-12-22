@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.clothesshop.activity.UserFragment;
+import com.example.clothesshop.fragment.UserFragment;
 
 public class DialogLogout extends AppCompatDialogFragment {
 

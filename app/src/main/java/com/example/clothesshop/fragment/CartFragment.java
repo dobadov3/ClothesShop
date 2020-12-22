@@ -1,4 +1,4 @@
-package com.example.clothesshop.activity;
+package com.example.clothesshop.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,19 +12,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.clothesshop.R;
-import com.example.clothesshop.adapter.HomeAdapter;
+import com.example.clothesshop.activity.CartActivity;
+import com.example.clothesshop.activity.PayActivity;
 import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 
 /**

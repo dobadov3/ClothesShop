@@ -13,8 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+
+import com.example.clothesshop.fragment.CategoryFragment;
+import com.example.clothesshop.fragment.HomeFragment;
+import com.example.clothesshop.fragment.NotificationFragment;
+import com.example.clothesshop.fragment.UserFragment;
 
 
 import com.example.clothesshop.R;

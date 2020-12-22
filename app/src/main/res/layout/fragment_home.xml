@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
-    tools:context=".activity.HomeFragment">
+    tools:context=".fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#29B6E4"
+            android:textColor="@color/bottom_color"
             android:text="Sale ngập tràn"
             android:id="@+id/tvsale1"
             android:textStyle="italic"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#29B6E4"
+            android:textColor="@color/bottom_color"
             android:text="Mua sắm thả ga"
             android:textStyle="italic"
             android:id="@+id/tvsale2"
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#29B6E4"
+            android:textColor="@color/bottom_color"
             android:text="Sản phẩm bán chạy"
             android:textStyle="italic"
             android:id="@+id/tvHot"

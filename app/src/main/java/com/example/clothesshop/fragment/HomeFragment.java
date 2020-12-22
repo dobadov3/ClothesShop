@@ -1,7 +1,5 @@
-package com.example.clothesshop.activity;
+package com.example.clothesshop.fragment;
 
-import android.content.ContentValues;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
@@ -22,11 +20,7 @@ import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.HomeAdapter;
 import com.example.clothesshop.model.Clothes;
-import com.example.clothesshop.model.DataProvider;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**

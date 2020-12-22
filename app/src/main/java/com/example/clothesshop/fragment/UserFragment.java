@@ -1,4 +1,4 @@
-package com.example.clothesshop.activity;
+package com.example.clothesshop.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.clothesshop.R;
+import com.example.clothesshop.activity.SignInActivity;
 import com.example.clothesshop.adapter.DialogLogout;
-import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.CustomerInfo;
+import com.google.gson.Gson;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +69,7 @@ public class UserFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    static final int SIGN_IN_REQUEST_CODE = 4667;
+    public static final int SIGN_IN_REQUEST_CODE = 4667;
     public static boolean CheckLogin = false;
     RelativeLayout relativeLayoutInfo;
     static RelativeLayout relativeLayoutLogout;
@@ -96,6 +96,13 @@ public class UserFragment extends Fragment {
         String login = sharedPreferences.getString("login", "");
         if(login.equals("true")){
             CheckLogin = true;
+            SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = sharedPreferences1.getString("cusInfo", "");
+            CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
+
+            tvUserName.setText(customerInfo.getName());
+            tvBirth.setText(customerInfo.getTel());
         }
         else if (login.equals("false")){
             CheckLogin = false;
@@ -149,6 +156,13 @@ public class UserFragment extends Fragment {
         }
         else{
             InfoFragment infoFragment = new InfoFragment();
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = sharedPreferences.getString("cusInfo", "");
+            CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("customerInfo", customerInfo);
+            infoFragment.setArguments(bundle);
             MoveToFragment(infoFragment);
         }
     }
@@ -210,6 +224,15 @@ public class UserFragment extends Fragment {
             if (customerInfo != null)
             {
                 CheckLogin = true;
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                Gson gson = new Gson();
+                String json =gson.toJson(customerInfo);
+                editor.putString("cusInfo", json);
+
+                editor.apply();
+
                 tvUserName.setText(customerInfo.getName());
                 tvBirth.setText(customerInfo.getTel());
                 setVisibility();

@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.clothesshop.R;
 import com.example.clothesshop.activity.CartActivity;
-import com.example.clothesshop.activity.CartFragment;
-import com.example.clothesshop.activity.MainActivity;
 import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
 import com.squareup.picasso.Picasso;

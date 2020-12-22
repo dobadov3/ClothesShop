@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CategoryFragment">
+    tools:context=".fragment.CategoryFragment">
 
     <RelativeLayout
         android:layout_width="370dp"
@@ -154,7 +154,7 @@
             android:layout_marginLeft="20dp"
             android:textStyle="italic"
             android:layout_marginTop="10dp"
-            android:textColor="#29B6E4"/>
+            android:textColor="@color/bottom_color"/>
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"

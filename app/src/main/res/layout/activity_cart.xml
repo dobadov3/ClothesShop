@@ -101,7 +101,7 @@
             android:layout_height="40dp"
             android:text="Thay đổi địa chỉ"
             android:textSize="7dp"
-            android:backgroundTint="#FF0000"
+            android:backgroundTint="@color/red"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
@@ -112,7 +112,7 @@
         android:layout_height="105dp"
         android:layout_below="@id/relative2"
         android:layout_marginTop="20dp"
-        android:background="#FAFAFA">
+        android:background="@color/back_ground">
 
         <TextView
             android:layout_width="wrap_content"

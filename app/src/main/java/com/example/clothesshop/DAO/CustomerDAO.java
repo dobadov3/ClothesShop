@@ -43,4 +43,10 @@ public class CustomerDAO {
         }
         return customer;
     }
+
+    public boolean UpdateInfo(String name, String gender, String tel, String email, String address){
+        String query = String.format("UPDATE dbo.CustomerInfo SET nameCus = N'%s', gender = N'%s', tel = %s, email = '%s', address = '%s'", name, gender, tel, email, address);
+        int resultSet = DataProvider.getInstance().ExcuteNonQuery(query);
+        return resultSet > 0;
+    }
 }

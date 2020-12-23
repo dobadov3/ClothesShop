@@ -25,6 +25,10 @@ import java.util.Locale;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     ArrayList<Clothes> mClothes;
     OnClothesListener onClothesListener;
+
+    public interface OnClothesListener{
+        void onClothesClick(int position);
+    }
     public HomeAdapter(ArrayList<Clothes> mClothes, OnClothesListener onClothesListener)
     {
         this.mClothes = mClothes;
@@ -87,7 +91,5 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             onClothesListener.onClothesClick(getAdapterPosition());
         }
     }
-    public interface OnClothesListener{
-        void onClothesClick(int position);
-    }
+
 }

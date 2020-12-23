@@ -24,8 +24,14 @@ import java.util.Locale;
 public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     ArrayList<Purchased> mPurchased;
 
-    public BillAdapter(ArrayList<Purchased> mPurchased){
+    OnDetailListener onDetailListener;
+
+    public interface OnDetailListener{
+        void onClothesClick(int position);
+    }
+    public BillAdapter(ArrayList<Purchased> mPurchased, OnDetailListener onDetailListener){
         this.mPurchased = mPurchased;
+        this.onDetailListener = onDetailListener;
     }
     @NonNull
     @Override
@@ -51,6 +57,13 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         holder.tvCountProduct.setText("Đơn hàng này có " + purchased.getCountItem() + " sản phẩm");
         holder.tvShipCost.setText("" + currencyFormatter.format(purchased.getShipCost()));
         holder.tvTotal.setText(currencyFormatter.format(0));
+
+        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDetailListener.onClothesClick(position);
+            }
+        });
     }
 
     @Override
@@ -77,4 +90,5 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             btnDetail = view.findViewById(R.id.DetailButton);
         }
     }
+
 }

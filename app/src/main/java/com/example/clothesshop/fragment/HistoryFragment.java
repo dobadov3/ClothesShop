@@ -1,10 +1,13 @@
 package com.example.clothesshop.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +29,7 @@ import java.util.ArrayList;
  * Use the {@link HistoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements BillAdapter.OnDetailListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,10 +88,27 @@ public class HistoryFragment extends Fragment {
         Account account = gson.fromJson(json, Account.class);
 
         mPurchased = PurchaseDAO.getInstance().getListPurchased(account.getId());
-        adapter = new BillAdapter(mPurchased);
+        adapter = new BillAdapter(mPurchased, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onClothesClick(int position) {
+        Purchased purchased = mPurchased.get(position);
+
+        BillInfoFragment billInfoFragment = new BillInfoFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("idBill", purchased.getId());
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.layout_container, billInfoFragment);
+        billInfoFragment.setArguments(bundle);
+        fragmentTransaction.commit();
     }
 }

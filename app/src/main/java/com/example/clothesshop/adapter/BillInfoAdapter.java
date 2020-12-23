@@ -13,7 +13,9 @@ import com.example.clothesshop.R;
 import com.example.clothesshop.model.BillInfo;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class BillInfoAdapter extends RecyclerView.Adapter<BillInfoAdapter.ViewHolder> {
     ArrayList<BillInfo> mBillInfo;
@@ -33,11 +35,13 @@ public class BillInfoAdapter extends RecyclerView.Adapter<BillInfoAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BillInfo billInfo = mBillInfo.get(position);
+        Locale locale = new Locale("nv", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
         Picasso.get().load(billInfo.getImage()).into(holder.imageView);
         holder.tvName.setText(billInfo.getNameProduct());
         holder.tvCount.setText("" + billInfo.getCount());
-        holder.tvPrice.setText("" + billInfo.getPrice());
+        holder.tvPrice.setText("" + currencyFormatter.format(billInfo.getPrice()*billInfo.getCount()));
     }
 
     @Override

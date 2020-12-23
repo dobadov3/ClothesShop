@@ -10,14 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clothesshop.R;
+import com.example.clothesshop.activity.MainActivity;
 import com.example.clothesshop.activity.SignInActivity;
 import com.example.clothesshop.adapter.DialogLogout;
 import com.example.clothesshop.model.CustomerInfo;
@@ -164,6 +167,7 @@ public class UserFragment extends Fragment {
             bundle.putSerializable("customerInfo", customerInfo);
             infoFragment.setArguments(bundle);
             MoveToFragment(infoFragment);
+            MainActivity.tvTitle.setText("THÔNG TIN");
         }
     }
     void onClickRelativeBill(View view){
@@ -175,6 +179,7 @@ public class UserFragment extends Fragment {
         else{
             BillFragment billFragment = new BillFragment();
             MoveToFragment(billFragment);
+            MainActivity.tvTitle.setText("ĐƠN HÀNG");
         }
     }
     void onClickRelativeHistory(View view){
@@ -186,6 +191,7 @@ public class UserFragment extends Fragment {
         else{
             HistoryFragment historyFragment = new HistoryFragment();
             MoveToFragment(historyFragment);
+            MainActivity.tvTitle.setText("LỊCH SỬ");
         }
     }
     void onClickRelativeContact(View view){
@@ -197,6 +203,7 @@ public class UserFragment extends Fragment {
         else{
             ContactFragment contactFragment = new ContactFragment();
             MoveToFragment(contactFragment);
+            MainActivity.tvTitle.setText("LIÊN HỆ");
         }
     }
     void onClickRelativeLogout(View view){
@@ -249,4 +256,19 @@ public class UserFragment extends Fragment {
         fragmentTransaction.replace(R.id.layout_container, fragment);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences1.getString("cusInfo", "");
+        CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
+
+        tvUserName.setText(customerInfo.getName());
+        tvBirth.setText(customerInfo.getTel());
+        MainActivity.tvTitle.setText("CÁ NHÂN");
+    }
+
+
 }

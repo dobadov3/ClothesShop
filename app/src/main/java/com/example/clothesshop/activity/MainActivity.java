@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clothesshop.fragment.CategoryFragment;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnCart;
     EditText editTextSearch;
     RelativeLayout RelativeTop;
+    public static TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         editTextSearch = findViewById(R.id.etSearch);
         RelativeTop = findViewById(R.id.RelativeTop);
         RelativeTop.setVisibility(View.INVISIBLE);
+        tvTitle = findViewById(R.id.tvTitle);
 
         editTextSearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.fragment_user:
                     RelativeTop.setVisibility(View.VISIBLE);
                     editTextSearch.setVisibility(View.INVISIBLE);
+                    tvTitle.setText("CÁ NHÂN");
                     selectFragment = new UserFragment();
                     break;
             }
@@ -114,4 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
         this.startActivity(intent);
     }
+
+    
 }

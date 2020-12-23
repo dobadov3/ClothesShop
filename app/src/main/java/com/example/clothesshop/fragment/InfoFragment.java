@@ -1,9 +1,12 @@
 package com.example.clothesshop.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import com.example.clothesshop.DAO.CustomerDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.model.CustomerInfo;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -70,7 +74,7 @@ public class InfoFragment extends Fragment {
     Spinner spinGender;
     Button btnUpdate;
     EditText etName, etTel, etEmail, etAddress;
-    String[] arrGender = {"Nam", "Nữ", "Khác"};
+    String[] arrGender = {"Male", "Female", "Other"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +87,7 @@ public class InfoFragment extends Fragment {
         etEmail = view.findViewById(R.id.etEmailCus);
         etAddress = view.findViewById(R.id.etAddressCus);
         btnUpdate = view.findViewById(R.id.btnUpdateInfo);
-        TextView textView = view.findViewById(R.id.tvEmailCus);
+
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,22 +107,23 @@ public class InfoFragment extends Fragment {
                 etName.setText(customerInfo.getName());
                 etTel.setText(customerInfo.getTel());
                 String gender = customerInfo.getGender();
-                if (gender.equals("Nam"))
+                if (gender.equals("Male"))
                 {
+                    spinGender.setSelection(0);
+                }
+                else if(gender.equals("Female")){
                     spinGender.setSelection(1);
                 }
-                else if(gender.equals("Nữ")){
+                else if(gender.equals("Other")){
                     spinGender.setSelection(2);
                 }
-                else{
-                    spinGender.setSelection(3);
-                }
-
+//
                 etEmail.setText(customerInfo.getEmail());
                 etAddress.setText(customerInfo.getAddress());
             }
         }
 
+        Log.d("doba", "onClickRelativeInfo: ");
         return view;
     }
     private void onClickBtnUpdate(View view){
@@ -131,6 +136,15 @@ public class InfoFragment extends Fragment {
         if (CustomerDAO.getInstance().UpdateInfo(name, gender, tel, email, address))
         {
             Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
+            CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByInfo(name, gender, tel, email, address);
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            Gson gson = new Gson();
+            String json =gson.toJson(customerInfo);
+            editor.putString("cusInfo", json);
+
+            editor.apply();
         }
     }
 }

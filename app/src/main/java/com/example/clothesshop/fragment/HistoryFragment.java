@@ -3,12 +3,19 @@ package com.example.clothesshop.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.clothesshop.DAO.PurchaseDAO;
 import com.example.clothesshop.R;
+import com.example.clothesshop.adapter.BillAdapter;
+import com.example.clothesshop.model.Purchased;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +64,20 @@ public class HistoryFragment extends Fragment {
         }
     }
 
+    RecyclerView recyclerView;
+    ArrayList<Purchased> mPurchased;
+    BillAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerviewPurchased);
+        mPurchased = PurchaseDAO.getInstance().getListPurchased(1);
+        adapter = new BillAdapter(mPurchased);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 }

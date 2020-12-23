@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Cart implements Serializable {
     Clothes clothes;
     String count;
+    public static int SHIP_COST = 30000;
     public static int price = 0;
 
     public Clothes getClothes() {

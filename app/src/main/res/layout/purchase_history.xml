@@ -4,7 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/back_ground"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +17,7 @@
         android:fontFamily="@font/segoeuil"
         android:layout_margin="15dp"
         android:id="@+id/tvMaDonHang"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:textColor="@color/black" />
 
     <TextView
@@ -24,21 +28,23 @@
         android:layout_marginLeft="15dp"
         android:id="@+id/tvDate"
         android:textSize="15dp"
-        android:layout_below="@id/tvMaDonHang"
+        android:layout_toRightOf="@id/tvMaDonHang"
+        android:layout_margin="15dp"
         android:textColor="@color/black" />
 
     <ImageView
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:src="@color/black"
-        android:layout_margin="10dp"
-        android:layout_below="@id/tvDate"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/tvMaDonHang"
         android:id="@+id/imageViewItem"/>
 
 
 
     <TextView
-        android:id="@+id/tvClothes_Name"
+        android:id="@+id/tvClothes_Name_Bill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoeuil"
@@ -46,7 +52,7 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginTop="110dp"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@id/imageViewItem"/>
 
@@ -55,10 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoeuil"
-        android:layout_marginLeft="200dp"
-        android:layout_below="@id/tvClothes_Name"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/tvClothes_Name_Bill"
+        android:layout_marginLeft="15dp"
         android:text="X1"
-        android:layout_marginTop="10dp"
         android:textColor="@color/black"/>
 
     <TextView
@@ -67,9 +73,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoeuil"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/tvClothes_Name"
+        android:layout_centerVertical="true"
         android:text="Giá : 500.000"
-        android:layout_margin="10dp"
+        android:layout_marginRight="10dp"
         android:textColor="@color/black"/>
 
     <TextView
@@ -77,17 +83,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/imageViewItem"
         android:text="1 sản phẩm "
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         android:layout_marginLeft="35dp"
         android:id="@+id/tvCountItem"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:orientation="vertical"
         android:layout_below="@id/tvCountItem"
         android:fontFamily="@font/segoeuil"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp">
 
         <Button
             android:layout_width="100dp"
@@ -124,11 +130,13 @@
             android:layout_marginRight="10dp"
             android:fontFamily="@font/segoeuil"
             android:layout_below="@id/tvShipPrice">
-
-
         </TextView>
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/back_ground"/>
     </RelativeLayout>
 
 

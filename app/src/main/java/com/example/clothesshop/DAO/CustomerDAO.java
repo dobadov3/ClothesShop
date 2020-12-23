@@ -44,6 +44,29 @@ public class CustomerDAO {
         return customer;
     }
 
+    public CustomerInfo getListCustomerByInfo(String name, String gender, String tel, String email, String address){
+        CustomerInfo customer = new CustomerInfo();
+        String query = String.format("SELECT * FROM dbo.CustomerInfo WHERE nameCus = N'%s' AND gender = N'%s' AND tel = %s AND email = '%s' AND address = '%s'", name, gender, tel, email, address);
+
+        try{
+            ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
+
+            if(resultSet.next())
+            {
+                customer.setId(resultSet.getInt(1));
+                customer.setName(resultSet.getString(2));
+                customer.setGender(resultSet.getString(3));
+                customer.setTel(resultSet.getString(4));
+                customer.setEmail(resultSet.getString(5));
+                customer.setAddress(resultSet.getString(6));
+            }
+        }catch (SQLException ex)
+        {
+
+        }
+        return customer;
+    }
+
     public boolean UpdateInfo(String name, String gender, String tel, String email, String address){
         String query = String.format("UPDATE dbo.CustomerInfo SET nameCus = N'%s', gender = N'%s', tel = %s, email = '%s', address = '%s'", name, gender, tel, email, address);
         int resultSet = DataProvider.getInstance().ExcuteNonQuery(query);

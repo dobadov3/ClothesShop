@@ -17,6 +17,7 @@ import com.example.clothesshop.R;
 import com.example.clothesshop.fragment.UserFragment;
 import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.CustomerInfo;
+import com.google.gson.Gson;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -90,8 +91,16 @@ public class SignInActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(account);
+
+        editor1.putString("accountInfo", json);
         editor.putString("login", "true");
         editor.apply();
+        editor1.apply();
 
         intent.putExtra("CustomerInfo", customerInfo);
         setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);

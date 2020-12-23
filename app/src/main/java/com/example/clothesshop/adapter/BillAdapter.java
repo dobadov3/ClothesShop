@@ -1,5 +1,7 @@
 package com.example.clothesshop.adapter;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +38,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Purchased purchased = mPurchased.get(position);
-
+        
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 

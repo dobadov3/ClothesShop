@@ -1,5 +1,7 @@
 package com.example.clothesshop.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +15,9 @@ import android.view.ViewGroup;
 import com.example.clothesshop.DAO.PurchaseDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.BillAdapter;
+import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.Purchased;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -73,7 +77,14 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerviewPurchased);
-        mPurchased = PurchaseDAO.getInstance().getListPurchased(1);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("accountInfo", "");
+
+        Account account = gson.fromJson(json, Account.class);
+
+        mPurchased = PurchaseDAO.getInstance().getListPurchased(account.getId());
         adapter = new BillAdapter(mPurchased);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);

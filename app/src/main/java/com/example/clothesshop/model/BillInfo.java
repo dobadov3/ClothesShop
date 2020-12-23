@@ -2,9 +2,9 @@ package com.example.clothesshop.model;
 
 public class BillInfo {
     private int id;
-    private int idBill;
-    private int idProduct;
-    private int mount;
+    private String nameProduct;
+    private String image;
+    private int price;
     private int count;
 
     public int getId() {
@@ -15,28 +15,28 @@ public class BillInfo {
         this.id = id;
     }
 
-    public int getIdBill() {
-        return idBill;
+    public String getNameProduct() {
+        return nameProduct;
     }
 
-    public void setIdBill(int idBill) {
-        this.idBill = idBill;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
 
-    public int getIdProduct() {
-        return idProduct;
+    public String getImage() {
+        return image;
     }
 
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public int getMount() {
-        return mount;
+    public int getPrice() {
+        return price;
     }
 
-    public void setMount(int mount) {
-        this.mount = mount;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getCount() {
@@ -47,14 +47,14 @@ public class BillInfo {
         this.count = count;
     }
 
-    public BillInfo() {
+    public BillInfo(int id, String nameProduct, String image, int price, int count) {
+        this.id = id;
+        this.nameProduct = nameProduct;
+        this.image = image;
+        this.price = price;
+        this.count = count;
     }
 
-    public BillInfo(int id, int idBill, int idProduct, int mount, int count) {
-        this.id = id;
-        this.idBill = idBill;
-        this.idProduct = idProduct;
-        this.mount = mount;
-        this.count = count;
+    public BillInfo() {
     }
 }

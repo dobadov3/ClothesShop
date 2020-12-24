@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:id="@+id/tvCountProducts"
             android:fontFamily="@font/segoeuil"
             android:textSize="18dp"
             android:textColor="@color/black"

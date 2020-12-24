@@ -1,20 +1,30 @@
 package com.example.clothesshop.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.clothesshop.DAO.BillDAO;
+import com.example.clothesshop.DAO.BillInfoDAO;
 import com.example.clothesshop.R;
+import com.example.clothesshop.adapter.LoadingDialog;
 import com.example.clothesshop.adapter.PaymentAdapter;
+import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
+import com.google.gson.Gson;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -22,13 +32,15 @@ import java.util.Locale;
 
 public class PayActivity extends AppCompatActivity {
 
-    TextView tvTotalPrice, tvTotalShip, tvShipCost, tvFinal;
+    TextView tvTotalPrice, tvTotalShip, tvShipCost, tvFinal, tvCountProducts;
     public static final int PAY_ACTIVITY_REQUEST_CODE = 1542;
     static final int SHIP_COST = 30000;
     RecyclerView recyclerView;
     PaymentAdapter adapter;
     ArrayList<Clothes> mClothes;
     ArrayList<Cart> mCart;
+    RelativeLayout relativePay;
+    LoadingDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +49,21 @@ public class PayActivity extends AppCompatActivity {
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
         tvTotalShip = findViewById(R.id.tvTotalShip);
         tvShipCost = findViewById(R.id.tvShipCost);
+        tvCountProducts = findViewById(R.id.tvCountProducts);
         tvFinal = findViewById(R.id.tvFinal);
+        relativePay = findViewById(R.id.relativePay);
         recyclerView = findViewById(R.id.recyclerviewPay);
+        dialog = new LoadingDialog(PayActivity.this);
 
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+
+        relativePay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRelativePay(v);
+            }
+        });
 
         setTextColor();
         addList();
@@ -88,5 +110,48 @@ public class PayActivity extends AppCompatActivity {
             total += mClothes.get(i).getPrice() * Integer.parseInt(mCart.get(i).getCount());
         }
         return total;
+    }
+    private void onClickRelativePay(View view){
+        dialog.startLoadingDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (InsertBill()){
+                    InsertBillInfo();
+                    dialog.dismissDialog();
+                    Intent intent = new Intent(PayActivity.this, CompleteActivity.class);
+                    startActivityForResult(intent, CompleteActivity.COMPLETE_ACTIVITY_REQUEST_CODE);
+                }
+            }
+        }, 4000);
+    }
+
+    private boolean InsertBill(){
+        SharedPreferences sharedPreferences = getSharedPreferences("account", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("accountInfo", "");
+        Account account = gson.fromJson(json, Account.class);
+
+        return BillDAO.getInstance().InsertBill(account.getId(), 0, (getTotalPrice() + SHIP_COST));
+    }
+
+    private void InsertBillInfo(){
+        int idBill = BillDAO.getInstance().getLastID();
+
+        for (int i = 0; i<mCart.size();i++){
+            BillInfoDAO.getInstance().InsertBillInfo(idBill, mClothes.get(i).getId(), Integer.parseInt(mCart.get(i).getCount()));
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CompleteActivity.COMPLETE_ACTIVITY_REQUEST_CODE){
+            mClothes.clear();
+            mCart.clear();
+            recyclerView.setAdapter(adapter);
+        }
     }
 }

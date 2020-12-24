@@ -43,4 +43,14 @@ public class BillInfoDAO {
         }
         return  list;
     }
+
+    public boolean InsertBillInfo(int idBill, int idProduct, int count){
+        int result = 0;
+
+        String query = "INSERT INTO Billinfo (idBill, idProduct, count) VALUES ("+ idBill +", "+ idProduct +", "+ count +")";
+
+        result = DataProvider.getInstance().ExcuteNonQuery(query);
+
+        return result > 0;
+    }
 }

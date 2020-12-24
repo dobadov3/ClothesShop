@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClothesShop"
         tools:replace="android:icon, theme">
-        <activity android:name=".activity.PayActivity"></activity>
+        <activity android:name=".activity.CompleteActivity"></activity>
+        <activity android:name=".activity.PayActivity" />
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.CartActivity" />

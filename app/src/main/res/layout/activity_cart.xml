@@ -78,18 +78,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvCus_Name"
                 android:text="Nguyễn Duy Anh"
                 android:textSize="12dp"
                 android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvCus_Tel"
                 android:text="0944609933"
                 android:textSize="12dp"
                 android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:id="@+id/tvCus_Address"
                 android:text="246/71 Hòa Hưng p.13 quận 10"
                 android:textSize="12dp"
                 android:textColor="@color/black"/>

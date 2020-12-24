@@ -56,7 +56,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         holder.tvPrice.setText("" + currencyFormatter.format(purchased.getPrice() * purchased.getCountProduct()));
         holder.tvCountProduct.setText("Đơn hàng này có " + purchased.getCountItem() + " sản phẩm");
         holder.tvShipCost.setText("" + currencyFormatter.format(purchased.getShipCost()));
-        holder.tvTotal.setText(currencyFormatter.format(0));
+        holder.tvTotal.setText(currencyFormatter.format(purchased.getTotal()));
 
         holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override

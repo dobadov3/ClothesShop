@@ -63,6 +63,7 @@
         android:fontFamily="@font/segoeuil"
         android:layout_centerInParent="true"
         android:layout_toRightOf="@id/tvClothes_Name_Bill"
+        android:layout_toLeftOf="@+id/tvPriceItem"
         android:layout_marginLeft="15dp"
         android:text="X1"
         android:textColor="@color/black"/>

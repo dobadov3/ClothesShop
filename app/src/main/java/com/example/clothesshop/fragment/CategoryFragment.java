@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.HomeAdapter;
+import com.example.clothesshop.adapter.SaleAdapter;
 import com.example.clothesshop.model.Clothes;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesListener {
+public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesListener, SaleAdapter.OnClothesSaleListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,6 +75,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
     RecyclerView recyclerViewProduct;
     ArrayList<Clothes> mclothes = new ArrayList<>();
     HomeAdapter adapter;
+    SaleAdapter saleAdapter;
     ImageButton imageButtonTops;
     ImageButton imageButtonBottoms;
     ImageButton imageButtonBags;
@@ -189,9 +191,9 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
 
         mclothes = ClothesDAO.getInstance().getListClothesSale();
 
-        adapter = new HomeAdapter(mclothes, this);
+        saleAdapter = new SaleAdapter(mclothes, this);
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerViewProduct.setAdapter(adapter);
+        recyclerViewProduct.setAdapter(saleAdapter);
     }
 
     @Override
@@ -205,6 +207,28 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
         bundle.putString("Image4", clothes.getImage4());
         bundle.putString("Name", clothes.getName());
         bundle.putInt("Price", clothes.getPrice());
+        bundle.putSerializable("Clothes", clothes);
+
+        CartFragment cartFragment = new CartFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.layout_container, cartFragment);
+        cartFragment.setArguments(bundle);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onClothesSaleClick(int position) {
+        Clothes clothes = mclothes.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Image", clothes.getImage());
+        bundle.putString("Image2", clothes.getImage2());
+        bundle.putString("Image3", clothes.getImage3());
+        bundle.putString("Image4", clothes.getImage4());
+        bundle.putString("Name", clothes.getName());
+        bundle.putInt("Price", clothes.getPriceSale());
         bundle.putSerializable("Clothes", clothes);
 
         CartFragment cartFragment = new CartFragment();

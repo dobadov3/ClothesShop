@@ -40,7 +40,7 @@ public class BillInfoAdapter extends RecyclerView.Adapter<BillInfoAdapter.ViewHo
 
         Picasso.get().load(billInfo.getImage()).into(holder.imageView);
         holder.tvName.setText(billInfo.getNameProduct());
-        holder.tvCount.setText("" + billInfo.getCount());
+        holder.tvCount.setText("x" + billInfo.getCount());
         holder.tvPrice.setText("" + currencyFormatter.format(billInfo.getPrice()*billInfo.getCount()));
     }
 

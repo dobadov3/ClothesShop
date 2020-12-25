@@ -12,6 +12,15 @@ public class Clothes implements Serializable {
     private String image3;
     private String image4;
     private String description;
+    private int priceSale;
+
+    public int getPriceSale() {
+        return priceSale;
+    }
+
+    public void setPriceSale(int priceSale) {
+        this.priceSale = priceSale;
+    }
 
     public String getImage2() {
         return image2;
@@ -85,7 +94,7 @@ public class Clothes implements Serializable {
         this.description = description;
     }
 
-    public Clothes(int id, int idCategory, String name, int price, String image, String description, String image2, String image3, String image4) {
+    public Clothes(int id, int idCategory, String name, int price, String image, String description, String image2, String image3, String image4, int priceSale) {
         this.id = id;
         this.idCategory = idCategory;
         this.name = name;
@@ -95,6 +104,7 @@ public class Clothes implements Serializable {
         this.image3 = image3;
         this.image4 = image4;
         this.description = description;
+        this.priceSale = priceSale;
     }
 
     public Clothes() {

@@ -187,7 +187,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
         mclothes.clear();
         tvTitle.setText("SALES");
 
-        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(5);
+        mclothes = ClothesDAO.getInstance().getListClothesSale();
 
         adapter = new HomeAdapter(mclothes, this);
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));

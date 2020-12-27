@@ -37,6 +37,13 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/tv1"
         android:layout_below="@id/imageDone"/>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnOk"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv1"
+        android:layout_marginTop="20dp"
+        android:text="Xác nhận"/>
 
 </RelativeLayout>

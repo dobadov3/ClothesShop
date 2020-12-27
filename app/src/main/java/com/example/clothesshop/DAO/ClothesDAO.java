@@ -52,7 +52,7 @@ public class ClothesDAO {
     public ArrayList<Clothes> getListClothesByIDCategory(int idCategory){
         ArrayList<Clothes> list = new ArrayList<>();
 
-        String query = "SELECT * FROM Product WHERE idCategory = " + idCategory;
+        String query = "SELECT * FROM Product WHERE idCategory = " + idCategory + "AND idDiscount = 1";
         try
         {
             ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
@@ -67,6 +67,7 @@ public class ClothesDAO {
                 clothes.setImage2(resultSet.getString(6));
                 clothes.setImage3(resultSet.getString(7));
                 clothes.setImage4(resultSet.getString(8));
+                clothes.setPriceSale(clothes.getPrice());
 
                 list.add(clothes);
             }
@@ -130,6 +131,7 @@ public class ClothesDAO {
                 clothes.setImage2(resultSet.getString(6));
                 clothes.setImage3(resultSet.getString(7));
                 clothes.setImage4(resultSet.getString(8));
+                clothes.setPriceSale(clothes.getPrice());
 
                 list.add(clothes);
             }

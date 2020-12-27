@@ -222,6 +222,7 @@
     <RelativeLayout
         android:layout_width="370dp"
         android:layout_height="100dp"
+        android:id="@+id/relativeDescription"
         android:layout_below="@+id/tv1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
@@ -236,4 +237,12 @@
             android:id="@+id/tvDescription"/>
 
     </RelativeLayout>
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/ratingBar"/>
 </RelativeLayout>

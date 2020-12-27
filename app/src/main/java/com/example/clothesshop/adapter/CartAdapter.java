@@ -53,13 +53,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
 
         int number = Integer.parseInt(holder.elegantNumberButton.getNumber());
 
-        holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPrice()*number));
+        holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPriceSale()*number));
 
         //Set event cho nút xóa item
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cart.price -= mClothes.get(position).getPrice()*Integer.parseInt(holder.elegantNumberButton.getNumber());
+                Cart.price -= mClothes.get(position).getPriceSale()*Integer.parseInt(holder.elegantNumberButton.getNumber());
                 CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
                 removeAt(position);
                 CartActivity.tv1.setText("Bạn đang có " + mClothes.size() + " trong giỏ hàng");
@@ -72,12 +72,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                 if(newValue>oldValue)
                 {
-                    Cart.price += clothes.getPrice();
+                    Cart.price += clothes.getPriceSale();
                 }
                 else {
-                    Cart.price -= clothes.getPrice();
+                    Cart.price -= clothes.getPriceSale();
                 }
-                holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPrice()*Integer.parseInt(holder.elegantNumberButton.getNumber())));
+                holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPriceSale()*Integer.parseInt(holder.elegantNumberButton.getNumber())));
                 CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
                 cart.setCount(holder.elegantNumberButton.getNumber());
             }

@@ -51,4 +51,14 @@ public class AccountDAO {
         }
         return true;
     }
+
+    public boolean InsertAccount(String username, String  password){
+        int result = 0;
+
+        String query = "INSERT INTO Account (idCustomerInfo, username, accType, password) VALUES ("+ CustomerDAO.getInstance().getLastID() +", '"+username+"', 1, '"+password+"')";
+
+        result = DataProvider.getInstance().ExcuteNonQuery(query);
+
+        return result > 0;
+    }
 }

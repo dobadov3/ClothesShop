@@ -134,19 +134,29 @@ public class InfoFragment extends Fragment {
         String tel = etTel.getText().toString();
         String email = etEmail.getText().toString();
         String address = etAddress.getText().toString();
+        Bundle bundle = this.getArguments();
 
-        if (CustomerDAO.getInstance().UpdateInfo(name, gender, tel, email, address))
-        {
-            Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
-            CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByInfo(name, gender, tel, email, address);
+        if(bundle != null) {
+            CustomerInfo customerInfo = (CustomerInfo) bundle.get("customerInfo");
+            if (customerInfo != null){
+                if (CustomerDAO.getInstance().UpdateInfo(customerInfo.getId(), name, gender, tel, email, address))
+                {
+                    Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
+                    CustomerInfo customerInfo1 = CustomerDAO.getInstance().getListCustomerByInfo(name, gender, tel, email, address);
 
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);SharedPreferences.Editor editor = sharedPreferences.edit();
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            Gson gson = new Gson();
-            String json =gson.toJson(customerInfo);
-            editor.putString("cusInfo", json);
+                    Gson gson = new Gson();
+                    String json =gson.toJson(customerInfo1);
+                    editor.putString("cusInfo", json);
 
-            editor.apply();
+                    editor.apply();
+                }
+            }
         }
+
+
+
     }
 }

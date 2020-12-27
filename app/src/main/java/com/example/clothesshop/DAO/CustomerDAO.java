@@ -67,9 +67,34 @@ public class CustomerDAO {
         return customer;
     }
 
-    public boolean UpdateInfo(String name, String gender, String tel, String email, String address){
-        String query = String.format("UPDATE dbo.CustomerInfo SET nameCus = N'%s', gender = N'%s', tel = %s, email = '%s', address = '%s'", name, gender, tel, email, address);
+    public boolean UpdateInfo(int id, String name, String gender, String tel, String email, String address){
+        String query = String.format("UPDATE dbo.CustomerInfo SET nameCus = N'%s', gender = N'%s', tel = %s, email = '%s', address = '%s' WHERE id = " + id, name, gender, tel, email, address);
         int resultSet = DataProvider.getInstance().ExcuteNonQuery(query);
         return resultSet > 0;
+    }
+
+    public int getLastID(){
+        int result = 0;
+        String query = "SELECT TOP 1 id FROM CustomerInfo ci ORDER BY id DESC";
+
+        try{
+            ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
+            if (resultSet.next()){
+                result = resultSet.getInt(1);
+            }
+        }catch (SQLException ex){
+
+        }
+
+        return result;
+    }
+
+    public boolean InsertCusInfo(String name){
+        String query = "INSERT INTO CustomerInfo (nameCus) VALUES (N'"+ name +"')";
+        int result = 0;
+
+        result = DataProvider.getInstance().ExcuteNonQuery(query);
+
+        return result > 0;
     }
 }

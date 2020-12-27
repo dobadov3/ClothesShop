@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.clothesshop.fragment.UserFragment;
+import com.example.clothesshop.model.CustomerInfo;
+import com.google.gson.Gson;
 
 public class DialogLogout extends AppCompatDialogFragment {
 
@@ -27,6 +29,16 @@ public class DialogLogout extends AppCompatDialogFragment {
                         UserFragment.CheckLogin = false;
                         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("checklogin", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+
+                        Gson gson = new Gson();
+                        String json =gson.toJson(new CustomerInfo());
+                        editor1.putString("cusInfo", json);
+
+                        editor1.apply();
+
                         editor.putString("login", "false");
                         editor.apply();
                         UserFragment.setVisibility();

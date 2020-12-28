@@ -1,5 +1,6 @@
 package com.example.clothesshop.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,16 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -52,11 +63,13 @@ public class SignInActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_sign_in);
 
+
         tvSignIn = findViewById(R.id.tvSignUp);
         etUser = findViewById(R.id.etEmail);
         etPass = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
         loginButton = findViewById(R.id.btn_login_fb);
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
@@ -66,7 +79,6 @@ public class SignInActivity extends AppCompatActivity {
         }
 
         callbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions(Arrays.asList("user_gender, user_friends"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -170,63 +182,67 @@ public class SignInActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
-        GraphRequest request = GraphRequest.newMeRequest(
-                AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.d(TAG, object.toString());
-                        try {
-                            String id = object.getString("id");
-                            String name = object.getString("name");
-                            String email = object.getString("email");
-                            String gender = object.getString("gender");
-                            JSONObject location = object.getJSONObject("location");
-                            String location_name = location.getString("name");
+        //Facebook
+        if (AccessToken.getCurrentAccessToken() != null)
+        {
+            GraphRequest request = GraphRequest.newMeRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            try {
+                                Log.d(TAG, object.toString());
+                                String id = object.getString("id");
+                                String name = object.getString("name");
+                                String email = object.getString("email");
+                                String gender = object.getString("gender");
+                                JSONObject location = object.getJSONObject("location");
+                                String location_name = location.getString("name");
 
-                            if (!AccountDAO.getInstance().Login(id, "fb" + id)){
-                                CustomerDAO.getInstance().InsertCusInfo(name, gender, email, location_name);
-                                AccountDAO.getInstance().InsertAccount(id, "fb"+id);
-                                Log.d(TAG, "onCompleted: ");
+                                if (!AccountDAO.getInstance().Login(id, "fb" + id)){
+                                    CustomerDAO.getInstance().InsertCusInfo(name, gender, email, location_name);
+                                    AccountDAO.getInstance().InsertAccount(id, "fb"+id);
+                                    Log.d(TAG, "onCompleted: ");
+                                }
+
+                                Intent intent = new Intent();
+                                Account account = AccountDAO.getInstance().getAccountByUsernamePassword(id, "fb"+id);
+                                CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(account.getIdCustomer());
+
+                                SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
+                                SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+                                Gson gson = new Gson();
+                                String json = gson.toJson(account);
+
+                                SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
+                                SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                                Gson gson1 = new Gson();
+                                String json1 = gson1.toJson(customerInfo);
+
+                                editor2.putString("cusInfo", json1);
+                                editor1.putString("accountInfo", json);
+                                editor.putString("login", "true");
+                                editor.apply();
+                                editor1.apply();
+                                editor2.apply();
+
+                                Log.d("Doba", location_name);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.d(TAG, e.toString());
                             }
-
-                            Intent intent = new Intent();
-                            Account account = AccountDAO.getInstance().getAccountByUsernamePassword(id, "fb"+id);
-                            CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(account.getIdCustomer());
-
-                            SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                            SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
-                            SharedPreferences.Editor editor1 = sharedPreferences1.edit();
-                            Gson gson = new Gson();
-                            String json = gson.toJson(account);
-
-                            SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-                            Gson gson1 = new Gson();
-                            String json1 = gson1.toJson(customerInfo);
-
-                            editor2.putString("cusInfo", json1);
-                            editor1.putString("accountInfo", json);
-                            editor.putString("login", "true");
-                            editor.apply();
-                            editor1.apply();
-                            editor2.apply();
-
-                            Log.d("Doba", location_name);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.d(TAG, e.toString());
                         }
-                    }
-                });
+                    });
 
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,gender,email,location");
-        request.setParameters(parameters);
-        request.executeAsync();
-        finish();
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,gender,email,location");
+            request.setParameters(parameters);
+            request.executeAsync();
+            finish();
+        }
     }
 
     AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {

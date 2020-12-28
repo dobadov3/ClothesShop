@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -119,6 +121,7 @@ public class PayActivity extends AppCompatActivity {
             public void run() {
                 if (InsertBill()){
                     InsertBillInfo();
+                    Log.d("Doba", "run: ");
                     dialog.dismissDialog();
                     Intent intent = new Intent(PayActivity.this, CompleteActivity.class);
                     startActivityForResult(intent, CompleteActivity.COMPLETE_ACTIVITY_REQUEST_CODE);
@@ -128,9 +131,10 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private boolean InsertBill(){
-        SharedPreferences sharedPreferences = getSharedPreferences("account", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("accountInfo", "");
+
         Account account = gson.fromJson(json, Account.class);
 
         return BillDAO.getInstance().InsertBill(account.getId(), 0, (getTotalPrice() + SHIP_COST));

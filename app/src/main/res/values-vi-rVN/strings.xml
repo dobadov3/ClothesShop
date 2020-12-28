@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ClothesShop</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="facebook_app_id">1116432168793815</string>
+    <string name="fb_login_protocol_scheme">fb1116432168793815</string>
+    <string name="title_activity_cart">CartActivity</string>
+    <string name="hello_world">Hello Round World!</string>
+    <string name="title_activity_cart_">Cart_Activity</string>
+    <string name="title_cart">GIỎ HÀNG</string>
+    <string name="count_item_cart">Bạn đang có 3 sản phẩm trong giỏ hàng</string>
+</resources>

@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.example.clothesshop.DAO.AccountDAO;
 import com.example.clothesshop.DAO.CustomerDAO;
 import com.example.clothesshop.R;
+import com.example.clothesshop.adapter.LoadingDialog;
 import com.example.clothesshop.fragment.UserFragment;
 import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.CustomerInfo;
@@ -31,18 +34,16 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
-import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,10 @@ public class SignInActivity extends AppCompatActivity {
     Button btnSignIn;
     LoginButton loginButton;
     CallbackManager callbackManager;
+    SignInButton signInButton;
+    GoogleSignInClient mGoogleSignInClient;
+    LoadingDialog dialog;
+    public static final int RC_SIGN_IN = 5134;
     String TAG = "Doba";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,8 @@ public class SignInActivity extends AppCompatActivity {
         etPass = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
         loginButton = findViewById(R.id.btn_login_fb);
+        signInButton = findViewById(R.id.btn_login_gg);
+        dialog = new LoadingDialog(SignInActivity.this);
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
@@ -77,6 +84,21 @@ public class SignInActivity extends AppCompatActivity {
         if (login.equals("false")){
             LoginManager.getInstance().logOut();
         }
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
+
+
 
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -182,67 +204,137 @@ public class SignInActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
+        //Google
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+
         //Facebook
         if (AccessToken.getCurrentAccessToken() != null)
         {
-            GraphRequest request = GraphRequest.newMeRequest(
-                    AccessToken.getCurrentAccessToken(),
-                    new GraphRequest.GraphJSONObjectCallback() {
-                        @Override
-                        public void onCompleted(JSONObject object, GraphResponse response) {
-                            try {
-                                Log.d(TAG, object.toString());
-                                String id = object.getString("id");
-                                String name = object.getString("name");
-                                String email = object.getString("email");
-                                String gender = object.getString("gender");
-                                JSONObject location = object.getJSONObject("location");
-                                String location_name = location.getString("name");
-
-                                if (!AccountDAO.getInstance().Login(id, "fb" + id)){
-                                    CustomerDAO.getInstance().InsertCusInfo(name, gender, email, location_name);
-                                    AccountDAO.getInstance().InsertAccount(id, "fb"+id);
-                                    Log.d(TAG, "onCompleted: ");
-                                }
-
-                                Intent intent = new Intent();
-                                Account account = AccountDAO.getInstance().getAccountByUsernamePassword(id, "fb"+id);
-                                CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(account.getIdCustomer());
-
-                                SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                                SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
-                                SharedPreferences.Editor editor1 = sharedPreferences1.edit();
-                                Gson gson = new Gson();
-                                String json = gson.toJson(account);
-
-                                SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
-                                SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-                                Gson gson1 = new Gson();
-                                String json1 = gson1.toJson(customerInfo);
-
-                                editor2.putString("cusInfo", json1);
-                                editor1.putString("accountInfo", json);
-                                editor.putString("login", "true");
-                                editor.apply();
-                                editor1.apply();
-                                editor2.apply();
-
-                                Log.d("Doba", location_name);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Log.d(TAG, e.toString());
-                            }
-                        }
-                    });
-
-            Bundle parameters = new Bundle();
-            parameters.putString("fields", "id,name,gender,email,location");
-            request.setParameters(parameters);
-            request.executeAsync();
-            finish();
+            handleGraphRequest();
         }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            if (account != null) {
+                String name = account.getDisplayName();
+                String email = account.getEmail();
+                String id = account.getId();
+                Uri personPhoto = account.getPhotoUrl();
+
+                Log.d(TAG, "DisplayName: "+name);
+                Log.d(TAG, "Email: "+email);
+                Log.d(TAG, "Id: "+id);
+                Log.d(TAG, "PhotoUrl: "+personPhoto);
+
+                if (!AccountDAO.getInstance().Login(id, "gg" + id)){
+                    CustomerDAO.getInstance().InsertCusInfo(name,email);
+                    AccountDAO.getInstance().InsertAccount(id, "gg"+id);
+                    Log.d(TAG, "Insert Info by google: Successful ");
+                }
+                Account acct = AccountDAO.getInstance().getAccountByUsernamePassword(id, "gg"+id);
+                CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(acct.getIdCustomer());
+
+                SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(acct);
+
+                SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                Gson gson1 = new Gson();
+                String json1 = gson1.toJson(customerInfo);
+
+                editor2.putString("cusInfo", json1);
+                editor1.putString("accountInfo", json);
+                editor.putString("login", "true");
+                editor.apply();
+                editor1.apply();
+                editor2.apply();
+
+                dialog.startLoadingDialog();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent();
+                        setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
+                        finish();
+                    }
+                }, 4000);
+            }
+
+        } catch (ApiException e) {
+            Log.d(TAG, e.toString());
+        }
+    }
+
+    private void handleGraphRequest(){
+        Intent intent = new Intent();
+        GraphRequest request = GraphRequest.newMeRequest(
+                AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            Log.d(TAG, object.toString());
+                            String id = object.getString("id");
+                            String name = object.getString("name");
+                            String email = object.getString("email");
+                            String gender = object.getString("gender");
+                            JSONObject location = object.getJSONObject("location");
+                            String location_name = location.getString("name");
+
+                            if (!AccountDAO.getInstance().Login(id, "fb" + id)){
+                                CustomerDAO.getInstance().InsertCusInfo(name, gender, email, location_name);
+                                AccountDAO.getInstance().InsertAccount(id, "fb"+id);
+                                Log.d(TAG, "onCompleted: ");
+                            }
+
+                            Account account = AccountDAO.getInstance().getAccountByUsernamePassword(id, "fb"+id);
+                            CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(account.getIdCustomer());
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
+                            SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(account);
+
+                            SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                            Gson gson1 = new Gson();
+                            String json1 = gson1.toJson(customerInfo);
+
+                            editor2.putString("cusInfo", json1);
+                            editor1.putString("accountInfo", json);
+                            editor.putString("login", "true");
+                            editor.apply();
+                            editor1.apply();
+                            editor2.apply();
+                            Log.d("Doba", location_name);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d(TAG, e.toString());
+                        }
+                    }
+                });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,gender,email,location");
+        request.setParameters(parameters);
+        request.executeAsync();
+        setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
+        finish();
     }
 
     AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {

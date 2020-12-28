@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.clothesshop.DAO.PurchaseDAO;
 import com.example.clothesshop.R;
@@ -74,12 +75,14 @@ public class HistoryFragment extends Fragment implements BillAdapter.OnDetailLis
     RecyclerView recyclerView;
     ArrayList<Purchased> mPurchased;
     BillAdapter adapter;
+    TextView tvNull;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerviewPurchased);
+        tvNull = view.findViewById(R.id.tvNull);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -91,6 +94,11 @@ public class HistoryFragment extends Fragment implements BillAdapter.OnDetailLis
         adapter = new BillAdapter(mPurchased, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
+
+        if (mPurchased.size() == 0)
+            tvNull.setVisibility(View.VISIBLE);
+        else
+            tvNull.setVisibility(View.INVISIBLE);
 
         return view;
     }

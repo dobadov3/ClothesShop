@@ -13,4 +13,6 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_cart_">Cart_Activity</string>
+    <string name="title_cart">CART</string>
+    <string name="count_item_cart">You already have 3 items in your cart</string>
 </resources>

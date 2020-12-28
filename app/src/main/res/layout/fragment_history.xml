@@ -11,4 +11,12 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerviewPurchased"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn chưa mua sản phẩm"
+        android:layout_centerInParent="true"
+        android:textSize="30dp"
+        android:id="@+id/tvNull"/>
+
 </RelativeLayout>

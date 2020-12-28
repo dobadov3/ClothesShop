@@ -105,7 +105,7 @@ public class UserFragment extends Fragment {
             CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
 
             tvUserName.setText(customerInfo.getName());
-            tvBirth.setText(customerInfo.getTel());
+            tvBirth.setText("0"+customerInfo.getTel());
         }
         else if (login.equals("false")){
             CheckLogin = false;
@@ -235,29 +235,16 @@ public class UserFragment extends Fragment {
         if (customerInfo != null)
         {
             tvUserName.setText(customerInfo.getName());
-            tvBirth.setText(customerInfo.getTel());
+            tvBirth.setText("0"+customerInfo.getTel());
             setVisibility();
         }
 
         if (resultCode == SIGN_IN_REQUEST_CODE)
         {
-            CustomerInfo customerInfo1 = (CustomerInfo) data.getSerializableExtra("CustomerInfo");
-            if (customerInfo1 != null)
-            {
-                CheckLogin = true;
-                SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences1.edit();
-
-                Gson gson1 = new Gson();
-                String json1 =gson1.toJson(customerInfo);
-                editor.putString("cusInfo", json1);
-
-                editor.apply();
-
-                tvUserName.setText(customerInfo.getName());
-                tvBirth.setText(customerInfo.getTel());
-                setVisibility();
-            }
+            CheckLogin = true;
+            tvUserName.setText(customerInfo.getName());
+            tvBirth.setText("0"+customerInfo.getTel());
+            setVisibility();
         }
         if(data == null)
             return;

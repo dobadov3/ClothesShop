@@ -99,6 +99,15 @@ public class CustomerDAO {
         return result > 0;
     }
 
+    public boolean InsertCusInfo(String name, String email){
+        String query = "INSERT INTO CustomerInfo (nameCus, email) VALUES (N'"+ name +"', '"+email+"')";
+        int result = 0;
+
+        result = DataProvider.getInstance().ExcuteNonQuery(query);
+
+        return result > 0;
+    }
+
     public boolean InsertCusInfo(String name, String gender,String email, String address){
         String query = "INSERT INTO CustomerInfo (nameCus, gender, email, address, tel) VALUES (N'"+name+"', 'N"+gender+"', 'N"+email+"', 'N"+address+"', '0')";
         int result = 0;

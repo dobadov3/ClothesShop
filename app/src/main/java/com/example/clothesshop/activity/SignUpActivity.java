@@ -57,6 +57,9 @@ public class SignUpActivity extends AppCompatActivity {
                 finish();
                 Toast.makeText(SignUpActivity.this, "Successful", Toast.LENGTH_SHORT).show();
             }
+            else{
+                Toast.makeText(SignUpActivity.this, "Tên tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

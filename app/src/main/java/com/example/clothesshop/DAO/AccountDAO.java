@@ -52,7 +52,24 @@ public class AccountDAO {
         return true;
     }
 
+    public boolean Login(String username){
+        String query = "SELECT * FROM Account WHERE username = '" + username + "'";
+        ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
+        try{
+            if (resultSet.next() == false)
+            {
+                return false;
+            }
+        }catch (SQLException ex){
+
+        }
+        return true;
+    }
+
     public boolean InsertAccount(String username, String  password){
+        if (Login(username))
+            return false;
+
         int result = 0;
 
         String query = "INSERT INTO Account (idCustomerInfo, username, accType, password) VALUES ("+ CustomerDAO.getInstance().getLastID() +", '"+username+"', 1, '"+password+"')";

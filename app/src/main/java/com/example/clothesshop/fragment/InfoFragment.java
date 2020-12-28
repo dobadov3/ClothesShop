@@ -105,7 +105,7 @@ public class InfoFragment extends Fragment {
             CustomerInfo customerInfo = (CustomerInfo) bundle.get("customerInfo");
             if (customerInfo != null){
                 etName.setText(customerInfo.getName());
-                etTel.setText(customerInfo.getTel());
+                etTel.setText("0"+customerInfo.getTel());
                 String gender = customerInfo.getGender();
                 if (gender == null)
                     spinGender.setSelection(0);

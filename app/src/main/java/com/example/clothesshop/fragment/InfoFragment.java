@@ -106,17 +106,17 @@ public class InfoFragment extends Fragment {
             if (customerInfo != null){
                 etName.setText(customerInfo.getName());
                 etTel.setText(customerInfo.getTel());
-                String gender = customerInfo.getGender().toLowerCase();
+                String gender = customerInfo.getGender();
                 if (gender == null)
                     spinGender.setSelection(0);
-                else if (gender.equals("male"))
+                else if (gender.equals("male") || gender.equals("Male"))
                 {
                     spinGender.setSelection(0);
                 }
-                else if(gender.equals("female")){
+                else if(gender.equals("female") || gender.equals("Female")){
                     spinGender.setSelection(1);
                 }
-                else if(gender.equals("other")){
+                else if(gender.equals("other") || gender.equals("Other")){
                     spinGender.setSelection(2);
                 }
 //

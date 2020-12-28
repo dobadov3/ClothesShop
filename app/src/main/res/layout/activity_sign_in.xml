@@ -120,4 +120,12 @@
         android:layout_below="@id/tv3"
         android:layout_marginTop="20dp"/>
 
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_login_gg"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/btn_login_fb"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

@@ -69,7 +69,7 @@ public class CustomerDAO {
     }
 
     public boolean UpdateInfo(int id, String name, String gender, String tel, String email, String address){
-        String query = String.format("UPDATE dbo.CustomerInfo SET nameCus = N'%s', gender = N'%s', tel = %s, email = '%s', address = '%s' WHERE id = " + id, name, gender, tel, email, address);
+        String query = String.format("UPDATE dbo.CustomerInfo SET nameCus = N'%s', gender = N'%s', tel = %s, email = N'%s', address = N'%s' WHERE id = " + id, name, gender, tel, email, address);
         int resultSet = DataProvider.getInstance().ExcuteNonQuery(query);
         return resultSet > 0;
     }
@@ -100,7 +100,7 @@ public class CustomerDAO {
     }
 
     public boolean InsertCusInfo(String name, String gender,String email, String address){
-        String query = "INSERT INTO CustomerInfo (nameCus, gender, email, address, tel) VALUES (N'"+name+"', '"+gender+"', '"+email+"', '"+address+"', '0')";
+        String query = "INSERT INTO CustomerInfo (nameCus, gender, email, address, tel) VALUES (N'"+name+"', 'N"+gender+"', 'N"+email+"', 'N"+address+"', '0')";
         int result = 0;
 
         result = DataProvider.getInstance().ExcuteNonQuery(query);

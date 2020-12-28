@@ -58,6 +58,13 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btnSignIn);
         loginButton = findViewById(R.id.btn_login_fb);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
+        String login = sharedPreferences.getString("login", "");
+
+        if (login.equals("false")){
+            LoginManager.getInstance().logOut();
+        }
+
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions(Arrays.asList("user_gender, user_friends"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -140,10 +147,18 @@ public class SignInActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(account);
 
+        SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        Gson gson1 = new Gson();
+        String json1 = gson1.toJson(customerInfo);
+
+        editor2.putString("cusInfo", json1);
+
         editor1.putString("accountInfo", json);
         editor.putString("login", "true");
         editor.apply();
         editor1.apply();
+        editor2.apply();
 
         intent.putExtra("CustomerInfo", customerInfo);
         setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);

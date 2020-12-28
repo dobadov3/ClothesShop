@@ -226,6 +226,7 @@ public class UserFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        setVisibility();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("cusInfo", "");
@@ -241,15 +242,15 @@ public class UserFragment extends Fragment {
         if (resultCode == SIGN_IN_REQUEST_CODE)
         {
             CustomerInfo customerInfo1 = (CustomerInfo) data.getSerializableExtra("CustomerInfo");
-            if (customerInfo != null)
+            if (customerInfo1 != null)
             {
                 CheckLogin = true;
                 SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = sharedPreferences1.edit();
 
                 Gson gson1 = new Gson();
-                String json1 =gson.toJson(customerInfo);
-                editor.putString("cusInfo", json);
+                String json1 =gson1.toJson(customerInfo);
+                editor.putString("cusInfo", json1);
 
                 editor.apply();
 
@@ -275,14 +276,10 @@ public class UserFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences1.getString("cusInfo", "");
-        CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
 
-        tvUserName.setText(customerInfo.getName());
-        tvBirth.setText(customerInfo.getTel());
+        setVisibility();
         MainActivity.tvTitle.setText("CÁ NHÂN");
+
     }
 
 

@@ -106,17 +106,17 @@ public class InfoFragment extends Fragment {
             if (customerInfo != null){
                 etName.setText(customerInfo.getName());
                 etTel.setText(customerInfo.getTel());
-                String gender = customerInfo.getGender();
+                String gender = customerInfo.getGender().toLowerCase();
                 if (gender == null)
                     spinGender.setSelection(0);
-                else if (gender.equals("Male"))
+                else if (gender.equals("male"))
                 {
                     spinGender.setSelection(0);
                 }
-                else if(gender.equals("Female")){
+                else if(gender.equals("female")){
                     spinGender.setSelection(1);
                 }
-                else if(gender.equals("Other")){
+                else if(gender.equals("other")){
                     spinGender.setSelection(2);
                 }
 //
@@ -130,7 +130,7 @@ public class InfoFragment extends Fragment {
     }
     private void onClickBtnUpdate(View view){
         String name  = etName.getText().toString();
-        String gender = spinGender.getSelectedItem().toString();
+        String gender = spinGender.getSelectedItem().toString().toLowerCase();
         String tel = etTel.getText().toString();
         String email = etEmail.getText().toString();
         String address = etAddress.getText().toString();

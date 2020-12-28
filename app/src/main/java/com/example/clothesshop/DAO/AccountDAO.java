@@ -61,4 +61,25 @@ public class AccountDAO {
 
         return result > 0;
     }
+
+    public Account getLastAccount(){
+        Account account = new Account();
+
+        String query = "SELECT TOP 1 * FROM Account a ORDER BY id DESC";
+
+        try{
+            ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
+            while (resultSet.next()){
+                account.setId(resultSet.getInt(1));
+                account.setIdCustomer(resultSet.getInt(2));
+                account.setUsername(resultSet.getString(3));
+                account.setType(resultSet.getInt(4));
+                account.setPassword(resultSet.getString(5));
+            }
+        }catch (SQLException ex){
+
+        }
+
+        return account;
+    }
 }

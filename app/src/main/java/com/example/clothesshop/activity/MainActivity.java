@@ -22,6 +22,7 @@ import com.example.clothesshop.fragment.UserFragment;
 
 
 import com.example.clothesshop.R;
+import com.facebook.FacebookSdk;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         btnCart = findViewById(R.id.shopcart);
         editTextSearch = findViewById(R.id.etSearch);

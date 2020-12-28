@@ -225,17 +225,30 @@ public class UserFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("cusInfo", "");
+        CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
+
+        if (customerInfo != null)
+        {
+            tvUserName.setText(customerInfo.getName());
+            tvBirth.setText(customerInfo.getTel());
+            setVisibility();
+        }
+
         if (resultCode == SIGN_IN_REQUEST_CODE)
         {
-            CustomerInfo customerInfo = (CustomerInfo) data.getSerializableExtra("CustomerInfo");
+            CustomerInfo customerInfo1 = (CustomerInfo) data.getSerializableExtra("CustomerInfo");
             if (customerInfo != null)
             {
                 CheckLogin = true;
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                Gson gson = new Gson();
-                String json =gson.toJson(customerInfo);
+                Gson gson1 = new Gson();
+                String json1 =gson.toJson(customerInfo);
                 editor.putString("cusInfo", json);
 
                 editor.apply();
@@ -247,6 +260,8 @@ public class UserFragment extends Fragment {
         }
         if(data == null)
             return;
+
+
     }
     void MoveToFragment(Fragment fragment)
     {

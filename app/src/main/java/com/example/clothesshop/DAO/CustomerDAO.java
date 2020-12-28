@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class CustomerDAO {
     private static CustomerDAO instance;
@@ -96,5 +97,37 @@ public class CustomerDAO {
         result = DataProvider.getInstance().ExcuteNonQuery(query);
 
         return result > 0;
+    }
+
+    public boolean InsertCusInfo(String name, String gender,String email, String address){
+        String query = "INSERT INTO CustomerInfo (nameCus, gender, email, address, tel) VALUES (N'"+name+"', '"+gender+"', '"+email+"', '"+address+"', '0')";
+        int result = 0;
+
+        result = DataProvider.getInstance().ExcuteNonQuery(query);
+
+        return result > 0;
+    }
+
+    public CustomerInfo getLastInfo(){
+        CustomerInfo customerInfo = new CustomerInfo();
+
+        String query = "SELECT TOP 1 * FROM CustomerInfo ci ORDER BY id DESC";
+
+        try{
+            ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
+
+            if (resultSet.next()){
+                customerInfo.setId(resultSet.getInt(1));
+                customerInfo.setName(resultSet.getString(2));
+                customerInfo.setGender(resultSet.getString(3));
+                customerInfo.setTel(resultSet.getString(4));
+                customerInfo.setEmail(resultSet.getString(5));
+                customerInfo.setAddress(resultSet.getString(6));
+            }
+        }catch (SQLException ex){
+
+        }
+
+        return customerInfo;
     }
 }

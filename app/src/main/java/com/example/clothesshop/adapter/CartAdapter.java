@@ -44,6 +44,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
         Clothes clothes = mClothes.get(position);
         Cart cart = mCart.get(position);
 
+        holder.elegantNumberButton.setRange(1, 50);
+
         Picasso.get().load(clothes.getImage()).into(holder.imageView);
 
         Locale locale = new Locale("nv", "VN");

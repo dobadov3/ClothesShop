@@ -75,7 +75,7 @@ public class UserFragment extends Fragment {
     public static final int SIGN_IN_REQUEST_CODE = 4667;
     public static boolean CheckLogin = false;
     RelativeLayout relativeLayoutInfo;
-    static RelativeLayout relativeLayoutLogout;
+    static RelativeLayout relativeLayoutLogout, relativeLayoutLogin;
     RelativeLayout relativeLayoutBill;
     RelativeLayout relativeLayoutHistory;
     RelativeLayout relativeLayoutContact;
@@ -91,6 +91,7 @@ public class UserFragment extends Fragment {
         relativeLayoutHistory = view.findViewById(R.id.relative4);
         relativeLayoutContact = view.findViewById(R.id.relative5);
         relativeLayoutLogout = view.findViewById(R.id.relative6);
+        relativeLayoutLogin = view.findViewById(R.id.relative7);
         imageView = view.findViewById(R.id.imgAvatar);
         tvUserName = view.findViewById(R.id.tvNameUser);
         tvBirth = view.findViewById(R.id.tvBirthday);
@@ -145,6 +146,13 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onClickRelativeLogout(v);
+            }
+        });
+
+        relativeLayoutLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRelativeLogin(v);
             }
         });
 
@@ -212,15 +220,24 @@ public class UserFragment extends Fragment {
         setVisibility();
     }
 
+    void onClickRelativeLogin(View view){
+        Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
+        startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
+    }
+
     public static void setVisibility(){
         if (CheckLogin){
             imageView.setVisibility(View.VISIBLE);
-            relativeLayoutLogout.setVisibility(View.VISIBLE);}
+            relativeLayoutLogout.setVisibility(View.VISIBLE);
+            relativeLayoutLogin.setVisibility(View.INVISIBLE);
+        }
         else{
             tvUserName.setText("");
             tvBirth.setText("");
             imageView.setVisibility(View.INVISIBLE);
-            relativeLayoutLogout.setVisibility(View.INVISIBLE);}
+            relativeLayoutLogout.setVisibility(View.INVISIBLE);
+            relativeLayoutLogin.setVisibility(View.VISIBLE);
+        }
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

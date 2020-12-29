@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment implements SaleAdapter.OnClothesSaleL
         bundle.putString("Image3", clothes.getImage3());
         bundle.putString("Image4", clothes.getImage4());
         bundle.putString("Name", clothes.getName());
-        bundle.putInt("Price", clothes.getPrice());
+        bundle.putInt("Price", clothes.getPriceSale());
         bundle.putSerializable("Clothes", clothes);
 
         CartFragment cartFragment = new CartFragment();

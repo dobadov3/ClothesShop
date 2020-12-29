@@ -75,6 +75,7 @@ public class PayActivity extends AppCompatActivity {
         tvShipCost.setText("" + currencyFormatter.format(SHIP_COST));
         tvTotalShip.setText("" + currencyFormatter.format(getTotalPrice() + SHIP_COST));
         tvFinal.setText("" + currencyFormatter.format(getTotalPrice() + SHIP_COST));
+        tvCountProducts.setText(getString(R.string.totalPrice) + " (" + mClothes.size() + " " + getString(R.string.product) + ")");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
@@ -125,6 +126,8 @@ public class PayActivity extends AppCompatActivity {
                     dialog.dismissDialog();
                     Intent intent = new Intent(PayActivity.this, CompleteActivity.class);
                     startActivityForResult(intent, CompleteActivity.COMPLETE_ACTIVITY_REQUEST_CODE);
+                    CartActivity.mClothes.clear();
+                    CartActivity.mCart.clear();
                 }
             }
         }, 4000);

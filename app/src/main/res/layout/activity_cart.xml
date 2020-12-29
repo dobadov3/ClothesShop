@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GIỎ HÀNG"
+            android:text="@string/title_cart"
             android:textColor="@color/white"
             android:textSize="40dp"
             android:fontFamily="@font/segoeuil"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv1"
-        android:text="Bạn đang có 3 sản phẩm trong giỏ hàng"
+        android:text=""
         android:layout_below="@+id/relative1"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"/>
@@ -60,18 +60,18 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoeuil"
             android:layout_centerVertical="true"
-            android:text="Thông tin giao hàng:"
+            android:text="@string/shipment_details"
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
             android:textSize="18dp"
             android:id="@+id/tv2"/>
 
         <LinearLayout
-            android:layout_width="130dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toRightOf="@id/tv2"
             android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
             android:background="@color/white"
             android:layout_centerVertical="true">
 
@@ -80,33 +80,25 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvCus_Name"
                 android:text="Nguyễn Duy Anh"
-                android:textSize="12dp"
+                android:textSize="15dp"
                 android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvCus_Tel"
                 android:text="0944609933"
-                android:textSize="12dp"
+                android:textSize="15dp"
                 android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/tvCus_Address"
                 android:text="246/71 Hòa Hưng p.13 quận 10"
-                android:textSize="12dp"
+                android:textSize="15dp"
                 android:textColor="@color/black"/>
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:text="Thay đổi địa chỉ"
-            android:textSize="7dp"
-            android:backgroundTint="@color/red"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -122,21 +114,23 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:fontFamily="@font/segoeuil"
-            android:text="Tổng tiền: 2,100,000đ"
+            android:text=""
             android:id="@+id/tvTotal"
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
             android:textSize="17dp" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:id="@+id/btnPay"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
             android:layout_centerVertical="true"
             android:backgroundTint="@color/black"
             android:drawableLeft="@drawable/ic_baseline_call_to_action_24"
-            android:text="Thanh toán"
+            android:text="@string/cash"
+            android:textColor="@color/white"
             android:textSize="10dp" />
 
     </RelativeLayout>

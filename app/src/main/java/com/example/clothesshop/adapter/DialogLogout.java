@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.clothesshop.R;
 import com.example.clothesshop.fragment.UserFragment;
 import com.example.clothesshop.model.CustomerInfo;
 import com.google.gson.Gson;
@@ -21,9 +22,9 @@ public class DialogLogout extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Đăng xuất")
-                .setMessage("Bạn có chắc là muốn đăng xuất không?")
-                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.logout))
+                .setMessage(getString(R.string.check_logout))
+                .setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         UserFragment.CheckLogin = false;
@@ -43,7 +44,7 @@ public class DialogLogout extends AppCompatDialogFragment {
                         editor.apply();
                         UserFragment.setVisibility();
                     }
-                }).setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 UserFragment.CheckLogin = true;

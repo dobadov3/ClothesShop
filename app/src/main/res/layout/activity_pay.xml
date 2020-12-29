@@ -15,7 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="THANH TOÁN"
+            android:text="@string/cash"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="40dp"
             android:fontFamily="@font/segoeuil"
@@ -81,12 +82,12 @@
                 android:textColor="@color/black"
                 android:layout_marginBottom="10dp"
                 android:textSize="18dp"
-                android:text="Phí vận chuyển:"/>
+                android:text="@string/transport_fee"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tổng cộng:"
+                android:text="@string/total"
                 android:textSize="18dp"
                 android:fontFamily="@font/segoeuil"
                 android:textColor="@color/black"/>
@@ -130,7 +131,7 @@
         android:id="@+id/relative2">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/relativePay"
             android:orientation="vertical"
@@ -140,7 +141,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tổng thanh toán"/>
+                android:text="@string/total" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,7 +165,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đặt hàng"
+                android:text="@string/order"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/white"

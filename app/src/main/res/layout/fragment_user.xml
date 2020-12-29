@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoeuil"
             android:textColor="@color/black"
-            android:text="Thông tin cá nhân"
+            android:text="@string/personal_info"
             android:textSize="25dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imagePersonal"/>
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoeuil"
             android:textColor="@color/black"
-            android:text="Quản lý đơn hàng"
+            android:text="@string/bill_manager"
             android:textSize="25dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageBill"/>
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoeuil"
             android:textColor="@color/black"
-            android:text="Lịch sử mua hàng"
+            android:text="@string/history"
             android:textSize="25dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageHistory"/>
@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoeuil"
             android:textColor="@color/black"
-            android:text="Liên hệ"
+            android:text="@string/contact"
             android:textSize="25dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageContact"/>
@@ -184,37 +184,76 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relative6"
-        android:background="@drawable/custom_rl"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/relative5">
+        android:layout_below="@+id/relative5"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/custom_rl">
 
         <ImageView
+            android:id="@+id/imageLogout"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/imageLogout"
-            android:src="@drawable/ic_baseline_login_24"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_baseline_login_24" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/segoeuil"
-            android:textColor="@color/black"
-            android:text="Đăng xuất"
-            android:textSize="25dp"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageLogout"/>
+            android:layout_toRightOf="@+id/imageLogout"
+            android:fontFamily="@font/segoeuil"
+            android:text="@string/logout"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
         <ImageButton
+            android:id="@+id/btnLogout"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="#F3F1F1"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_chevron_right_24px"
-            android:id="@+id/btnLogout"
-            android:background="#F3F1F1"/>
+            android:src="@drawable/ic_chevron_right_24px" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative5"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/custom_rl">
+
+        <ImageView
+            android:id="@+id/imageLogin"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_baseline_person_outline_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageLogin"
+            android:fontFamily="@font/segoeuil"
+            android:text="@string/login"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+        <ImageButton
+            android:id="@+id/btnLogin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="#F3F1F1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_chevron_right_24px" />
 
     </RelativeLayout>
 

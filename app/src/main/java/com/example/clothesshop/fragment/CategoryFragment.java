@@ -143,7 +143,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
     private void onClickTops(View view)
     {
         mclothes.clear();
-        tvTitle.setText("TOPS");
+        tvTitle.setText(getString(R.string.tops));
 
         mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(1);
 
@@ -154,7 +154,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
     private void onClickBottoms(View view)
     {
         mclothes.clear();
-        tvTitle.setText("BOTTOMS");
+        tvTitle.setText(getString(R.string.bottoms));
 
         mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(2);
 
@@ -165,7 +165,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
     private void onClickBags(View view)
     {
         mclothes.clear();
-        tvTitle.setText("BAGS");
+        tvTitle.setText(getString(R.string.bags));
 
         mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(3);
 
@@ -176,7 +176,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
     private void onClickHats(View view)
     {
         mclothes.clear();
-        tvTitle.setText("HATS");
+        tvTitle.setText(getString(R.string.hats));
 
         mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(4);
 
@@ -187,7 +187,7 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
     private void onClickSales(View view)
     {
         mclothes.clear();
-        tvTitle.setText("SALES");
+        tvTitle.setText(getString(R.string.sales));
 
         mclothes = ClothesDAO.getInstance().getListClothesSale();
 

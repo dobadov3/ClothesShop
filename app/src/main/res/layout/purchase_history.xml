@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mã đơn hàng: Boeing-747"
+        android:text="@string/bill_id"
         android:fontFamily="@font/segoeuil"
         android:layout_margin="15dp"
         android:id="@+id/tvMaDonHang"
@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ngày : 30/02/2020"
+        android:text="@string/date_buy"
         android:fontFamily="@font/segoeuil"
         android:layout_marginLeft="15dp"
         android:id="@+id/tvDate"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/segoeuil"
-        android:text="Tên sản phẩm"
+        android:text="Product name"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageViewItem"
-        android:text="1 sản phẩm "
+        android:text="@string/product"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="35dp"
         android:id="@+id/tvCountItem"/>
@@ -102,7 +102,7 @@
             android:layout_marginLeft="25dp"
             android:backgroundTint="@color/bottom_color"
             android:fontFamily="@font/segoeuil"
-            android:text="Chi tiết"
+            android:text="@string/detail"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:id="@+id/DetailButton"/>
@@ -114,7 +114,7 @@
             android:layout_alignParentRight="true"
             android:fontFamily="@font/segoeuil"
             android:id="@+id/tvShipPrice"
-            android:text="Tiền vận chuyển : 20.000 VNĐ "
+            android:text="@string/transport_fee"
             android:textColor="@color/black"
             android:layout_marginRight="10dp">
 
@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:id="@+id/tvTotal_Price"
-            android:text="Tổng tiền : 520.000 VNĐ "
+            android:text="@string/totalPrice"
             android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/segoeuil"

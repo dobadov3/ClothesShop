@@ -177,12 +177,13 @@
         android:layout_toRightOf="@+id/imgViewClothes"
         android:id="@+id/linear1"
         android:weightSum="2"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/radioGroupSize">
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/btnCart"
-            android:text="Giỏ hàng"
+            android:text="@string/title_cart"
             android:textSize="10dp"
             android:backgroundTint="@color/red"
             android:layout_weight="1"
@@ -199,7 +200,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/black"
             android:drawableLeft="@drawable/ic_baseline_call_to_action_24"
-            android:text="Thanh toán"/>
+            android:text="@string/cash"/>
     </LinearLayout>
 
     <View
@@ -214,7 +215,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mô tả"
+        android:text="@string/description"
         android:layout_below="@+id/line3"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
@@ -231,7 +232,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ghi chú ở đây"
+            android:text=""
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/tvDescription"/>

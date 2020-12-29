@@ -15,7 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ĐĂNG KÝ"
+            android:text="@string/sign_up"
+            android:textAllCaps="true"
             android:textSize="40dp"
             android:textColor="@color/white"
             android:layout_centerVertical="true"
@@ -27,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Họ và tên:"
+        android:text="@string/full_name"
         android:id="@+id/tvUserNameSignUp"
         android:textSize="20dp"
         android:layout_marginLeft="40dp"
@@ -46,7 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username:"
+        android:text="@string/username"
         android:id="@+id/tvEmailSignUp"
         android:textSize="20dp"
         android:layout_marginLeft="40dp"
@@ -64,7 +65,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password:"
+        android:text="@string/password"
         android:id="@+id/tvPasswordSignUp"
         android:textSize="20dp"
         android:layout_marginLeft="40dp"
@@ -89,7 +90,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/top_color"
-        android:text="ĐĂNG KÝ" />
+        android:text="@string/sign_up" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,11 +105,11 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/btnSignIn"
-            android:text="Bạn đã có tài khoản? - "/>
+            android:text="@string/have_account"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng nhập"
+            android:text="@string/sign_in"
             android:textColor="@color/bottom_color"
             android:id="@+id/tvSignIn"/>
     </LinearLayout>
@@ -118,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="@color/bottom_color"
-        android:text="Quên mật khẩu?"
+        android:text="@string/forgot_password"
         android:layout_below="@id/linear1"
         android:layout_marginTop="20dp"
         android:id="@+id/tvForgotSignUp"/>

@@ -15,8 +15,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="THANH TOÁN"
+            android:text="@string/cash"
             android:textColor="@color/white"
+            android:textAllCaps="true"
             android:textSize="40dp"
             android:fontFamily="@font/segoeuil"
             android:layout_centerVertical="true"
@@ -32,7 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đặt hàng thành công"
+        android:text="@string/order_success"
         android:textSize="25dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/tv1"
@@ -44,6 +45,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/tv1"
         android:layout_marginTop="20dp"
-        android:text="Xác nhận"/>
+        android:text="@string/confirm"/>
 
 </RelativeLayout>

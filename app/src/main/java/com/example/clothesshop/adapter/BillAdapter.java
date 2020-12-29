@@ -1,5 +1,6 @@
 package com.example.clothesshop.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -23,15 +24,17 @@ import java.util.Locale;
 
 public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     ArrayList<Purchased> mPurchased;
+    Activity activity;
 
     OnDetailListener onDetailListener;
 
     public interface OnDetailListener{
         void onClothesClick(int position);
     }
-    public BillAdapter(ArrayList<Purchased> mPurchased, OnDetailListener onDetailListener){
+    public BillAdapter(Activity activity, ArrayList<Purchased> mPurchased, OnDetailListener onDetailListener){
         this.mPurchased = mPurchased;
         this.onDetailListener = onDetailListener;
+        this.activity = activity;
     }
     @NonNull
     @Override
@@ -49,14 +52,14 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
         Picasso.get().load(purchased.getImage()).into(holder.imgProduct);
-        holder.tvIdBill.setText("Mã đơn hàng: " + purchased.getId());
-        holder.tvDate.setText("Ngày mua: " + purchased.getCreateDay().toString());
+        holder.tvIdBill.setText(activity.getString(R.string.bill_id) + ": " + purchased.getId());
+        holder.tvDate.setText(activity.getString(R.string.date_buy) + " " + purchased.getCreateDay().toString());
         holder.tvNameClothes.setText(purchased.getName());
         holder.tvCount.setText("x" + purchased.getCountProduct());
         holder.tvPrice.setText("" + currencyFormatter.format(purchased.getPrice() * purchased.getCountProduct()));
-        holder.tvCountProduct.setText("Đơn hàng này có " + purchased.getCountItem() + " sản phẩm");
-        holder.tvShipCost.setText("" + currencyFormatter.format(purchased.getShipCost()));
-        holder.tvTotal.setText(currencyFormatter.format(purchased.getTotal()));
+        holder.tvCountProduct.setText(purchased.getCountItem() + " " + activity.getString(R.string.product));
+        holder.tvShipCost.setText(activity.getString(R.string.transport_fee) + ": " + currencyFormatter.format(purchased.getShipCost()));
+        holder.tvTotal.setText(activity.getString(R.string.totalPrice) + " " +currencyFormatter.format(purchased.getTotal()));
 
         holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override

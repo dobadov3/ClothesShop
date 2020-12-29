@@ -1,9 +1,7 @@
 package com.example.clothesshop.activity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,28 +9,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.CartAdapter;
 import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
 import com.example.clothesshop.model.CustomerInfo;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import static android.widget.LinearLayout.*;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -66,7 +57,7 @@ public class CartActivity extends AppCompatActivity {
         CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
 
         tvCus_Name.setText(customerInfo.getName());
-        tvCus_Tel.setText(customerInfo.getTel());
+        tvCus_Tel.setText("0"+customerInfo.getTel());
         tvCus_Address.setText(customerInfo.getAddress());
 
         btnPay.setOnClickListener(new View.OnClickListener(){
@@ -76,11 +67,11 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        tv1.setText("Bạn đang có " + mClothes.size() + " trong giỏ hàng");
+        tv1.setText(getString(R.string.count_item_cart_1) + " " + mClothes.size() + " " + getString(R.string.count_item_cart_2));
 
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
+        tvTotal.setText(getString(R.string.total) + " " + currencyFormatter.format(Cart.price));
 
         mNumber = new String[mClothes.size()];
 
@@ -91,10 +82,12 @@ public class CartActivity extends AppCompatActivity {
 
 
     private void onClickBtnPay(View view){
-        Intent intent = new Intent(CartActivity.this, PayActivity.class);
-        intent.putExtra("ListClothes", mClothes);
-        intent.putExtra("ListCart", mCart);
-        startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
+        if (mClothes.size() != 0){
+            Intent intent = new Intent(CartActivity.this, PayActivity.class);
+            intent.putExtra("ListClothes", mClothes);
+            intent.putExtra("ListCart", mCart);
+            startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
+        }
     }
 
     @Override
@@ -102,8 +95,6 @@ public class CartActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PayActivity.PAY_ACTIVITY_REQUEST_CODE){
-            mClothes.clear();
-            mCart.clear();
             recyclerView.setAdapter(adapter);
         }
     }

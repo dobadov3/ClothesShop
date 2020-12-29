@@ -15,7 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ĐĂNG NHẬP"
+            android:text="@string/sign_in"
+            android:textAllCaps="true"
             android:textSize="40dp"
             android:textColor="@color/white"
             android:layout_centerVertical="true"
@@ -27,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username:"
+        android:text="@string/username"
         android:id="@+id/tvEmail"
         android:textSize="20dp"
         android:layout_marginLeft="40dp"
@@ -45,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password:"
+        android:text="@string/password"
         android:id="@+id/tvPassword"
         android:textSize="20dp"
         android:layout_marginLeft="40dp"
@@ -70,7 +71,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/top_color"
-        android:text="ĐĂNG NHẬP" />
+        android:text="@string/sign_in" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,11 +86,11 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/btnSignIn"
-            android:text="Bạn chưa có tài khoản - "/>
+            android:text="@string/dont_have_account"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng kí"
+            android:text="@string/sign_up"
             android:textColor="@color/bottom_color"
             android:id="@+id/tvSignUp"/>
     </LinearLayout>
@@ -99,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="@color/bottom_color"
-        android:text="Quên mật khẩu?"
+        android:text="@string/forgot_password"
         android:layout_below="@id/linear1"
         android:layout_marginTop="20dp"
         android:id="@+id/tvForgot"/>
@@ -107,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Hoặc đăng nhập với"
+        android:text="@string/sign_in_with"
         android:layout_below="@+id/tvForgot"
         android:layout_marginTop="20dp"
         android:id="@+id/tv3"/>

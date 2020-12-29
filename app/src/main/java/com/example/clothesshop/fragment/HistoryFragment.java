@@ -91,7 +91,7 @@ public class HistoryFragment extends Fragment implements BillAdapter.OnDetailLis
         Account account = gson.fromJson(json, Account.class);
 
         mPurchased = PurchaseDAO.getInstance().getListPurchased(account.getId());
-        adapter = new BillAdapter(mPurchased, this);
+        adapter = new BillAdapter(getActivity() ,mPurchased, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
 

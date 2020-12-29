@@ -71,13 +71,10 @@ public class HomeFragment extends Fragment implements SaleAdapter.OnClothesSaleL
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    ArrayList<Clothes> mclothesHot;
-    ArrayList<Clothes> mclothesSale;
-    RecyclerView recyclerViewSale;
-    RecyclerView recyclerViewHot;
+    ArrayList<Clothes> mclothesHot, mclothesSale;
+    RecyclerView recyclerViewSale, recyclerViewHot;
     HomeAdapter hotadapter;
     SaleAdapter saleAdapter;
-
     TextView tvSale1,tvSale2, tvHot;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,31 +86,35 @@ public class HomeFragment extends Fragment implements SaleAdapter.OnClothesSaleL
         tvSale2 = view.findViewById(R.id.tvsale2);
         tvHot = view.findViewById(R.id.tvHot);
 
+        ChangeTextColor();
+        setAdapter();
+
+        return view;
+    }
+
+    void ChangeTextColor(){
         Shader shader = new LinearGradient(0,0,0,tvHot.getLineHeight(),
                 Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
         tvSale1.getPaint().setShader(shader);
         tvSale2.getPaint().setShader(shader);
         tvHot.getPaint().setShader(shader);
+    }
 
+    private void setAdapter(){
         mclothesSale = ClothesDAO.getInstance().getListClothesSale();
         mclothesHot = ClothesDAO.getInstance().getListHotClothes();
 
         hotadapter = new HomeAdapter(mclothesHot, this);
         saleAdapter = new SaleAdapter(mclothesSale, this);
 
-        setAdapter(recyclerViewSale, saleAdapter);
-        setAdapter(recyclerViewHot, hotadapter);
+        recyclerViewSale.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        recyclerViewSale.setAdapter(saleAdapter);
 
-        return view;
+        recyclerViewHot.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        recyclerViewHot.setAdapter(hotadapter);
     }
 
-    private void setAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter){
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        recyclerView.setAdapter( adapter);
-    }
-
-    @Override
-    public void onClothesClick(int position) {
+    void onClickItem(int position){
         Clothes clothes = mclothesHot.get(position);
 
         Bundle bundle = new Bundle();
@@ -135,24 +136,12 @@ public class HomeFragment extends Fragment implements SaleAdapter.OnClothesSaleL
     }
 
     @Override
+    public void onClothesClick(int position) {
+        onClickItem(position);
+    }
+
+    @Override
     public void onClothesSaleClick(int position) {
-        Clothes clothes = mclothesSale.get(position);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("Image", clothes.getImage());
-        bundle.putString("Image2", clothes.getImage2());
-        bundle.putString("Image3", clothes.getImage3());
-        bundle.putString("Image4", clothes.getImage4());
-        bundle.putString("Name", clothes.getName());
-        bundle.putInt("Price", clothes.getPriceSale());
-        bundle.putSerializable("Clothes", clothes);
-
-        CartFragment cartFragment = new CartFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.layout_container, cartFragment);
-        cartFragment.setArguments(bundle);
-        fragmentTransaction.commit();
+        onClickItem(position);
     }
 }

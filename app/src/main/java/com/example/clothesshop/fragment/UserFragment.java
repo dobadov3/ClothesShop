@@ -25,6 +25,7 @@ import com.example.clothesshop.activity.SignInActivity;
 import com.example.clothesshop.adapter.DialogLogout;
 import com.example.clothesshop.model.CustomerInfo;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,6 +74,7 @@ public class UserFragment extends Fragment {
         }
     }
     public static final int SIGN_IN_REQUEST_CODE = 4667;
+    public static final int REQUEST_IMAGE_CAPTURE = 101;
     public static boolean CheckLogin = false;
     RelativeLayout relativeLayoutInfo;
     static RelativeLayout relativeLayoutLogout, relativeLayoutLogin;
@@ -96,17 +98,23 @@ public class UserFragment extends Fragment {
         tvUserName = view.findViewById(R.id.tvNameUser);
         tvBirth = view.findViewById(R.id.tvBirthday);
 
+        imageView.setClipToOutline(true);
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("checklogin", Context.MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
         if(login.equals("true")){
             CheckLogin = true;
             SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
             Gson gson = new Gson();
+            String avatar = sharedPreferences1.getString("avatar", "");
+
             String json = sharedPreferences1.getString("cusInfo", "");
             CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
 
             tvUserName.setText(customerInfo.getName());
             tvBirth.setText("0"+customerInfo.getTel());
+            if(!avatar.equals(""))
+                Picasso.get().load(avatar).into(imageView);
         }
         else if (login.equals("false")){
             CheckLogin = false;
@@ -155,10 +163,20 @@ public class UserFragment extends Fragment {
                 onClickRelativeLogin(v);
             }
         });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickAvatar(v);
+            }
+        });
 
         return view;
     }
-
+    private void onClickAvatar(View view){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
     void onClickRelativeInfo(View view){
         if(CheckLogin == false)
         {
@@ -219,12 +237,10 @@ public class UserFragment extends Fragment {
         dialogLogout.show(getActivity().getSupportFragmentManager(), "Logout");
         setVisibility();
     }
-
     void onClickRelativeLogin(View view){
         Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
         startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
     }
-
     public static void setVisibility(){
         if (CheckLogin){
             imageView.setVisibility(View.VISIBLE);
@@ -239,12 +255,24 @@ public class UserFragment extends Fragment {
             relativeLayoutLogin.setVisibility(View.VISIBLE);
         }
     }
+    void MoveToFragment(Fragment fragment)
+    {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.layout_container, fragment);
+        fragmentTransaction.commit();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         setVisibility();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+        String avatar = sharedPreferences.getString("avatar", "");
+        if(!avatar.equals(""))
+            Picasso.get().load(avatar).into(imageView);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("cusInfo", "");
         CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
@@ -265,16 +293,10 @@ public class UserFragment extends Fragment {
         }
         if(data == null)
             return;
+        if (requestCode == REQUEST_IMAGE_CAPTURE){
+            Picasso.get().load(data.getData()).into(imageView);
+        }
 
-
-    }
-    void MoveToFragment(Fragment fragment)
-    {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.layout_container, fragment);
-        fragmentTransaction.commit();
     }
 
     @Override

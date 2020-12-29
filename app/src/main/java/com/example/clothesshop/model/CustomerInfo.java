@@ -8,6 +8,15 @@ public class CustomerInfo implements Serializable {
     private String gender;
     private String tel;
     private String email;
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public int getId() {
         return id;
@@ -57,13 +66,14 @@ public class CustomerInfo implements Serializable {
         this.address = address;
     }
 
-    public CustomerInfo(int id, String name, String gender, String tel, String email, String address) {
+    public CustomerInfo(int id, String name, String gender, String tel, String email, String address, String avatar) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.tel = tel;
         this.email = email;
         this.address = address;
+        this.avatar = avatar;
     }
 
     public CustomerInfo() {

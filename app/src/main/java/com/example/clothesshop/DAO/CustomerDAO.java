@@ -37,6 +37,7 @@ public class CustomerDAO {
                 customer.setTel(resultSet.getString(4));
                 customer.setEmail(resultSet.getString(5));
                 customer.setAddress(resultSet.getString(6));
+                customer.setAvatar(resultSet.getString(7));
             }
         }catch (SQLException ex)
         {
@@ -60,6 +61,7 @@ public class CustomerDAO {
                 customer.setTel(resultSet.getString(4));
                 customer.setEmail(resultSet.getString(5));
                 customer.setAddress(resultSet.getString(6));
+                customer.setAvatar(resultSet.getString(7));
             }
         }catch (SQLException ex)
         {

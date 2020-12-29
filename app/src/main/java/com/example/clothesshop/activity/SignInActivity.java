@@ -183,6 +183,8 @@ public class SignInActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        if (customerInfo.getAvatar() == null)
+            editor2.putString("avatar", customerInfo.getAvatar());
         Gson gson1 = new Gson();
         String json1 = gson1.toJson(customerInfo);
 
@@ -250,6 +252,8 @@ public class SignInActivity extends AppCompatActivity {
 
                 SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
                 SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                if (!personPhoto.equals(""))
+                    editor2.putString("avatar", personPhoto.toString());
                 Gson gson1 = new Gson();
                 String json1 = gson1.toJson(customerInfo);
 
@@ -284,6 +288,7 @@ public class SignInActivity extends AppCompatActivity {
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.d(TAG, object.toString());
                         try {
                             Log.d(TAG, object.toString());
                             String id = object.getString("id");
@@ -292,6 +297,9 @@ public class SignInActivity extends AppCompatActivity {
                             String gender = object.getString("gender");
                             JSONObject location = object.getJSONObject("location");
                             String location_name = location.getString("name");
+                            JSONObject picture = object.getJSONObject("picture");
+                            JSONObject data = picture.getJSONObject("data");
+                            String url = data.getString("url");
 
                             if (!AccountDAO.getInstance().Login(id, "fb" + id)){
                                 CustomerDAO.getInstance().InsertCusInfo(name, gender, email, location_name);
@@ -312,6 +320,8 @@ public class SignInActivity extends AppCompatActivity {
 
                             SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
                             SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                            if(!url.equals(""))
+                                editor2.putString("avatar", url);
                             Gson gson1 = new Gson();
                             String json1 = gson1.toJson(customerInfo);
 
@@ -330,7 +340,7 @@ public class SignInActivity extends AppCompatActivity {
                 });
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,gender,email,location");
+        parameters.putString("fields", "id,name,gender,email,location,picture");
         request.setParameters(parameters);
         request.executeAsync();
         setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);

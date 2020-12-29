@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.clothesshop.DAO.RatingDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.activity.CartActivity;
 import com.example.clothesshop.activity.PayActivity;
@@ -78,6 +80,7 @@ public class CartFragment extends Fragment {
     TextView tvPriceCart;
     Button btnCart, btnCash;
     RadioButton radioButton;
+    RatingBar ratingBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,11 +93,13 @@ public class CartFragment extends Fragment {
         btnCart = view.findViewById(R.id.btnCart);
         btnCash = view.findViewById(R.id.btnCash);
         radioButton = view.findViewById(R.id.radio_S);
-
+        ratingBar = view.findViewById(R.id.ratingBar);
         img1 = view.findViewById(R.id.img1);
         img2 = view.findViewById(R.id.img2);
         img3 = view.findViewById(R.id.img3);
         img4 = view.findViewById(R.id.img4);
+
+        LoadView();
 
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,8 +129,6 @@ public class CartFragment extends Fragment {
             }
         });
 
-        radioButton.setChecked(true);
-
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,19 +143,29 @@ public class CartFragment extends Fragment {
             }
         });
 
+
+        return view;
+    }
+
+    void LoadView(){
         Bundle bundle = this.getArguments();
         getFragmentManager().getFragment(bundle, "Bundle");
-        Picasso.get().load(bundle.getString("Image")).into(imageViewCart);
-        tvNameCart.setText(bundle.getString("Name"));
+
+        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+
         Locale locale = new Locale("nv", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         int price = bundle.getInt("Price");
+
+        Picasso.get().load(bundle.getString("Image")).into(imageViewCart);
+        tvNameCart.setText(bundle.getString("Name"));
         tvPriceCart.setText("" + currencyFormatter.format(price));
         Picasso.get().load(bundle.getString("Image")).into(img1);
         Picasso.get().load(bundle.getString("Image2")).into(img2);
         Picasso.get().load(bundle.getString("Image3")).into(img3);
         Picasso.get().load(bundle.getString("Image4")).into(img4);
-        return view;
+        ratingBar.setRating(RatingDAO.getInstance().getCurrentPoint(clothes.getId()));
+        radioButton.setChecked(true);
     }
 
     private void onClickBtnCash(View view){

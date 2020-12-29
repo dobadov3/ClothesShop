@@ -16,6 +16,8 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_margin="10dp"
+            android:background="@drawable/custom_avatar"
+            android:scaleType="centerCrop"
             android:src="@drawable/nopath" />
 
         <LinearLayout

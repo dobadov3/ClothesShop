@@ -141,4 +141,32 @@ public class ClothesDAO {
 
         return list;
     }
+
+    public ArrayList<Clothes> searchByName(String name){
+        String query = "SELECT p.id, p.idCategory, p.nameProduct, p.image, p.price, p.image2, p.image3, p.image4, d.value FROM Product p, Discount d WHERE p.idDiscount = d.id AND p.nameProduct LIKE N'%"+name+"%'";
+        ArrayList<Clothes> list = new ArrayList<>();
+
+        try{
+            ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
+
+            while (resultSet.next()){
+                Clothes clothes = new Clothes();
+                clothes.setId(resultSet.getInt(1));
+                clothes.setIdCategory(resultSet.getInt(2));
+                clothes.setName(resultSet.getString(3));
+                clothes.setImage(resultSet.getString(4));
+                clothes.setPrice(resultSet.getInt(5));
+                clothes.setImage2(resultSet.getString(6));
+                clothes.setImage3(resultSet.getString(7));
+                clothes.setImage4(resultSet.getString(8));
+                clothes.setPriceSale(clothes.getPrice() - resultSet.getInt(9));
+
+                list.add(clothes);
+            }
+        }catch (SQLException ex){
+
+        }
+
+        return list;
+    }
 }

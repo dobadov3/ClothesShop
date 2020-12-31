@@ -1,11 +1,15 @@
 package com.example.clothesshop.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.clothesshop.fragment.CartFragment;
 import com.example.clothesshop.fragment.CategoryFragment;
 import com.example.clothesshop.fragment.HomeFragment;
 import com.example.clothesshop.fragment.NotificationFragment;
@@ -32,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextSearch;
     RelativeLayout RelativeTop;
     public static TextView tvTitle;
-
+    public static final int REQUEST_MAIN_ACTIVITY = 2596;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (editTextSearch.getRight() - editTextSearch.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        Toast.makeText(MainActivity.this, "Touch", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                        Bundle bundle = new Bundle();
+                        if (!editTextSearch.getText().toString().equals(""))
+                        {
+                            bundle.putString("search",editTextSearch.getText().toString());
+                            intent.putExtra("searchBundle", bundle);
+                            startActivityForResult(intent, SearchActivity.REQUEST_SEARCH);
+                        }
+
+
                         return true;
                     }
                 }
@@ -121,5 +134,26 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SearchActivity.REQUEST_SEARCH){
+            editTextSearch.setText("");
+            try{
+                Bundle bundle = data.getBundleExtra("clothesInfo");
+                if (bundle != null){
+                    CartFragment cartFragment = new CartFragment();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.layout_container, cartFragment);
+                    cartFragment.setArguments(bundle);
+                    fragmentTransaction.commit();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("Doba", e.toString());
+            }
+        }
+    }
 }

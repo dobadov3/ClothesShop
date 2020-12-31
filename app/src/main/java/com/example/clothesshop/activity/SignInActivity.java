@@ -343,8 +343,16 @@ public class SignInActivity extends AppCompatActivity {
         parameters.putString("fields", "id,name,gender,email,location,picture");
         request.setParameters(parameters);
         request.executeAsync();
-        setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
-        finish();
+        dialog.startLoadingDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent();
+                setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
+                finish();
+            }
+        }, 4000);
     }
 
     AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {

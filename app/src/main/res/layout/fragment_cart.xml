@@ -1,249 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.CartFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/imgViewClothes"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/imgViewClothes">
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/image_2"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:id="@+id/img1"/>
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/image_3"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:id="@+id/img2" />
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/image_4"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:id="@+id/img3"/>
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/image_5"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:id="@+id/img4"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clothes Name"
-        android:id="@+id/tvClothesName"
-        android:layout_toRightOf="@+id/imgViewClothes"
-        android:layout_marginTop="70dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginLeft="20dp"/>
-
-    <View
-        android:layout_width="180dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/line1"
-        android:layout_below="@+id/tvClothesName"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/imgViewClothes"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="400,000VNĐ"
-        android:id="@+id/tvClothesPrice"
-        android:layout_toRightOf="@+id/imgViewClothes"
-        android:layout_below="@+id/line1"
-        android:layout_marginTop="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginLeft="28dp"/>
-
-    <View
-        android:layout_width="180dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/line2"
-        android:layout_below="@+id/tvClothesPrice"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/imgViewClothes"/>
-
-<!--    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="34dp"-->
-<!--        android:id="@+id/elegantNumberCount"-->
-<!--        android:layout_toRightOf="@+id/imgViewClothes"-->
-<!--        android:layout_below="@+id/line2"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        app:backGroundColor="@color/white"-->
-<!--        app:textColor="@color/black"/>-->
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="7dp"
-        android:layout_below="@+id/line2"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="30dp"
-        android:id="@+id/radioGroupSize">
-
-        <RadioButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/radio_S"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_selector"
-            android:textColor="@drawable/text_color"
-            android:elevation="4dp"
-            android:layout_marginRight="10dp"
-            android:textAlignment="center"
-            android:text="S"/>
-        <RadioButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/radio_M"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_selector"
-            android:layout_marginRight="10dp"
-            android:textColor="@drawable/text_color"
-            android:elevation="4dp"
-            android:textAlignment="center"
-            android:text="M"/>
-        <RadioButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/radio_L"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_selector"
-            android:layout_marginRight="10dp"
-            android:textColor="@drawable/text_color"
-            android:elevation="4dp"
-            android:textAlignment="center"
-            android:text="L"/>
-        <RadioButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/radio_XL"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_selector"
-            android:textColor="@drawable/text_color"
-            android:elevation="4dp"
-            android:textAlignment="center"
-            android:text="XL"/>
-
-    </RadioGroup>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/imgViewClothes"
-        android:id="@+id/linear1"
-        android:weightSum="2"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/radioGroupSize">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/btnCart"
-            android:text="@string/title_cart"
-            android:textSize="10dp"
-            android:backgroundTint="@color/red"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_baseline_shopping_cart_24"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/radioGroupSize"
-            android:id="@+id/btnCash"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="2dp"
-            android:textSize="10dp"
-
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:drawableLeft="@drawable/ic_baseline_call_to_action_24"
-            android:text="@string/cash"/>
-    </LinearLayout>
-
-    <View
-        android:id="@+id/line3"
-        android:layout_width="370dp"
-        android:layout_height="1dp"
-        android:layout_below="@+id/linear1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@android:color/darker_gray" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:layout_below="@+id/line3"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/tv1"/>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
     <RelativeLayout
-        android:layout_width="370dp"
-        android:layout_height="100dp"
-        android:id="@+id/relativeDescription"
-        android:layout_below="@+id/tv1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/custom_relativelayout">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".fragment.CartFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/imgViewClothes"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/imgViewClothes">
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/image_2"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:id="@+id/img1"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/image_3"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:id="@+id/img2" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/image_4"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:id="@+id/img3"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/image_5"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:id="@+id/img4"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginTop="5dp"
+            android:text="Clothes Name"
+            android:id="@+id/tvClothesName"
+            android:layout_toRightOf="@+id/imgViewClothes"
+            android:layout_marginTop="70dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"/>
+
+        <View
+            android:layout_width="180dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/line1"
+            android:layout_below="@+id/tvClothesName"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/tvDescription"/>
+            android:layout_toRightOf="@+id/imgViewClothes"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="400,000VNĐ"
+            android:id="@+id/tvClothesPrice"
+            android:layout_toRightOf="@+id/imgViewClothes"
+            android:layout_below="@+id/line1"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="28dp"/>
+
+        <View
+            android:layout_width="180dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/line2"
+            android:layout_below="@+id/tvClothesPrice"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imgViewClothes"/>
+
+        <!--    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton-->
+        <!--        android:layout_width="150dp"-->
+        <!--        android:layout_height="34dp"-->
+        <!--        android:id="@+id/elegantNumberCount"-->
+        <!--        android:layout_toRightOf="@+id/imgViewClothes"-->
+        <!--        android:layout_below="@+id/line2"-->
+        <!--        android:layout_marginTop="15dp"-->
+        <!--        android:layout_marginLeft="10dp"-->
+        <!--        app:backGroundColor="@color/white"-->
+        <!--        app:textColor="@color/black"/>-->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="7dp"
+            android:layout_below="@+id/line2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/radioGroupSize">
+
+            <RadioButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/radio_S"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:textColor="@drawable/text_color"
+                android:elevation="4dp"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:text="S"/>
+            <RadioButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/radio_M"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:layout_marginRight="10dp"
+                android:textColor="@drawable/text_color"
+                android:elevation="4dp"
+                android:textAlignment="center"
+                android:text="M"/>
+            <RadioButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/radio_L"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:layout_marginRight="10dp"
+                android:textColor="@drawable/text_color"
+                android:elevation="4dp"
+                android:textAlignment="center"
+                android:text="L"/>
+            <RadioButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/radio_XL"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:textColor="@drawable/text_color"
+                android:elevation="4dp"
+                android:textAlignment="center"
+                android:text="XL"/>
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imgViewClothes"
+            android:id="@+id/linear1"
+            android:weightSum="2"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/radioGroupSize">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btnCart"
+                android:text="@string/title_cart"
+                android:textSize="10dp"
+                android:backgroundTint="@color/red"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_baseline_shopping_cart_24"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/radioGroupSize"
+                android:id="@+id/btnCash"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="2dp"
+                android:textSize="10dp"
+
+                android:layout_weight="1"
+                android:backgroundTint="@color/black"
+                android:drawableLeft="@drawable/ic_baseline_call_to_action_24"
+                android:text="@string/cash"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="370dp"
+            android:layout_height="1dp"
+            android:layout_below="@+id/linear1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:layout_below="@+id/line3"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tv1"/>
+        <RelativeLayout
+            android:layout_width="370dp"
+            android:layout_height="100dp"
+            android:id="@+id/relativeDescription"
+            android:layout_below="@+id/tv1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_relativelayout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:layout_margin="5dp"
+                android:id="@+id/tvDescription"/>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:id="@+id/recyclerviewRating"
+            android:layout_below="@+id/relativeDescription"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment"
+            android:layout_below="@+id/recyclerviewRating"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tv2"/>
+
+        <RelativeLayout
+            android:layout_width="370dp"
+            android:layout_height="100dp"
+            android:id="@+id/relativeRating"
+            android:layout_below="@+id/tv2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_relativelayout">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:background="@drawable/edit_text_search"
+                android:layout_margin="5dp"
+                android:textAlignment="viewStart"
+                android:id="@+id/etRating"/>
+
+        </RelativeLayout>
+
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeRating"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:id="@+id/ratingBar"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSend"
+            android:layout_below="@+id/ratingBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:text="@string/send"/>
     </RelativeLayout>
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeDescription"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:id="@+id/ratingBar"/>
-</RelativeLayout>
+</ScrollView>

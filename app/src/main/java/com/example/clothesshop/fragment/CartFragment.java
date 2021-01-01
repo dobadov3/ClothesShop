@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +17,21 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clothesshop.DAO.RatingDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.activity.CartActivity;
 import com.example.clothesshop.activity.PayActivity;
+import com.example.clothesshop.adapter.RatingAdapter;
 import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
+import com.example.clothesshop.model.Rating;
+import com.example.clothesshop.model.RatingInfo;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -78,9 +85,12 @@ public class CartFragment extends Fragment {
     ImageView imageViewCart;
     TextView tvNameCart;
     TextView tvPriceCart;
-    Button btnCart, btnCash;
+    Button btnCart, btnCash,btnSend;
     RadioButton radioButton;
     RatingBar ratingBar;
+    ArrayList<RatingInfo> mRatingInfo;
+    RatingAdapter adapter;
+    RecyclerView recyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,8 +108,11 @@ public class CartFragment extends Fragment {
         img2 = view.findViewById(R.id.img2);
         img3 = view.findViewById(R.id.img3);
         img4 = view.findViewById(R.id.img4);
+        btnSend = view.findViewById(R.id.btnSend);
+        recyclerView = view.findViewById(R.id.recyclerviewRating);
 
         LoadView();
+        LoadComment();
 
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,8 +156,21 @@ public class CartFragment extends Fragment {
             }
         });
 
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickBtnSend(v);
+            }
+        });
 
         return view;
+    }
+
+    void LoadComment(){
+        mRatingInfo = RatingDAO.getInstance().getRatingInfo();
+        adapter = new RatingAdapter(mRatingInfo);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        recyclerView.setAdapter(adapter);
     }
 
     void LoadView(){
@@ -166,6 +192,19 @@ public class CartFragment extends Fragment {
         Picasso.get().load(bundle.getString("Image4")).into(img4);
         ratingBar.setRating(RatingDAO.getInstance().getCurrentPoint(clothes.getId()));
         radioButton.setChecked(true);
+    }
+
+    private void onClickBtnSend(View view){
+        Bundle bundle = this.getArguments();
+        getFragmentManager().getFragment(bundle, "Bundle");
+
+        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+
+        float newPoint = ratingBar.getRating();
+
+        RatingDAO.getInstance().UpdatePoint(clothes.getId(), newPoint);
+
+        Toast.makeText(getActivity().getApplication(), getActivity().getString(R.string.rating), Toast.LENGTH_SHORT).show();
     }
 
     private void onClickBtnCash(View view){

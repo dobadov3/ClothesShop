@@ -58,4 +58,7 @@
     <string name="ok">Đồng ý</string>
     <string name="cancel">Hủy</string>
     <string name="login">Đăng nhập</string>
+    <string name="send">Gửi</string>
+    <string name="rating">Cảm ơn bạn đã đánh giá</string>
+    <string name="comment">Nhận xét</string>
 </resources>

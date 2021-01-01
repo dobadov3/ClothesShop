@@ -64,4 +64,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="login">Login</string>
+    <string name="send">Send</string>
+    <string name="rating">Thanks for your rating</string>
+    <string name="comment">Comment</string>
 </resources>

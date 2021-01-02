@@ -78,7 +78,7 @@ public class UserFragment extends Fragment {
     public static boolean CheckLogin = false;
     RelativeLayout relativeLayoutInfo;
     static RelativeLayout relativeLayoutLogout, relativeLayoutLogin;
-    RelativeLayout relativeLayoutBill;
+//    RelativeLayout relativeLayoutBill;
     RelativeLayout relativeLayoutHistory;
     RelativeLayout relativeLayoutContact;
     static ImageView imageView;
@@ -89,7 +89,7 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
         relativeLayoutInfo = view.findViewById(R.id.relative2);
-        relativeLayoutBill = view.findViewById(R.id.relative3);
+//        relativeLayoutBill = view.findViewById(R.id.relative3);
         relativeLayoutHistory = view.findViewById(R.id.relative4);
         relativeLayoutContact = view.findViewById(R.id.relative5);
         relativeLayoutLogout = view.findViewById(R.id.relative6);
@@ -129,12 +129,12 @@ public class UserFragment extends Fragment {
             }
         });
 
-        relativeLayoutBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickRelativeBill(v);
-            }
-        });
+//        relativeLayoutBill.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickRelativeBill(v);
+//            }
+//        });
 
         relativeLayoutHistory.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,7 +28,6 @@
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/image_2"
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 android:id="@+id/img1"/>
@@ -37,7 +36,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/image_3"
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 android:id="@+id/img2" />
@@ -46,7 +44,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/image_4"
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 android:id="@+id/img3"/>
@@ -55,7 +52,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/image_5"
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 android:id="@+id/img4"/>
@@ -243,7 +239,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:id="@+id/recyclerviewRating"
             android:layout_below="@+id/relativeDescription"/>

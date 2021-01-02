@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clothesshop.R;
 
@@ -62,8 +63,8 @@ public class ContactFragment extends Fragment {
         }
     }
 
-    ImageView mCall;
-    TextView mPhoneNumber;
+    ImageView mCall, mEmail;
+    TextView mPhoneNumber, mEmailAddress;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +72,8 @@ public class ContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         mCall = view.findViewById(R.id.call_us_icon);
         mPhoneNumber = view.findViewById(R.id.phone_number);
+        mEmail = view.findViewById(R.id.email_icon);
+        mEmailAddress = view.findViewById(R.id.Email_name);
 
         mCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +81,23 @@ public class ContactFragment extends Fragment {
                 String phoneNo = mPhoneNumber.getText().toString();
                 String dial = "tel:" + phoneNo;
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+            }
+        });
+
+        mEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = mEmailAddress.getText().toString();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
+                i.putExtra(Intent.EXTRA_SUBJECT, "Support");
+                i.putExtra(Intent.EXTRA_TEXT   , "");
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getActivity().getApplication(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

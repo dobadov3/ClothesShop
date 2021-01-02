@@ -33,16 +33,6 @@
             android:src="@drawable/ic_shopping_cart_24px"
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon.CenterStacked"
             android:background="@color/white"/>
-        <ImageButton
-            android:layout_width="70px"
-            android:layout_height="70px"
-            android:layout_toLeftOf="@+id/shopcart"
-            android:layout_centerVertical="true"
-            android:id="@+id/message"
-            android:src="@drawable/ic_chat_bubble_outline_24px"
-            style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon.CenterStacked"
-            android:background="@color/white"/>
-
     </RelativeLayout>
     <EditText
         android:layout_width="350dp"

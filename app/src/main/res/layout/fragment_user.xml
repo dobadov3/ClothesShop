@@ -80,40 +80,40 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relative3"
-        android:background="@drawable/custom_rl"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/relative2">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/relative3"-->
+<!--        android:background="@drawable/custom_rl"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_below="@+id/relative2">-->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_event_note_24px"
-            android:id="@+id/imageBill"
-            android:layout_margin="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/segoeuil"
-            android:textColor="@color/black"
-            android:text="@string/bill_manager"
-            android:textSize="25dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageBill"/>
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_chevron_right_24px"
-            android:id="@+id/btnBill"
-            android:background="#F3F1F1"/>
+<!--        <ImageView-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_event_note_24px"-->
+<!--            android:id="@+id/imageBill"-->
+<!--            android:layout_margin="20dp"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/segoeuil"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:text="@string/bill_manager"-->
+<!--            android:textSize="25dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_toRightOf="@+id/imageBill"/>-->
+<!--        <ImageButton-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@drawable/ic_chevron_right_24px"-->
+<!--            android:id="@+id/btnBill"-->
+<!--            android:background="#F3F1F1"/>-->
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -121,7 +121,7 @@
         android:id="@+id/relative4"
         android:background="@drawable/custom_rl"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/relative3">
+        android:layout_below="@+id/relative2">
 
         <ImageView
             android:layout_width="40dp"

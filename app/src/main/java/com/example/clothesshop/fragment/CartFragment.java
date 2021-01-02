@@ -1,6 +1,8 @@
 package com.example.clothesshop.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -24,10 +27,12 @@ import com.example.clothesshop.R;
 import com.example.clothesshop.activity.CartActivity;
 import com.example.clothesshop.activity.PayActivity;
 import com.example.clothesshop.adapter.RatingAdapter;
+import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Clothes;
 import com.example.clothesshop.model.Rating;
 import com.example.clothesshop.model.RatingInfo;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
@@ -91,6 +96,7 @@ public class CartFragment extends Fragment {
     ArrayList<RatingInfo> mRatingInfo;
     RatingAdapter adapter;
     RecyclerView recyclerView;
+    EditText etRating;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -109,6 +115,7 @@ public class CartFragment extends Fragment {
         img3 = view.findViewById(R.id.img3);
         img4 = view.findViewById(R.id.img4);
         btnSend = view.findViewById(R.id.btnSend);
+        etRating = view.findViewById(R.id.etRating);
         recyclerView = view.findViewById(R.id.recyclerviewRating);
 
         LoadView();
@@ -167,10 +174,28 @@ public class CartFragment extends Fragment {
     }
 
     void LoadComment(){
-        mRatingInfo = RatingDAO.getInstance().getRatingInfo();
+        Bundle bundle = this.getArguments();
+        getFragmentManager().getFragment(bundle, "Bundle");
+
+        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+
+        mRatingInfo = RatingDAO.getInstance().getRatingInfo(clothes.getId());
         adapter = new RatingAdapter(mRatingInfo);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(adapter);
+    }
+
+    boolean InsertRating(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("accountInfo", "");
+        Bundle bundle = this.getArguments();
+        getFragmentManager().getFragment(bundle, "Bundle");
+
+        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+        Account account = gson.fromJson(json, Account.class);
+
+        return RatingDAO.getInstance().InsertRatingInfo(account.getId(), etRating.getText().toString(), ratingBar.getRating(), clothes.getId());
     }
 
     void LoadView(){
@@ -203,8 +228,13 @@ public class CartFragment extends Fragment {
         float newPoint = ratingBar.getRating();
 
         RatingDAO.getInstance().UpdatePoint(clothes.getId(), newPoint);
-
-        Toast.makeText(getActivity().getApplication(), getActivity().getString(R.string.rating), Toast.LENGTH_SHORT).show();
+        if(!etRating.getText().toString().equals("")){
+            if (InsertRating()){
+                mRatingInfo.clear();
+                LoadComment();
+                Toast.makeText(getActivity().getApplication(), getActivity().getString(R.string.rating), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void onClickBtnCash(View view){

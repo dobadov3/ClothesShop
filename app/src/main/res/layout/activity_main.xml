@@ -44,7 +44,7 @@
         android:layout_marginTop="10dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:hint="Search"
+        android:hint="Search by name"
         android:drawableEnd="@drawable/ic_baseline_search_24"/>
     <RelativeLayout
         android:layout_width="match_parent"

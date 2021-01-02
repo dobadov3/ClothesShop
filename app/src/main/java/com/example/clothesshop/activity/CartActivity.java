@@ -56,10 +56,13 @@ public class CartActivity extends AppCompatActivity {
         String json = sharedPreferences.getString("cusInfo", "");
         CustomerInfo customerInfo = gson.fromJson(json, CustomerInfo.class);
 
-        tvCus_Name.setText(customerInfo.getName());
-        tvCus_Tel.setText("0"+customerInfo.getTel());
-        tvCus_Address.setText(customerInfo.getAddress());
-
+        if (customerInfo != null)
+        {
+            tvCus_Name.setText(customerInfo.getName());
+            tvCus_Tel.setText("0"+customerInfo.getTel());
+            tvCus_Address.setText(customerInfo.getAddress());
+        }
+        
         btnPay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

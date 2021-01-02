@@ -72,10 +72,10 @@ public class RatingDAO implements Serializable {
         return result > 0;
     }
 
-    public ArrayList<RatingInfo> getRatingInfo(){
+    public ArrayList<RatingInfo> getRatingInfo(int idProduct){
         ArrayList<RatingInfo> list = new ArrayList<>();
 
-        String query = "SELECT r.id, ci.nameCus, comment, date, r.point FROM RatingInfo r, Account a, CustomerInfo ci WHERE r.idAccount = a.id AND a.idCustomerInfo = ci.id";
+        String query = "SELECT r.id, ci.nameCus, comment, date, r.point FROM RatingInfo r, Account a, CustomerInfo ci WHERE r.idAccount = a.id AND a.idCustomerInfo = ci.id AND r.idProduct = " + idProduct;
 
         try{
             ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
@@ -97,10 +97,10 @@ public class RatingDAO implements Serializable {
         return list;
     }
 
-    public boolean InsertRatingInfo(int idAccount, String comment, float point){
+    public boolean InsertRatingInfo(int idAccount, String comment, float point, int idProduct){
         int result = 0;
 
-        String query = "INSERT INTO RatingInfo (idAccount, comment, DATE, point) VALUES ("+idAccount+", N'"+comment+"', GETDATE(), "+point+")";
+        String query = "INSERT INTO RatingInfo (idAccount, comment, DATE, point, idProduct) VALUES ("+idAccount+", N'"+comment+"', GETDATE(), "+point+", "+idProduct+")";
 
         result = DataProvider.getInstance().ExcuteNonQuery(query);
 

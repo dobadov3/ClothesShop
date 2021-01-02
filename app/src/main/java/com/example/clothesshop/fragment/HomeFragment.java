@@ -114,8 +114,29 @@ public class HomeFragment extends Fragment implements SaleAdapter.OnClothesSaleL
         recyclerViewHot.setAdapter(hotadapter);
     }
 
-    void onClickItem(int position){
+    void onClickHot(int position){
         Clothes clothes = mclothesHot.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Image", clothes.getImage());
+        bundle.putString("Image2", clothes.getImage2());
+        bundle.putString("Image3", clothes.getImage3());
+        bundle.putString("Image4", clothes.getImage4());
+        bundle.putString("Name", clothes.getName());
+        bundle.putInt("Price", clothes.getPriceSale());
+        bundle.putSerializable("Clothes", clothes);
+
+        CartFragment cartFragment = new CartFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.layout_container, cartFragment);
+        cartFragment.setArguments(bundle);
+        fragmentTransaction.commit();
+    }
+
+    void onClickSale(int position){
+        Clothes clothes = mclothesSale.get(position);
 
         Bundle bundle = new Bundle();
         bundle.putString("Image", clothes.getImage());
@@ -137,11 +158,11 @@ public class HomeFragment extends Fragment implements SaleAdapter.OnClothesSaleL
 
     @Override
     public void onClothesClick(int position) {
-        onClickItem(position);
+        onClickHot(position);
     }
 
     @Override
     public void onClothesSaleClick(int position) {
-        onClickItem(position);
+        onClickSale(position);
     }
 }

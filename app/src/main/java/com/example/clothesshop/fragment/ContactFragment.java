@@ -1,12 +1,17 @@
 package com.example.clothesshop.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.clothesshop.R;
 
@@ -57,10 +62,25 @@ public class ContactFragment extends Fragment {
         }
     }
 
+    ImageView mCall;
+    TextView mPhoneNumber;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+        View view = inflater.inflate(R.layout.fragment_contact, container, false);
+        mCall = view.findViewById(R.id.call_us_icon);
+        mPhoneNumber = view.findViewById(R.id.phone_number);
+
+        mCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNo = mPhoneNumber.getText().toString();
+                String dial = "tel:" + phoneNo;
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+            }
+        });
+
+         return view;
     }
 }

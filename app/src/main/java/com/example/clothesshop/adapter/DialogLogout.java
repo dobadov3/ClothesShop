@@ -36,20 +36,16 @@ public class DialogLogout extends AppCompatDialogFragment {
 
                         SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-                        editor2.clear();
-
-                        editor2.apply();
-//                        Gson gson = new Gson();
-//                        String json =gson.toJson(new CustomerInfo());
-//                        editor1.putString("cusInfo", json);
-
-                        editor1.clear();
-
-                        editor1.apply();
 
                         editor.putString("login", "false");
 
+                        editor1.clear();
+                        editor2.clear();
+
+                        editor1.apply();
+                        editor2.apply();
                         editor.apply();
+
                         UserFragment.setVisibility();
                     }
                 }).setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {

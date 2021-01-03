@@ -245,7 +245,9 @@ public class CartFragment extends Fragment {
     }
 
     private void onClickBtnCash(View view){
-        if(UserFragment.CheckLogin){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("checklogin", Context.MODE_PRIVATE);
+        String login = sharedPreferences.getString("login", "");
+        if(login.equals("true")){
             Bundle bundle = this.getArguments();
             getFragmentManager().getFragment(bundle, "Bundle");
 
@@ -257,7 +259,7 @@ public class CartFragment extends Fragment {
             intent.putExtra("Cart", cart);
             startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
         }
-        else {
+        else if (login.equals("false")) {
             Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
             startActivityForResult(intent, SignInActivity.RC_SIGN_IN);
         }

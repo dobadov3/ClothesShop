@@ -189,17 +189,29 @@ public class SignInActivity extends AppCompatActivity {
         Gson gson1 = new Gson();
         String json1 = gson1.toJson(customerInfo);
 
-        editor2.putString("cusInfo", json1);
+        editor.clear();
+        editor1.clear();
+        editor2.clear();
 
+        editor2.putString("cusInfo", json1);
         editor1.putString("accountInfo", json);
         editor.putString("login", "true");
+
         editor.apply();
         editor1.apply();
         editor2.apply();
 
         intent.putExtra("CustomerInfo", customerInfo);
-        setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
-        finish();
+
+        dialog.startLoadingDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
+                finish();
+            }
+        }, 4000);
     }
 
     @Override

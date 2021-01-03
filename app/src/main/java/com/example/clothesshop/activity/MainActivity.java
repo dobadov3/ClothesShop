@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -129,11 +130,14 @@ public class MainActivity extends AppCompatActivity {
     }
     private void onShopCartClick(View view)
     {
-        if(UserFragment.CheckLogin){
+        SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
+        String login = sharedPreferences.getString("login", "");
+
+        if(login.equals("true")){
             Intent intent = new Intent(MainActivity.this, CartActivity.class);
 
             this.startActivity(intent);
-        }else{
+        }else if (login.equals("false")){
             Intent intent = new Intent(MainActivity.this, SignInActivity.class);
             startActivityForResult(intent, SignInActivity.RC_SIGN_IN);
         }

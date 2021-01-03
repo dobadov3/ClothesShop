@@ -1,9 +1,11 @@
 package com.example.clothesshop.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.clothesshop.DAO.NotiDAO;
 import com.example.clothesshop.R;
+import com.example.clothesshop.activity.SignInActivity;
 import com.example.clothesshop.adapter.NotificationAdapter;
 import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.Notification;
@@ -82,13 +85,26 @@ public class NotificationFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerviewNoti);
         tvNull = view.findViewById(R.id.tvNullNoti);
 
-        if (UserFragment.CheckLogin){
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-            Gson gson = new Gson();
-            String json = sharedPreferences.getString("accountInfo", "");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("checklogin", Context.MODE_PRIVATE);
+        String login = sharedPreferences.getString("login", "");
+        if (login.equals("true")){
+            setAdapterNoti();
+        }else if (login.equals("false")){
+            Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
+            startActivityForResult(intent, SignInActivity.RC_SIGN_IN);
+        }
 
-            Account account = gson.fromJson(json, Account.class);
+        return view;
+    }
 
+    void setAdapterNoti(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("accountInfo", "");
+
+        Account account = gson.fromJson(json, Account.class);
+
+        if(account != null){
             mNoti = NotiDAO.getInstance().getListNoti(account.getId());
 
             if (mNoti.size() != 0)
@@ -102,7 +118,14 @@ public class NotificationFragment extends Fragment {
 
             recyclerView.setAdapter(adapter);
         }
+    }
 
-        return view;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SignInActivity.RC_SIGN_IN) {
+            setAdapterNoti();
+        }
     }
 }

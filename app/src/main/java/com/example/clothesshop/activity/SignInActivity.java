@@ -40,6 +40,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -235,50 +236,64 @@ public class SignInActivity extends AppCompatActivity {
                 Log.d(TAG, "PhotoUrl: "+personPhoto);
 
                 if (!AccountDAO.getInstance().Login(id, "gg" + id)){
-                    CustomerDAO.getInstance().InsertCusInfo(name,email);
-                    AccountDAO.getInstance().InsertAccount(id, "gg"+id);
-                    Log.d(TAG, "Insert Info by google: Successful ");
-                }
-                Account acct = AccountDAO.getInstance().getAccountByUsernamePassword(id, "gg"+id);
-                CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(acct.getIdCustomer());
+                    if(CustomerDAO.getInstance().InsertCusInfo(name,email))
+                    {
+                        if(AccountDAO.getInstance().InsertAccount(id, "gg"+id))
+                        {
+                            Log.d(TAG, "Insert Info by google: Successful ");
+                            putSharePreference(id, personPhoto);
+                        }
 
-                SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
-                SharedPreferences.Editor editor1 = sharedPreferences1.edit();
-                Gson gson = new Gson();
-                String json = gson.toJson(acct);
-
-                SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
-                SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-                if (!personPhoto.equals(""))
-                    editor2.putString("avatar", personPhoto.toString());
-                Gson gson1 = new Gson();
-                String json1 = gson1.toJson(customerInfo);
-
-                editor2.putString("cusInfo", json1);
-                editor1.putString("accountInfo", json);
-                editor.putString("login", "true");
-                editor.apply();
-                editor1.apply();
-                editor2.apply();
-
-                dialog.startLoadingDialog();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent();
-                        setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
-                        finish();
                     }
-                }, 4000);
-            }
 
+                }
+                else{
+                        putSharePreference(id, personPhoto);
+                    }
+                }
         } catch (ApiException e) {
             Log.d(TAG, e.toString());
         }
+    }
+
+    void putSharePreference(String  id, Uri personPhoto){
+        Account acct = AccountDAO.getInstance().getAccountByUsernamePassword(id, "gg"+id);
+        CustomerInfo customerInfo = CustomerDAO.getInstance().getListCustomerByID(acct.getIdCustomer());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("checklogin", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        SharedPreferences sharedPreferences1 = getSharedPreferences("account", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(acct);
+
+        SharedPreferences sharedPreferences2 = getSharedPreferences("customerInfo", MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        if (personPhoto != null)
+            editor2.putString("avatar", personPhoto.toString());
+        Gson gson1 = new Gson();
+        String json1 = gson1.toJson(customerInfo);
+
+        editor1.clear();
+        editor2.clear();
+        editor2.putString("cusInfo", json1);
+        editor1.putString("accountInfo", json);
+        editor.putString("login", "true");
+        editor.apply();
+        editor1.apply();
+        editor2.apply();
+
+        dialog.startLoadingDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent();
+                setResult(UserFragment.SIGN_IN_REQUEST_CODE, intent);
+                finish();
+            }
+        }, 4000);
     }
 
     private void handleGraphRequest(){
@@ -325,6 +340,8 @@ public class SignInActivity extends AppCompatActivity {
                             Gson gson1 = new Gson();
                             String json1 = gson1.toJson(customerInfo);
 
+                            editor1.clear();
+                            editor2.clear();
                             editor2.putString("cusInfo", json1);
                             editor1.putString("accountInfo", json);
                             editor.putString("login", "true");

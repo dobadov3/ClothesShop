@@ -35,9 +35,9 @@ public class CustomerDAO {
                 customer.setName(resultSet.getString(2));
                 customer.setGender(resultSet.getString(3));
                 customer.setTel(resultSet.getString(4));
-                customer.setEmail(resultSet.getString(5));
-                customer.setAddress(resultSet.getString(6));
-                customer.setAvatar(resultSet.getString(7));
+                customer.setEmail(resultSet.getString(7));
+                customer.setAddress(resultSet.getString(5));
+                customer.setAvatar(resultSet.getString(6));
             }
         }catch (SQLException ex)
         {
@@ -59,9 +59,9 @@ public class CustomerDAO {
                 customer.setName(resultSet.getString(2));
                 customer.setGender(resultSet.getString(3));
                 customer.setTel(resultSet.getString(4));
-                customer.setEmail(resultSet.getString(5));
-                customer.setAddress(resultSet.getString(6));
-                customer.setAvatar(resultSet.getString(7));
+                customer.setEmail(resultSet.getString(7));
+                customer.setAddress(resultSet.getString(5));
+                customer.setAvatar(resultSet.getString(6));
             }
         }catch (SQLException ex)
         {
@@ -120,7 +120,7 @@ public class CustomerDAO {
     }
 
     public CustomerInfo getLastInfo(){
-        CustomerInfo customerInfo = new CustomerInfo();
+        CustomerInfo customer = new CustomerInfo();
 
         String query = "SELECT TOP 1 * FROM CustomerInfo ci ORDER BY id DESC";
 
@@ -128,17 +128,18 @@ public class CustomerDAO {
             ResultSet resultSet = DataProvider.getInstance().ExcuteQuery(query);
 
             if (resultSet.next()){
-                customerInfo.setId(resultSet.getInt(1));
-                customerInfo.setName(resultSet.getString(2));
-                customerInfo.setGender(resultSet.getString(3));
-                customerInfo.setTel(resultSet.getString(4));
-                customerInfo.setEmail(resultSet.getString(5));
-                customerInfo.setAddress(resultSet.getString(6));
+                customer.setId(resultSet.getInt(1));
+                customer.setName(resultSet.getString(2));
+                customer.setGender(resultSet.getString(3));
+                customer.setTel(resultSet.getString(4));
+                customer.setEmail(resultSet.getString(7));
+                customer.setAddress(resultSet.getString(5));
+                customer.setAvatar(resultSet.getString(6));
             }
         }catch (SQLException ex){
 
         }
 
-        return customerInfo;
+        return customer;
     }
 }

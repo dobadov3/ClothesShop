@@ -221,20 +221,26 @@ public class CartFragment extends Fragment {
     }
 
     private void onClickBtnSend(View view){
-        Bundle bundle = this.getArguments();
-        getFragmentManager().getFragment(bundle, "Bundle");
+        if (UserFragment.CheckLogin){
+            Bundle bundle = this.getArguments();
+            getFragmentManager().getFragment(bundle, "Bundle");
 
-        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+            Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
 
-        float newPoint = ratingBar.getRating();
+            float newPoint = ratingBar.getRating();
 
-        RatingDAO.getInstance().UpdatePoint(clothes.getId(), newPoint);
-        if(!etRating.getText().toString().equals("")){
-            if (InsertRating()){
-                mRatingInfo.clear();
-                LoadComment();
-                Toast.makeText(getActivity().getApplication(), getActivity().getString(R.string.rating), Toast.LENGTH_SHORT).show();
+            RatingDAO.getInstance().UpdatePoint(clothes.getId(), newPoint);
+            if(!etRating.getText().toString().equals("")){
+                if (InsertRating()){
+                    mRatingInfo.clear();
+                    LoadComment();
+                    Toast.makeText(getActivity().getApplication(), getActivity().getString(R.string.rating), Toast.LENGTH_SHORT).show();
+                }
             }
+        }
+        else{
+            Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
+            startActivityForResult(intent, SignInActivity.RC_SIGN_IN);
         }
     }
 

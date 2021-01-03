@@ -82,24 +82,26 @@ public class NotificationFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerviewNoti);
         tvNull = view.findViewById(R.id.tvNullNoti);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("accountInfo", "");
+        if (UserFragment.CheckLogin){
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = sharedPreferences.getString("accountInfo", "");
 
-        Account account = gson.fromJson(json, Account.class);
+            Account account = gson.fromJson(json, Account.class);
 
-        mNoti = NotiDAO.getInstance().getListNoti(account.getId());
+            mNoti = NotiDAO.getInstance().getListNoti(account.getId());
 
-        if (mNoti.size() != 0)
-            tvNull.setVisibility(View.INVISIBLE);
-        else
-            tvNull.setVisibility(View.VISIBLE);
+            if (mNoti.size() != 0)
+                tvNull.setVisibility(View.INVISIBLE);
+            else
+                tvNull.setVisibility(View.VISIBLE);
 
-        adapter = new NotificationAdapter(mNoti);
+            adapter = new NotificationAdapter(mNoti);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
+        }
 
         return view;
     }

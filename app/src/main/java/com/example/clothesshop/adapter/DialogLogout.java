@@ -34,13 +34,21 @@ public class DialogLogout extends AppCompatDialogFragment {
                         SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor1 = sharedPreferences1.edit();
 
-                        Gson gson = new Gson();
-                        String json =gson.toJson(new CustomerInfo());
-                        editor1.putString("cusInfo", json);
+                        SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                        editor2.clear();
+
+                        editor2.apply();
+//                        Gson gson = new Gson();
+//                        String json =gson.toJson(new CustomerInfo());
+//                        editor1.putString("cusInfo", json);
+
+                        editor1.clear();
 
                         editor1.apply();
 
                         editor.putString("login", "false");
+
                         editor.apply();
                         UserFragment.setVisibility();
                     }

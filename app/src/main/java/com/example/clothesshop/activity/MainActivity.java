@@ -129,9 +129,14 @@ public class MainActivity extends AppCompatActivity {
     }
     private void onShopCartClick(View view)
     {
-        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+        if(UserFragment.CheckLogin){
+            Intent intent = new Intent(MainActivity.this, CartActivity.class);
 
-        this.startActivity(intent);
+            this.startActivity(intent);
+        }else{
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivityForResult(intent, SignInActivity.RC_SIGN_IN);
+        }
     }
 
     @Override

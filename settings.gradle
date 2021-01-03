@@ -1,3 +1,5 @@
+include ':additionnal'
+include ':activation'
 include ':facebook-login'
 include ':app'
 rootProject.name = "ClothesShop"

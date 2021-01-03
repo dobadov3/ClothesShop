@@ -26,6 +26,7 @@ import com.example.clothesshop.DAO.RatingDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.activity.CartActivity;
 import com.example.clothesshop.activity.PayActivity;
+import com.example.clothesshop.activity.SignInActivity;
 import com.example.clothesshop.adapter.RatingAdapter;
 import com.example.clothesshop.model.Account;
 import com.example.clothesshop.model.Cart;
@@ -238,16 +239,22 @@ public class CartFragment extends Fragment {
     }
 
     private void onClickBtnCash(View view){
-        Bundle bundle = this.getArguments();
-        getFragmentManager().getFragment(bundle, "Bundle");
+        if(UserFragment.CheckLogin){
+            Bundle bundle = this.getArguments();
+            getFragmentManager().getFragment(bundle, "Bundle");
 
-        Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
-        Cart cart = new Cart(clothes, "1");
+            Clothes clothes = (Clothes) bundle.getSerializable("Clothes");
+            Cart cart = new Cart(clothes, "1");
 
-        Intent intent = new Intent(getActivity().getApplication(), PayActivity.class);
-        intent.putExtra("Clothes", clothes);
-        intent.putExtra("Cart", cart);
-        startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
+            Intent intent = new Intent(getActivity().getApplication(), PayActivity.class);
+            intent.putExtra("Clothes", clothes);
+            intent.putExtra("Cart", cart);
+            startActivityForResult(intent, PayActivity.PAY_ACTIVITY_REQUEST_CODE);
+        }
+        else {
+            Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
+            startActivityForResult(intent, SignInActivity.RC_SIGN_IN);
+        }
     }
 
     @Override

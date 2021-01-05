@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.clothesshop.DAO.BillInfoDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.BillInfoAdapter;
 import com.example.clothesshop.model.BillInfo;
@@ -67,31 +66,10 @@ public class BillInfoFragment extends Fragment {
         }
     }
 
-    RecyclerView recyclerView;
-    ArrayList<BillInfo> mBillInfo;
-    BillInfoAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bill_info, container, false);
-
-        recyclerView = view.findViewById(R.id.recyclerviewBillInfo);
-
-        Intent intent = getActivity().getIntent();
-
-        Bundle bundle = this.getArguments();
-
-        if (bundle != null){
-            int idBill = bundle.getInt("idBill");
-
-            mBillInfo = BillInfoDAO.getInstance().getListBillInfo(idBill);
-
-            adapter = new BillInfoAdapter(mBillInfo);
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-            recyclerView.setAdapter(adapter);
-        }
 
         return view;
     }

@@ -46,33 +46,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Clothes clothes = mClothes.get(position);
 
-        Picasso.get().load(clothes.getImage()).into(holder.imageClothes);
-
-        holder.tvClothesName.setText(clothes.getName());
-
-        Locale locale = new Locale("nv", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-
-        holder.tvClothesPrice.setText("" + currencyFormatter.format(clothes.getPrice()));
-
-        holder.tvSale.setText("" + currencyFormatter.format(clothes.getPriceSale()));
-
-        Shader shader = new LinearGradient(0,0,0,holder.tvClothesPrice.getLineHeight(),
-                Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
-
-        holder.tvClothesPrice.getPaint().setShader(shader);
-        holder.tvClothesPrice.setPaintFlags(holder.tvClothesPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.tvClothesName.getPaint().setShader(shader);
-        holder.tvSale.getPaint().setShader(shader);
-
-        holder.imageClothes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClothesSaleListener.onClothesSaleClick(position);
-            }
-        });
     }
 
     @Override

@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.clothesshop.DAO.PurchaseDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.BillAdapter;
 import com.example.clothesshop.model.Account;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
  * Use the {@link HistoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HistoryFragment extends Fragment implements BillAdapter.OnDetailListener {
+public class HistoryFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,51 +71,11 @@ public class HistoryFragment extends Fragment implements BillAdapter.OnDetailLis
         }
     }
 
-    RecyclerView recyclerView;
-    ArrayList<Purchased> mPurchased;
-    BillAdapter adapter;
-    TextView tvNull;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerviewPurchased);
-        tvNull = view.findViewById(R.id.tvNull);
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("accountInfo", "");
-
-        Account account = gson.fromJson(json, Account.class);
-
-        mPurchased = PurchaseDAO.getInstance().getListPurchased(account.getId());
-        adapter = new BillAdapter(getActivity() ,mPurchased, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(adapter);
-
-        if (mPurchased.size() == 0)
-            tvNull.setVisibility(View.VISIBLE);
-        else
-            tvNull.setVisibility(View.INVISIBLE);
-
         return view;
-    }
-
-    @Override
-    public void onClothesClick(int position) {
-        Purchased purchased = mPurchased.get(position);
-
-        BillInfoFragment billInfoFragment = new BillInfoFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("idBill", purchased.getId());
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.layout_container, billInfoFragment);
-        billInfoFragment.setArguments(bundle);
-        fragmentTransaction.commit();
     }
 }

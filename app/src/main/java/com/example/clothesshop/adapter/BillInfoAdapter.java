@@ -34,14 +34,7 @@ public class BillInfoAdapter extends RecyclerView.Adapter<BillInfoAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        BillInfo billInfo = mBillInfo.get(position);
-        Locale locale = new Locale("nv", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-        Picasso.get().load(billInfo.getImage()).into(holder.imageView);
-        holder.tvName.setText(billInfo.getNameProduct());
-        holder.tvCount.setText("x" + billInfo.getCount());
-        holder.tvPrice.setText("" + currencyFormatter.format(billInfo.getPrice()*billInfo.getCount()));
     }
 
     @Override

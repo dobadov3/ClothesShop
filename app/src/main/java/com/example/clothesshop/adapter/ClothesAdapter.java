@@ -22,14 +22,14 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHolder> {
     ArrayList<Clothes> mClothes;
     OnClothesListener onClothesListener;
 
     public interface OnClothesListener{
         void onClothesClick(int position);
     }
-    public HomeAdapter(ArrayList<Clothes> mClothes, OnClothesListener onClothesListener)
+    public ClothesAdapter(ArrayList<Clothes> mClothes, OnClothesListener onClothesListener)
     {
         this.mClothes = mClothes;
         this.onClothesListener = onClothesListener;
@@ -45,24 +45,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Clothes clothes = mClothes.get(position);
 
-        Picasso.get().load(clothes.getImage()).into(holder.imageClothes);
-        holder.tvClothesName.setText(clothes.getName());
-        Locale locale = new Locale("nv", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        holder.tvClothesPrice.setText("" + currencyFormatter.format(clothes.getPrice()));
-        Shader shader = new LinearGradient(0,0,0,holder.tvClothesPrice.getLineHeight(),
-                Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
-        holder.tvClothesPrice.getPaint().setShader(shader);
-        holder.tvClothesName.getPaint().setShader(shader);
-
-        holder.imageClothes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClothesListener.onClothesClick(position);
-            }
-        });
     }
 
     @Override

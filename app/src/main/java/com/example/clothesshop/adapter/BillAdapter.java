@@ -47,27 +47,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Purchased purchased = mPurchased.get(position);
-        
-        Locale locale = new Locale("nv", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-        Picasso.get().load(purchased.getImage()).into(holder.imgProduct);
-        holder.tvIdBill.setText(activity.getString(R.string.bill_id) + ": " + purchased.getId());
-        holder.tvDate.setText(activity.getString(R.string.date_buy) + " " + purchased.getCreateDay().toString());
-        holder.tvNameClothes.setText(purchased.getName());
-        holder.tvCount.setText("x" + purchased.getCountProduct());
-        holder.tvPrice.setText("" + currencyFormatter.format(purchased.getPrice() * purchased.getCountProduct()));
-        holder.tvCountProduct.setText(purchased.getCountItem() + " " + activity.getString(R.string.product));
-        holder.tvShipCost.setText(activity.getString(R.string.transport_fee) + ": " + currencyFormatter.format(purchased.getShipCost()));
-        holder.tvTotal.setText(activity.getString(R.string.totalPrice) + " " +currencyFormatter.format(purchased.getTotal()));
-
-        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onDetailListener.onClothesClick(position);
-            }
-        });
     }
 
     @Override

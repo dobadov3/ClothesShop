@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.clothesshop.DAO.NotiDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.activity.SignInActivity;
 import com.example.clothesshop.adapter.NotificationAdapter;
@@ -72,60 +71,11 @@ public class NotificationFragment extends Fragment {
         }
     }
 
-    ArrayList<Notification> mNoti;
-    NotificationAdapter adapter;
-    RecyclerView recyclerView;
-    TextView tvNull;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerviewNoti);
-        tvNull = view.findViewById(R.id.tvNullNoti);
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("checklogin", Context.MODE_PRIVATE);
-        String login = sharedPreferences.getString("login", "");
-        if (login.equals("true")){
-            setAdapterNoti();
-        }else if (login.equals("false")){
-            Intent intent = new Intent(getActivity().getApplication(), SignInActivity.class);
-            startActivityForResult(intent, SignInActivity.RC_SIGN_IN);
-        }
-
         return view;
-    }
-
-    void setAdapterNoti(){
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("accountInfo", "");
-
-        Account account = gson.fromJson(json, Account.class);
-
-        if(account != null){
-            mNoti = NotiDAO.getInstance().getListNoti(account.getId());
-
-            if (mNoti.size() != 0)
-                tvNull.setVisibility(View.INVISIBLE);
-            else
-                tvNull.setVisibility(View.VISIBLE);
-
-            adapter = new NotificationAdapter(mNoti);
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-
-            recyclerView.setAdapter(adapter);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == SignInActivity.RC_SIGN_IN) {
-            setAdapterNoti();
-        }
     }
 }

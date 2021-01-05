@@ -41,49 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>  {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Clothes clothes = mClothes.get(position);
-        Cart cart = mCart.get(position);
 
-        holder.elegantNumberButton.setRange(1, 50);
-
-        Picasso.get().load(clothes.getImage()).into(holder.imageView);
-
-        Locale locale = new Locale("nv", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-
-        holder.elegantNumberButton.setNumber(cart.getCount());
-
-        int number = Integer.parseInt(holder.elegantNumberButton.getNumber());
-
-        holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPriceSale()*number));
-
-        //Set event cho nút xóa item
-        holder.imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Cart.price -= mClothes.get(position).getPriceSale()*Integer.parseInt(holder.elegantNumberButton.getNumber());
-                CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
-                removeAt(position);
-                CartActivity.tv1.setText("Bạn đang có " + mClothes.size() + " trong giỏ hàng");
-            }
-        });
-
-        //set event cho ElegantNumberButton
-        holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
-            @Override
-            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                if(newValue>oldValue)
-                {
-                    Cart.price += clothes.getPriceSale();
-                }
-                else {
-                    Cart.price -= clothes.getPriceSale();
-                }
-                holder.textView.setText("Thành tiền: " + currencyFormatter.format(clothes.getPriceSale()*Integer.parseInt(holder.elegantNumberButton.getNumber())));
-                CartActivity.tvTotal.setText("Thành tiền: " + currencyFormatter.format(Cart.price));
-                cart.setCount(holder.elegantNumberButton.getNumber());
-            }
-        });
     }
 
     //Xóa một item ra khỏi Recyclerview

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.clothesshop.DAO.ClothesDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.adapter.HomeAdapter;
 import com.example.clothesshop.adapter.SaleAdapter;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
  * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesListener, SaleAdapter.OnClothesSaleListener {
+public class CategoryFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,171 +71,12 @@ public class CategoryFragment extends Fragment implements HomeAdapter.OnClothesL
         }
     }
 
-    RecyclerView recyclerViewProduct;
-    ArrayList<Clothes> mclothes = new ArrayList<>();
-    HomeAdapter adapter;
-    SaleAdapter saleAdapter;
-    ImageButton imageButtonTops;
-    ImageButton imageButtonBottoms;
-    ImageButton imageButtonBags;
-    ImageButton imageButtonHats;
-    ImageButton imageButtonSales;
-    TextView tvTitle;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
-        recyclerViewProduct = view.findViewById(R.id.recyclerViewProducts);
 
-        imageButtonBottoms = view.findViewById(R.id.imgBtnBottoms);
-        imageButtonTops = view.findViewById(R.id.imgBtnTop);
-        imageButtonBags = view.findViewById(R.id.imgBtnBags);
-        imageButtonHats = view.findViewById(R.id.imgBtnHats);
-        imageButtonSales = view.findViewById(R.id.imgBtnSales);
-        tvTitle = view.findViewById(R.id.tvTitle);
-        Shader shader = new LinearGradient(0,0,0,tvTitle.getLineHeight(),
-                Color.parseColor("#6F86D6"), Color.parseColor("#48C6EF"), Shader.TileMode.REPEAT);
-        tvTitle.getPaint().setShader(shader);
-
-        imageButtonTops.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickTops(v);
-            }
-        });
-
-        imageButtonBottoms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickBottoms(v);
-            }
-        });
-
-        imageButtonBags.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickBags(v);
-            }
-        });
-
-        imageButtonHats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickHats(v);
-            }
-        });
-
-        imageButtonSales.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickSales(v);
-            }
-        });
-
-        onClickTops(view);
         return view;
-    }
-
-    private void onClickTops(View view)
-    {
-        mclothes.clear();
-        tvTitle.setText(getString(R.string.tops));
-
-        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(1);
-
-        adapter = new HomeAdapter(mclothes, this);
-        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerViewProduct.setAdapter(adapter);
-    }
-    private void onClickBottoms(View view)
-    {
-        mclothes.clear();
-        tvTitle.setText(getString(R.string.bottoms));
-
-        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(2);
-
-        adapter = new HomeAdapter(mclothes, this);
-        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerViewProduct.setAdapter(adapter);
-    }
-    private void onClickBags(View view)
-    {
-        mclothes.clear();
-        tvTitle.setText(getString(R.string.bags));
-
-        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(3);
-
-        adapter = new HomeAdapter(mclothes, this);
-        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerViewProduct.setAdapter(adapter);
-    }
-    private void onClickHats(View view)
-    {
-        mclothes.clear();
-        tvTitle.setText(getString(R.string.hats));
-
-        mclothes = ClothesDAO.getInstance().getListClothesByIDCategory(4);
-
-        adapter = new HomeAdapter(mclothes, this);
-        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerViewProduct.setAdapter(adapter);
-    }
-    private void onClickSales(View view)
-    {
-        mclothes.clear();
-        tvTitle.setText(getString(R.string.sales));
-
-        mclothes = ClothesDAO.getInstance().getListClothesSale();
-
-        saleAdapter = new SaleAdapter(mclothes, this);
-        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerViewProduct.setAdapter(saleAdapter);
-    }
-
-    @Override
-    public void onClothesClick(int position) {
-        Clothes clothes = mclothes.get(position);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("Image", clothes.getImage());
-        bundle.putString("Image2", clothes.getImage2());
-        bundle.putString("Image3", clothes.getImage3());
-        bundle.putString("Image4", clothes.getImage4());
-        bundle.putString("Name", clothes.getName());
-        bundle.putInt("Price", clothes.getPrice());
-        bundle.putSerializable("Clothes", clothes);
-
-        CartFragment cartFragment = new CartFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.layout_container, cartFragment);
-        cartFragment.setArguments(bundle);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onClothesSaleClick(int position) {
-        Clothes clothes = mclothes.get(position);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("Image", clothes.getImage());
-        bundle.putString("Image2", clothes.getImage2());
-        bundle.putString("Image3", clothes.getImage3());
-        bundle.putString("Image4", clothes.getImage4());
-        bundle.putString("Name", clothes.getName());
-        bundle.putInt("Price", clothes.getPriceSale());
-        bundle.putSerializable("Clothes", clothes);
-
-        CartFragment cartFragment = new CartFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.layout_container, cartFragment);
-        cartFragment.setArguments(bundle);
-        fragmentTransaction.commit();
     }
 }

@@ -34,12 +34,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        RatingInfo ratingInfo = mRatingInfo.get(position);
 
-        holder.tvName.setText(ratingInfo.getNameCus());
-        holder.tvDate.setText(ratingInfo.getDate().toString());
-        holder.tvComment.setText(ratingInfo.getComment());
-        holder.ratingBar.setRating(ratingInfo.getPoint());
     }
 
     @Override

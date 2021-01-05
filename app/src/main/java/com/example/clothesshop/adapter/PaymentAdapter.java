@@ -38,19 +38,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Clothes clothes = mClothes.get(position);
-        Cart cart = mCart.get(position);
 
-        Locale locale = new Locale("nv", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-
-        Picasso.get().load(clothes.getImage()).into(holder.imageView);
-
-        holder.tvName.setText(clothes.getName());
-
-        holder.tvPrice.setText("" + currencyFormatter.format(clothes.getPrice()));
-
-        holder.tvCount.setText("x"+ cart.getCount());
     }
 
     @Override

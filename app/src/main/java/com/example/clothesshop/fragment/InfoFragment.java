@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.clothesshop.DAO.CustomerDAO;
 import com.example.clothesshop.R;
 import com.example.clothesshop.model.CustomerInfo;
 import com.google.gson.Gson;
@@ -71,92 +70,11 @@ public class InfoFragment extends Fragment {
         }
     }
 
-    Spinner spinGender;
-    Button btnUpdate;
-    EditText etName, etTel, etEmail, etAddress;
-    String[] arrGender = {"Male", "Female", "Other"};
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        spinGender = view.findViewById(R.id.spin_gender);
-        etName = view.findViewById(R.id.etNameCus);
-        etTel = view.findViewById(R.id.etTelCus);
-        etEmail = view.findViewById(R.id.etEmailCus);
-        etAddress = view.findViewById(R.id.etAddressCus);
-        btnUpdate = view.findViewById(R.id.btnUpdateInfo);
-
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickBtnUpdate(v);
-            }
-        });
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, arrGender);
-
-        spinGender.setAdapter(adapter);
-
-        Bundle bundle = this.getArguments();
-
-        if(bundle != null){
-            CustomerInfo customerInfo = (CustomerInfo) bundle.get("customerInfo");
-            if (customerInfo != null){
-                etName.setText(customerInfo.getName());
-                etTel.setText("0"+customerInfo.getTel());
-                String gender = customerInfo.getGender();
-                if (gender == null)
-                    spinGender.setSelection(0);
-                else if (gender.equals("male") || gender.equals("Male"))
-                {
-                    spinGender.setSelection(0);
-                }
-                else if(gender.equals("female") || gender.equals("Female")){
-                    spinGender.setSelection(1);
-                }
-                else if(gender.equals("other") || gender.equals("Other")){
-                    spinGender.setSelection(2);
-                }
-//
-                etEmail.setText(customerInfo.getEmail());
-                etAddress.setText(customerInfo.getAddress());
-            }
-        }
-
-        Log.d("doba", "onClickRelativeInfo: ");
         return view;
-    }
-    private void onClickBtnUpdate(View view){
-        String name  = etName.getText().toString();
-        String gender = spinGender.getSelectedItem().toString().toLowerCase();
-        String tel = etTel.getText().toString();
-        String email = etEmail.getText().toString();
-        String address = etAddress.getText().toString();
-        Bundle bundle = this.getArguments();
-
-        if(bundle != null) {
-            CustomerInfo customerInfo = (CustomerInfo) bundle.get("customerInfo");
-            if (customerInfo != null){
-                if (CustomerDAO.getInstance().UpdateInfo(customerInfo.getId(), name, gender, tel, email, address))
-                {
-                    Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
-                    CustomerInfo customerInfo1 = CustomerDAO.getInstance().getListCustomerByInfo(name, gender, tel, email, address);
-
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    Gson gson = new Gson();
-                    String json =gson.toJson(customerInfo1);
-                    editor.putString("cusInfo", json);
-
-                    editor.apply();
-                }
-            }
-        }
-
-
-
     }
 }

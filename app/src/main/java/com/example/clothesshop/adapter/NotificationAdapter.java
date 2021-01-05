@@ -32,12 +32,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Notification notification = mNoti.get(position);
 
-        holder.tvTitle.setText(notification.getTitle());
-        holder.tvDate.setText(notification.getDate().toString());
-        holder.tvContent.setText(notification.getContent());
-        Picasso.get().load(notification.getImg()).into(holder.imageView);
     }
 
     @Override
